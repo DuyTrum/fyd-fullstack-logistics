@@ -1,0 +1,17 @@
+{
+  "name": "fyd-order-management-root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Root management for FYD Order Management Project",
+  "scripts": {
+    "docker:up": "docker-compose -f docker/docker-compose.yml up -d",
+    "docker:down": "docker-compose -f docker/docker-compose.yml down",
+    "backend": "cd back-end && mvnw spring-boot:run",
+    "frontend": "cd front-end && npm run dev",
+    "dev": "npm run docker:up && npx wait-on tcp:3306 && concurrently --kill-others --names \"BE,FE\" --prefix-colors \"cyan,magenta\" \"npm run backend\" \"npx wait-on tcp:8080 && npm run frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "wait-on": "^7.2.0"
+  }
+}
