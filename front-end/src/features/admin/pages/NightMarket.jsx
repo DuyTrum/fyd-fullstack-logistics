@@ -31,6 +31,19 @@ export default function NightMarketAdmin() {
         setToast({ show: true, message, type });
     }, []);
 
+    const formatDateForInput = (dateString) => {
+        if (!dateString) return "";
+        try {
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return "";
+            return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+                .toISOString()
+                .slice(0, 16);
+        } catch (e) {
+            return "";
+        }
+    };
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -39,6 +52,7 @@ export default function NightMarketAdmin() {
         setLoading(true);
         try {
             const data = await nightMarketAdminAPI.getConfig();
+            // Handle the new response format if needed, but getConfig returns the object directly
             setConfig(data);
         } catch (error) {
             console.error("Failed to fetch Night Market config:", error);
@@ -52,8 +66,13 @@ export default function NightMarketAdmin() {
         e.preventDefault();
         setSaving(true);
         try {
-            await nightMarketAdminAPI.updateConfig(config);
-            showToast(t("night_market.msg_update_success"));
+            const response = await nightMarketAdminAPI.updateConfig(config);
+            const msg = response.syncedCount > 0 
+                ? t("night_market.msg_update_success") + ` (${response.syncedCount} ${t("night_market.offers_updated")})`
+                : t("night_market.msg_update_success");
+            
+            showToast(msg);
+            if (response.config) setConfig(response.config);
         } catch (error) {
             showToast(t("night_market.msg_update_error") + ": " + error.message, "error");
         } finally {
@@ -61,11 +80,25 @@ export default function NightMarketAdmin() {
         }
     };
 
+    const getSystemStatus = (c) => {
+        if (!c.isActive) return { label: t("night_market.inactive"), className: "inactive" };
+        const now = new Date();
+        const start = c.startTime ? new Date(c.startTime) : null;
+        const end = c.endTime ? new Date(c.endTime) : null;
+
+        if (start && now < start) return { label: t("night_market.upcoming"), className: "upcoming" };
+        if (end && now > end) return { label: t("night_market.expired"), className: "expired" };
+        return { label: t("night_market.active"), className: "running" };
+    };
+
     if (loading) return (
         <div className="night-market-admin-page page-container">
             <div className="loading-state">{t("common.loading_data")}</div>
         </div>
     );
+
+    const statusObj = getSystemStatus(config);
+    const isActuallyRunning = statusObj.className === "running";
 
     return (
         <div className="night-market-admin-page page-container">
@@ -131,15 +164,52 @@ export default function NightMarketAdmin() {
                             </div>
                             <div className="nm-form-field">
                                 <label>{t("night_market.label_status")}</label>
-                                <div style={{
-                                    marginTop: '8px',
-                                    color: config.isActive ? 'var(--admin-success)' : 'var(--admin-danger)',
-                                    fontWeight: 800,
-                                    fontSize: '12px',
-                                    letterSpacing: '1px'
-                                }}>
-                                    {config.isActive ? t("night_market.active") : t("night_market.inactive")}
+                                <div className="nm-status-toggle">
+                                    <button 
+                                        type="button" 
+                                        className={`nm-toggle-btn ${config.isActive ? 'active' : ''}`}
+                                        onClick={() => setConfig({ ...config, isActive: !config.isActive })}
+                                    >
+                                        <div className="toggle-slider"></div>
+                                    </button>
+                                    <span className={`nm-status-badge ${statusObj.className}`}>
+                                        {statusObj.label}
+                                    </span>
                                 </div>
+                            </div>
+
+                            {!isActuallyRunning && config.isActive && (
+                                <div className="nm-time-warning">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                        <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+                                        <line x1="12" y1="9" x2="12" y2="13" />
+                                        <line x1="12" y1="17" x2="12.01" y2="17" />
+                                    </svg>
+                                    <span>
+                                        {statusObj.className === "expired" 
+                                            ? "Cấu hình đã hết hạn. Vui lòng cập nhật thời gian để Chợ Đêm hiển thị."
+                                            : "Chợ Đêm chưa đến thời gian hoạt động."}
+                                    </span>
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="nm-form-row">
+                            <div className="nm-form-field">
+                                <label>{t("night_market.label_start_time")}</label>
+                                <input
+                                    type="datetime-local"
+                                    value={formatDateForInput(config.startTime)}
+                                    onChange={(e) => setConfig({ ...config, startTime: e.target.value })}
+                                />
+                            </div>
+                            <div className="nm-form-field">
+                                <label>{t("night_market.label_end_time")}</label>
+                                <input
+                                    type="datetime-local"
+                                    value={formatDateForInput(config.endTime)}
+                                    onChange={(e) => setConfig({ ...config, endTime: e.target.value })}
+                                />
                             </div>
                         </div>
                     </div>

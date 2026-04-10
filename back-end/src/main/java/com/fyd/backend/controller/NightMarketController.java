@@ -28,6 +28,13 @@ public class NightMarketController {
 
     @GetMapping("/offers")
     public ResponseEntity<?> getOffers() {
+        if (!nightMarketService.isNightMarketActive()) {
+            return ResponseEntity.status(403).body(Map.of(
+                "code", "FEATURE_DISABLED",
+                "message", "Chợ đêm hiện đang tạm đóng. Hẹn gặp lại bạn sớm!"
+            ));
+        }
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = getCurrentCustomer();
         if (customer == null) {
@@ -39,6 +46,11 @@ public class NightMarketController {
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(offers);
+    }
+
+    @GetMapping("/status")
+    public ResponseEntity<?> getStatus() {
+        return ResponseEntity.ok(Map.of("active", nightMarketService.isNightMarketActive()));
     }
 
     @PostMapping("/reveal/{id}")

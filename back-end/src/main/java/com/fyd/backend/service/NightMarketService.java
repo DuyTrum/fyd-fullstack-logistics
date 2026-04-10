@@ -31,6 +31,36 @@ public class NightMarketService {
     
     private final Random random = new Random();
 
+    public boolean isNightMarketActive() {
+        // Use singleton pattern: find any or first config
+        NightMarketConfig config = configRepository.findAll().stream().findFirst().orElse(null);
+        if (config == null || !Boolean.TRUE.equals(config.getIsActive())) {
+            return false;
+        }
+
+        LocalDateTime now = LocalDateTime.now();
+        if (config.getStartTime() != null && now.isBefore(config.getStartTime())) {
+            return false;
+        }
+        if (config.getEndTime() != null && now.isAfter(config.getEndTime())) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Transactional
+    public int syncUnrevealedOffers() {
+        NightMarketConfig config = configRepository.findAll().stream().findFirst()
+                .orElseThrow(() -> new RuntimeException("Night Market config not found"));
+        
+        System.out.println("Syncing unrevealed offers with range [" + config.getMinDiscountPercent() + "%, " + config.getMaxDiscountPercent() + "%]");
+        return nightMarketOfferRepository.updateUnrevealedDiscounts(
+                config.getMinDiscountPercent(), 
+                config.getMaxDiscountPercent()
+        );
+    }
+
     @Transactional
     public List<NightMarketOffer> getOffersForCustomer(Customer customer) {
         List<NightMarketOffer> existingOffers = nightMarketOfferRepository.findByCustomer(customer);
@@ -57,20 +87,24 @@ public class NightMarketService {
             return Collections.emptyList();
         }
 
-        // Load config
-        NightMarketConfig config = configRepository.findFirstByIsActiveTrue()
-                .orElse(new NightMarketConfig());
+        // Load config via singleton pattern
+        NightMarketConfig config = configRepository.findAll().stream().findFirst().orElse(null);
+        
+        if (config == null || !isNightMarketActive()) {
+            return Collections.emptyList();
+        }
 
         Collections.shuffle(allProducts);
         int offerCount = config.getMinOffers() + random.nextInt(config.getMaxOffers() - config.getMinOffers() + 1);
         int limit = Math.min(offerCount, allProducts.size());
 
         List<NightMarketOffer> newOffers = allProducts.stream()
-                .filter(p -> p.getSalePrice() == null && (p.getIsFlashSale() == null || !p.getIsFlashSale()))
+                .filter(p -> p.getSalePrice() == null)
                 .limit(limit)
                 .map(product -> {
                     NightMarketOffer offer = new NightMarketOffer();
                     offer.setCustomer(customer);
+                    offer.setConfig(config);
                     offer.setProduct(product);
                     
                     // Random discount between min and max

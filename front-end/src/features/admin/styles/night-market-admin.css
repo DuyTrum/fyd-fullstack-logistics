@@ -111,6 +111,113 @@
     box-shadow: 0 4px 15px rgba(var(--admin-accent-rgb), 0.3);
 }
 
+/* Status Toggle Switch - Robust Centering */
+.nm-status-toggle {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 4px;
+}
+
+.nm-toggle-btn {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--admin-border);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0;
+    overflow: hidden;
+}
+
+.nm-toggle-btn.active {
+    background: var(--admin-success);
+    border-color: transparent;
+    box-shadow: 0 0 12px rgba(var(--admin-success-rgb), 0.4);
+}
+
+.nm-toggle-btn .toggle-slider {
+    position: absolute;
+    top: 50%;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    background: #ffffff;
+    border-radius: 50%;
+    transform: translateY(-50%);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.nm-toggle-btn.active .toggle-slider {
+    left: calc(100% - 21px); /* 44 - 3 (right gap) - 18 (slider) = 23. Wait. 
+    Actually, to make it symmetrical (3px left/right): 44 - 3 - 18 = 23. 
+    Wait. 100% (44) - 21 = 23. 
+    Let's use a fixed value or calc.
+    If left is 3px for inactive. For active it should be (44 - 3 - 18) = 23px.
+    Or calc(100% - 21px) where 21 = 18 (width) + 3 (gap). 
+    */
+    left: calc(100% - 21px);
+}
+
+/* Status Badge Styles */
+.nm-status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.nm-status-badge.running {
+    background: rgba(var(--admin-success-rgb), 0.1);
+    color: var(--admin-success);
+    border: 1px solid rgba(var(--admin-success-rgb), 0.2);
+}
+
+.nm-status-badge.upcoming {
+    background: rgba(var(--admin-accent-rgb), 0.1);
+    color: var(--admin-accent);
+    border: 1px solid rgba(var(--admin-accent-rgb), 0.2);
+}
+
+.nm-status-badge.expired {
+    background: rgba(var(--admin-danger-rgb), 0.1);
+    color: var(--admin-danger);
+    border: 1px solid rgba(var(--admin-danger-rgb), 0.2);
+}
+
+.nm-status-badge.inactive {
+    background: rgba(255, 255, 255, 0.05);
+    color: #999;
+    border: 1px solid var(--admin-border);
+}
+
+.nm-time-warning {
+    flex: 1 0 100%;
+    margin-top: 12px;
+    padding: 10px 16px;
+    background: rgba(var(--admin-danger-rgb), 0.1);
+    border: 1px dashed var(--admin-danger);
+    border-radius: var(--admin-radius-md);
+    color: var(--admin-danger);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Time Inputs specific styles */
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
