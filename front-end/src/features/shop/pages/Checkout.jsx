@@ -484,7 +484,7 @@ export default function Checkout() {
                                             onChange={(e) => { setPaymentMethod(e.target.value); setShowQR(false); }}
                                         />
                                         <div className="payment-icon vnpay">
-                                            <img src="https://sandbox.vnpayment.vn/paymentv2/Images/brands/logo-vnpay.png" alt="VNPay" style={{ width: 24 }} />
+                                            <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR-1.png" alt="VNPay" style={{ height: 26, width: 'auto', objectFit: 'contain' }} />
                                         </div>
                                         <div className="payment-info">
                                             <span className="payment-name">VNPay</span>
@@ -501,7 +501,7 @@ export default function Checkout() {
                                             onChange={(e) => { setPaymentMethod(e.target.value); setShowQR(false); }}
                                         />
                                         <div className="payment-icon momo">
-                                            <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" alt="MoMo" style={{ width: 24 }} />
+                                            <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-MoMo-Transparent.png" alt="MoMo" style={{ height: 26, width: 26, borderRadius: 4, objectFit: 'contain' }} />
                                         </div>
                                         <div className="payment-info">
                                             <span className="payment-name">Ví MoMo</span>

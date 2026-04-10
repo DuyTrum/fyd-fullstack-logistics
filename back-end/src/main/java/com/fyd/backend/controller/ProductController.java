@@ -419,19 +419,6 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-    @GetMapping("/list/flash-sale")
-    @Transactional(readOnly = true)
-    public ResponseEntity<List<ProductDTO>> getFlashSaleProducts() {
-        List<ProductDTO> products = productRepository.findFlashSaleProducts().stream()
-            .map(p -> {
-                p.getVariants().size();
-                p.getImages().size();
-                return ProductDTO.fromEntity(p);
-            })
-            .collect(Collectors.toList());
-        return ResponseEntity.ok(products);
-    }
-
     private void updateProductFromDTO(Product product, ProductDTO dto) {
         product.setSku(dto.getSku());
         product.setName(dto.getName());
@@ -444,8 +431,7 @@ public class ProductController {
         product.setStatus(dto.getStatus() != null ? dto.getStatus() : "ACTIVE");
         product.setIsFeatured(dto.getIsFeatured() != null ? dto.getIsFeatured() : false);
         product.setIsNew(dto.getIsNew() != null ? dto.getIsNew() : false);
-        product.setIsFlashSale(dto.getIsFlashSale() != null ? dto.getIsFlashSale() : false);
-        
+
         if (dto.getCategoryId() != null) {
             categoryRepository.findById(dto.getCategoryId())
                 .ifPresent(product::setCategory);

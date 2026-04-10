@@ -12,6 +12,7 @@
         "gift_cards": "Thẻ quà tặng",
         "lucky_spin": "Vòng quay may mắn",
         "night_market": "Chợ đêm",
+        "flash_sale": "Flash Sale",
         "analytics": "Phân tích",
         "ai_suggestion": "Gợi ý AI",
         "revenue": "Doanh thu",
@@ -207,7 +208,14 @@
         "status_confirm_change": "Bạn có chắc muốn chuyển trạng thái sang \"{{status}}\"?",
         "push_ghtk_confirm": "Bạn muốn đẩy đơn hàng này sang GHTK?",
         "push_ghtk_success": "Đã đẩy đơn sang GHTK thành công!",
-        "update_status_success": "Cập nhật trạng thái thành công"
+        "update_status_success": "Cập nhật trạng thái thành công",
+        "cancellation_requested": "Yêu cầu hủy đơn hàng",
+        "approve_cancel": "Phê duyệt hủy",
+        "reject_cancel": "Từ chối hủy",
+        "confirm_approve_cancel": "Bạn có chắc muốn PHÊ DUYỆT yêu cầu hủy này? (Stock sẽ được hoàn lại)",
+        "confirm_reject_cancel": "Bạn có chắc muốn TỪ CHỐI yêu cầu hủy và tiếp tục xử lý đơn hàng?",
+        "btn_cancel_order": "Hủy đơn hàng",
+        "msg_cancel_confirm": "Xác nhận hủy đơn hàng này?"
     },
     "products": {
         "title": "Sản phẩm",
@@ -270,7 +278,8 @@
         "gallery_btn_hover": "Hover",
         "gallery_save": "Lưu thay đổi",
         "gallery_saving": "Đang lưu...",
-        "gallery_delete_confirm": "Xóa ảnh này?"
+        "gallery_delete_confirm": "Xóa ảnh này?",
+        "flash_sale_end_time": "Hết hạn Flash Sale"
     },
     "staff": {
         "title": "Quản lý nhân viên",
@@ -640,7 +649,9 @@
         "msg_update_success": "Cập nhật cấu hình thành công",
         "msg_update_error": "Lỗi cập nhật cấu hình",
         "active": "ĐANG HOẠT ĐỘNG",
-        "inactive": "TẠM DỪNG"
+        "inactive": "TẠM DỪNG",
+        "label_start_time": "Thời gian bắt đầu",
+        "label_end_time": "Thời gian kết thúc"
     },
     "featured": {
         "title": "Khu vực nổi bật",

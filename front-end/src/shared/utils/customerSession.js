@@ -130,6 +130,27 @@ export function getCustomer() {
 }
 
 /**
+ * Update current customer data in storage
+ * @param {object} partialData - New data to merge into existing customer data
+ */
+export function updateCustomer(partialData) {
+  try {
+    const remember = localStorage.getItem(CUSTOMER_REMEMBER_KEY) === 'true';
+    const storage = remember ? localStorage : sessionStorage;
+    
+    const currentCustomer = getCustomer();
+    if (currentCustomer) {
+      const updatedCustomer = { ...currentCustomer, ...partialData };
+      storage.setItem(CUSTOMER_DATA_KEY, JSON.stringify(updatedCustomer));
+      return updatedCustomer;
+    }
+  } catch (error) {
+    console.error('Failed to update customer session:', error);
+  }
+  return null;
+}
+
+/**
  * Logout customer - alias for clearCustomerSession
  */
 export function logout() {

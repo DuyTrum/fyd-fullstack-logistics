@@ -67,6 +67,7 @@ export default function LuckySpin() {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [activeTab, setActiveTab] = useState("program");
+    const [fetchError, setFetchError] = useState(null);
 
     // Toast state
     const [toast, setToast] = useState({ show: false, message: "", type: "success" });
@@ -81,11 +82,14 @@ export default function LuckySpin() {
 
     const fetchData = async () => {
         setLoading(true);
+        setFetchError(null);
         try {
             const data = await luckySpinAdminAPI.getAdminInfo();
+            console.log("Lucky Spin Admin data:", data);
             setProgram(data);
         } catch (error) {
             console.error("Failed to fetch Lucky Spin info:", error);
+            setFetchError(`${error.status || 'UNKNOWN'}: ${error.message}`);
             showToast(t("lucky_spin.msg_load_error"), "error");
         } finally {
             setLoading(false);
@@ -133,7 +137,10 @@ export default function LuckySpin() {
 
     if (!program) return (
         <div className="lucky-spin-admin-page page-container">
-            <div className="empty-state">{t("lucky_spin.empty_config")}</div>
+            <div className="empty-state">
+                {t("lucky_spin.empty_config")}
+                {fetchError && <p style={{ color: '#ef4444', marginTop: '8px', fontSize: '13px' }}>Error: {fetchError}</p>}
+            </div>
         </div>
     );
 

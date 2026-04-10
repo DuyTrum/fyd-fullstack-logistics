@@ -6,7 +6,7 @@ import ShopFooter from "../components/ShopFooter.jsx";
 import CartDrawer from "../components/CartDrawer.jsx";
 import LuckySpinModal from "../components/LuckySpinModal.jsx";
 import LoginModal from "../components/LoginModal.jsx";
-import { getCustomer, logout as customerLogout } from "@shared/utils/customerSession.js";
+import { getCustomer, logout as customerLogout, updateCustomer } from "@shared/utils/customerSession.js";
 import { customerAPI, orderAPI, fetchCategories, formatVND, formatDate, ORDER_STATUS, pointsAPI } from "@shared/utils/api.js";
 import "../styles/fyd-shop.css";
 import "../styles/customer-profile.css";
@@ -116,6 +116,7 @@ export default function CustomerProfile() {
         try {
             const updated = await customerAPI.update(customer.id, formData);
             setCustomer(updated);
+            updateCustomer(updated);
             setMessage({ text: "Cập nhật thông tin thành công!", type: "success" });
         } catch (error) {
             console.error("Update profile error:", error);
@@ -466,13 +467,8 @@ export default function CustomerProfile() {
                                                             if (res.url) {
                                                                 setFormData(prev => ({ ...prev, avatarUrl: res.url }));
                                                                 setCustomer(prev => ({ ...prev, avatarUrl: res.url }));
+                                                                updateCustomer({ avatarUrl: res.url });
                                                                 setMessage({ text: "Tải ảnh thành công!", type: "success" });
-
-                                                                const saved = getCustomer();
-                                                                if (saved) {
-                                                                    saved.avatarUrl = res.url;
-                                                                    localStorage.setItem("customer_session", JSON.stringify(saved));
-                                                                }
                                                             }
                                                         } catch (err) {
                                                             console.error(err);

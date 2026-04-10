@@ -111,6 +111,23 @@ public class PointsService {
     }
 
     /**
+     * Refund used points to customer balance (e.g. on order cancellation)
+     */
+    @Transactional
+    public void refundPoints(Customer customer, int pointsToRefund) {
+        if (customer == null) {
+            System.err.println("Warning: Cannot refund " + pointsToRefund + " points to a null customer.");
+            return;
+        }
+        if (pointsToRefund <= 0) return;
+        
+        int currentPoints = customer.getPoints() != null ? customer.getPoints() : 0;
+        customer.setPoints(currentPoints + pointsToRefund);
+        customerRepository.save(customer);
+        System.out.println("Refunded " + pointsToRefund + " points to customer " + customer.getId());
+    }
+
+    /**
      * Calculate tier discount for order
      */
     public BigDecimal calculateTierDiscount(Customer customer, BigDecimal orderSubtotal) {

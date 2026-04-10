@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { initFacebookSdk } from "@shared/utils/facebookSdk.js";
 
 // Admin feature
@@ -25,7 +25,8 @@ import {
   ColorsAndSizes,
   Reviews,
   ActivityLogs,
-  EventVouchers
+  EventVouchers,
+  FlashSaleAdmin
 } from "@admin";
 
 // Auth feature
@@ -42,10 +43,23 @@ import ProtectedRoute from "@shared/components/ProtectedRoute.jsx";
 import ReloadPrompt from "@shared/components/ReloadPrompt.jsx";
 
 export default function App() {
-  // Initialize Facebook SDK on mount
+  const location = useLocation();
+
+  // Initialize Facebook SDK and manage Theme class on body
   useEffect(() => {
     initFacebookSdk();
   }, []);
+
+  // Manage dynamic theme class on body to prevent CSS leaking
+  // Shop needs .light class for global.css overrides, Admin uses dark by default
+  useEffect(() => {
+    const path = location.pathname;
+    if (path.startsWith('/shop') || path === '/') {
+      document.body.classList.add('light');
+    } else {
+      document.body.classList.remove('light');
+    }
+  }, [location]);
 
   return (
     <ConfirmProvider>
@@ -108,6 +122,7 @@ export default function App() {
                 <Route path="reviews" element={<Reviews />} />
                 <Route path="activity-logs" element={<ActivityLogs />} />
                 <Route path="event-vouchers" element={<EventVouchers />} />
+                <Route path="flash-sale" element={<FlashSaleAdmin />} />
               </Route>
 
               {/* Legacy redirects */}

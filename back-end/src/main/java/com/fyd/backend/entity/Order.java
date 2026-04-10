@@ -84,6 +84,12 @@ public class Order {
     @Column(name = "points_earned")
     private Integer pointsEarned = 0;
 
+    @Column(name = "stock_reserved", nullable = false)
+    private boolean stockReserved = false;
+
+    @Column(name = "points_refunded", nullable = false)
+    private boolean pointsRefunded = false;
+
     @Column(name = "confirmed_at")
     private LocalDateTime confirmedAt;
 
@@ -110,6 +116,9 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderItem> items = new ArrayList<>();
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PaymentTransaction> paymentTransactions = new ArrayList<>();
 
     // Getters and Setters
     public Long getId() { return id; }
@@ -183,4 +192,13 @@ public class Order {
     public void setPointsUsed(Integer pointsUsed) { this.pointsUsed = pointsUsed; }
     public Integer getPointsEarned() { return pointsEarned; }
     public void setPointsEarned(Integer pointsEarned) { this.pointsEarned = pointsEarned; }
+
+    public boolean isStockReserved() { return stockReserved; }
+    public void setStockReserved(boolean stockReserved) { this.stockReserved = stockReserved; }
+
+    public boolean isPointsRefunded() { return pointsRefunded; }
+    public void setPointsRefunded(boolean pointsRefunded) { this.pointsRefunded = pointsRefunded; }
+
+    public List<PaymentTransaction> getPaymentTransactions() { return paymentTransactions; }
+    public void setPaymentTransactions(List<PaymentTransaction> paymentTransactions) { this.paymentTransactions = paymentTransactions; }
 }

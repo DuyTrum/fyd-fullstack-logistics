@@ -791,6 +791,45 @@ export const nightMarketAdminAPI = {
     }),
 };
 
+// ============ FLASH SALE ADMIN API ============
+export const flashSaleAdminAPI = {
+  // Config CRUD
+  getConfigs: () => fetchAPI('/admin/flash-sale/configs'),
+  getConfig: (id) => fetchAPI(`/admin/flash-sale/configs/${id}`),
+  createConfig: (data) =>
+    fetchAPI('/admin/flash-sale/configs', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
+  updateConfig: (id, data) =>
+    fetchAPI(`/admin/flash-sale/configs/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    }),
+  deleteConfig: (id) =>
+    fetchAPI(`/admin/flash-sale/configs/${id}`, { method: 'DELETE' }),
+
+  // Items CRUD
+  getItems: (configId) => fetchAPI(`/admin/flash-sale/items?configId=${configId}`),
+  addItem: (data) =>
+    fetchAPI('/admin/flash-sale/items', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
+  updateItem: (id, data) =>
+    fetchAPI(`/admin/flash-sale/items/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    }),
+  deleteItem: (id) =>
+    fetchAPI(`/admin/flash-sale/items/${id}`, { method: 'DELETE' }),
+};
+
+// ============ FLASH SALE PUBLIC API ============
+export const flashSalePublicAPI = {
+  getActive: () => fetchAPI('/flash-sale/active'),
+};
+
 // ============ POINTS API ============
 export const pointsAPI = {
   getBalance: (customerId) => fetchAPI(`/points/balance/${customerId}`),
@@ -861,10 +900,16 @@ export const activityLogAPI = {
 
 // ============ NIGHT MARKET API ============
 export const nightMarketAPI = {
-  getOffers: (token) =>
-    fetchAPI('/night-market/offers', {
-      headers: { 'Authorization': `Bearer ${token}` }
-    }),
+  getStatus: (params = {}) => {
+    const query = new URLSearchParams(params).toString();
+    return fetchAPI(`/night-market/status${query ? `?${query}` : ''}`);
+  },
+
+  getOffers: (params = {}) => {
+    const query = new URLSearchParams(params).toString();
+    return fetchAPI(`/night-market/offers${query ? `?${query}` : ''}`);
+  },
+
   revealOffer: (id, token) =>
     fetchAPI(`/night-market/reveal/${id}`, {
       method: 'POST',
@@ -890,5 +935,6 @@ export default {
   luckySpin: luckySpinAPI,
   luckySpinAdmin: luckySpinAdminAPI,
   nightMarket: nightMarketAPI,
+  nightMarketAdmin: nightMarketAdminAPI,
 };
 

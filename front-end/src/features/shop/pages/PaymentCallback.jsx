@@ -35,15 +35,47 @@ export default function PaymentCallback() {
         setCustomer(savedCustomer);
         fetchCategories().then(setCategories);
 
-        if (vnp_ResponseCode === "00") {
-            setStatus("success");
-            // Optionally fetch order details to show on success
-            if (vnp_TxnRef) {
-                orderAPI.getByNumber(vnp_TxnRef).then(setOrderInfo).catch(console.error);
-            }
-        } else {
+        if (vnp_ResponseCode !== "00") {
             setStatus("failure");
+            return;
         }
+
+        // Handle Success - Poll for backend update (Idempotency/Race condition)
+        let pollCount = 0;
+        const MAX_POLLS = 3;
+        
+        const checkStatus = async () => {
+            if (!vnp_TxnRef) return;
+            
+            try {
+                // vnp_TxnRef = orderCode + "_" + timestamp, extract just the orderCode part
+                const orderCode = vnp_TxnRef.includes("_") ? vnp_TxnRef.substring(0, vnp_TxnRef.lastIndexOf("_")) : vnp_TxnRef;
+                const order = await orderAPI.getByNumber(orderCode);
+                setOrderInfo(order);
+                
+                if (order.paymentStatus === "PAID") {
+                    setStatus("success");
+                } else if (pollCount < MAX_POLLS) {
+                    pollCount++;
+                    setStatus("confirming");
+                    setTimeout(checkStatus, 2000); // Wait 2s and try again
+                } else {
+                    // Still pending after polls, but VNPAY says 00
+                    // We can still show success but mention it's being processed
+                    setStatus("success");
+                }
+            } catch (err) {
+                console.error("Poll error:", err);
+                if (pollCount < MAX_POLLS) {
+                    pollCount++;
+                    setTimeout(checkStatus, 2000);
+                } else {
+                    setStatus("success"); // Fallback to success if VNPAY said 00
+                }
+            }
+        };
+
+        checkStatus();
     }, [vnp_ResponseCode, vnp_TxnRef]);
 
     return (
@@ -64,7 +96,17 @@ export default function PaymentCallback() {
                     {status === "loading" && (
                         <div className="status-loading">
                             <div className="spinner" style={{ margin: '0 auto 20px' }}></div>
-                            <h2>Đang xử lý kết quả thanh toán...</h2>
+                            <h2>Đang kết nối với cổng thanh toán...</h2>
+                        </div>
+                    )}
+
+                    {status === "confirming" && (
+                        <div className="status-confirming">
+                            <div className="spinner" style={{ margin: '0 auto 20px' }}></div>
+                            <h2 style={{ color: '#0f172a', marginBottom: 12 }}>Đang xác nhận thanh toán...</h2>
+                            <p style={{ color: '#64748b' }}>
+                                Vui lòng không đóng cửa số này trong giây lát.
+                            </p>
                         </div>
                     )}
 

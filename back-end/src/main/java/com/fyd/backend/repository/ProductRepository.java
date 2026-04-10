@@ -24,9 +24,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     
     @Query("SELECT p FROM Product p WHERE p.isNew = true AND p.status = 'ACTIVE'")
     List<Product> findNewArrivals();
-
-    @Query("SELECT p FROM Product p WHERE p.isFlashSale = true AND p.status = 'ACTIVE'")
-    List<Product> findFlashSaleProducts();
     
     @Query("SELECT p FROM Product p WHERE p.category.id = :categoryId AND p.status = 'ACTIVE'")
     List<Product> findByCategory(@Param("categoryId") Long categoryId);

@@ -272,47 +272,107 @@ function Drawer({ open, order, onClose, onUpdateStatus, onUpdateOrderData, onPus
         <div className="drawer-actions-container">
           <div className="drawer-section-label">{t("orders.drawer_handle_order")}</div>
 
-          <div className="drawer-actions-grid">
-            <div className="custom-select-wrapper">
-              <div
-                className={`custom-select-trigger ${isStatusOpen ? 'active' : ''}`}
-                onClick={() => setIsStatusOpen(!isStatusOpen)}
-              >
-                <span>{STATUS_MAP[order.status] || order.status}</span>
-                <span className="custom-select-arrow">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                    <path d="M6 9l6 6 6-6" />
-                  </svg>
-                </span>
+          {order.status === 'PENDING_CANCEL' ? (
+            <div className="cancellation-request-actions" style={{ marginBottom: 20, padding: 15, background: '#fef2f2', borderRadius: 8, border: '1px solid #fee2e2' }}>
+              <div style={{ color: '#991b1b', fontWeight: 600, marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                  <line x1="12" y1="9" x2="12" y2="13" />
+                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>
+                {t("orders.cancellation_requested")}
               </div>
-              <div className={`custom-options ${isStatusOpen ? 'show' : ''}`}>
-                {statusEntries.map(([k, v]) => (
-                  <div
-                    key={k}
-                    className={`custom-option ${order.status === k ? 'selected' : ''}`}
-                    onClick={() => {
-                      if (window.confirm(t("orders.status_confirm_change", { status: v }))) {
-                        onUpdateStatus(order.id, k);
-                      }
-                      setIsStatusOpen(false);
-                    }}
-                  >
-                    {v}
-                  </div>
-                ))}
+              {order.cancelReason && (
+                <div style={{ fontSize: 13, color: '#b91c1c', marginBottom: 15, padding: '8px 12px', background: 'white', borderRadius: 4, border: '1px dashed #fca5a5' }}>
+                  "{order.cancelReason}"
+                </div>
+              )}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+                <button
+                  className="admin-action-btn cancel-btn"
+                  style={{ background: '#ef4444', color: 'white', border: 'none' }}
+                  onClick={() => {
+                    if (window.confirm(t("orders.confirm_approve_cancel"))) {
+                      onUpdateStatus(order.id, 'CANCELLED');
+                    }
+                  }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{marginRight: 6}}>
+                    <path d="M18 6L6 18M6 6l12 12" />
+                  </svg>
+                  {t("orders.approve_cancel")}
+                </button>
+                <button
+                  className="admin-action-btn"
+                  style={{ background: '#10b981', color: 'white', border: 'none' }}
+                  onClick={() => {
+                    if (window.confirm(t("orders.confirm_reject_cancel"))) {
+                      onUpdateStatus(order.id, 'CONFIRMED');
+                    }
+                  }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{marginRight: 6}}>
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  {t("orders.reject_cancel")}
+                </button>
               </div>
             </div>
+          ) : (
+            <div className="drawer-actions-grid">
+              <div className="custom-select-wrapper">
+                <div
+                  className={`custom-select-trigger ${isStatusOpen ? 'active' : ''}`}
+                  onClick={() => setIsStatusOpen(!isStatusOpen)}
+                >
+                  <span>{STATUS_MAP[order.status] || order.status}</span>
+                  <span className="custom-select-arrow">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                  </span>
+                </div>
+                <div className={`custom-options ${isStatusOpen ? 'show' : ''}`}>
+                  {statusEntries
+                    .filter(([k]) => {
+                      // Filter allowed transitions based on backend rules
+                      if (k === order.status) return true;
+                      if (order.status === 'PENDING') return ['CONFIRMED'].includes(k);
+                      if (order.status === 'CONFIRMED') return ['PROCESSING'].includes(k);
+                      if (order.status === 'PROCESSING') return ['SHIPPING'].includes(k);
+                      if (order.status === 'SHIPPING') return ['DELIVERED'].includes(k);
+                      if (order.status === 'DELIVERED') return ['COMPLETED'].includes(k);
+                      return false;
+                    })
+                    .map(([k, v]) => (
+                      <div
+                        key={k}
+                        className={`custom-option ${order.status === k ? 'selected' : ''}`}
+                        onClick={() => {
+                          if (window.confirm(t("orders.status_confirm_change", { status: v }))) {
+                            onUpdateStatus(order.id, k);
+                          }
+                          setIsStatusOpen(false);
+                        }}
+                      >
+                        {v}
+                      </div>
+                    ))}
+                </div>
+              </div>
 
-            <button
-              className="admin-action-btn print-btn"
-              onClick={() => reportAPI.printInvoice(order.id)}
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6v-8z" />
-              </svg>
-              {t("orders.drawer_print_invoice")}
-            </button>
-          </div>
+              <button
+                className="admin-action-btn print-btn"
+                onClick={() => reportAPI.printInvoice(order.id)}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6v-8z" />
+                </svg>
+                {t("orders.drawer_print_invoice")}
+              </button>
+            </div>
+          )}
+        </div>
 
           {!order.trackingNumber && ['CONFIRMED', 'PROCESSING'].includes(order.status) && (
             <>
@@ -326,7 +386,6 @@ function Drawer({ open, order, onClose, onUpdateStatus, onUpdateOrderData, onPus
               </button>
             </>
           )}
-        </div>
       </aside>
     </>
   );
@@ -521,7 +580,7 @@ export default function Orders() {
         <div className="chips" style={{ marginBottom: 16 }}>
           {statusEntries
             .filter(([k]) => k !== 'PENDING_CANCEL' && k !== 'CANCELLED')
-            .map(([k, v]) => (
+            .map(([k]) => (
               <button key={k} className={`chip ${chip === k ? "on" : ""}`} onClick={() => setChip(k)} type="button">
                 {k === 'all' ? t("status.all") : statusConfig[k]}
               </button>

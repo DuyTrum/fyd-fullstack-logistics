@@ -429,7 +429,7 @@
 .modal-header h2 {
   font-size: 18px;
   font-weight: 700;
-  color: var(--admin-text);
+  color: #1a1a1a;
   margin: 0;
   letter-spacing: -0.3px;
 }

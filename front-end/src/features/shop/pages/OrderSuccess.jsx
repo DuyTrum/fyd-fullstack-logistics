@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
+import { useToast } from "@shared/context/ToastContext";
 import { useCart } from "@shared/context/CartContext";
 import ShopHeader from "../components/ShopHeader.jsx";
 import ShopFooter from "../components/ShopFooter.jsx";

@@ -18,8 +18,20 @@ public class PaymentTransaction {
     @Column(nullable = false, length = 20)
     private String provider; // VNPAY, MOMO, etc.
 
+    @Column(name = "payment_method", nullable = false, length = 20)
+    private String paymentMethod;
+
+    @Column(name = "payment_status", nullable = false, length = 20)
+    private String paymentStatus = "PENDING";
+
     @Column(name = "transaction_id", length = 100)
     private String transactionId; // Provider's transaction ID
+
+    @Column(name = "transaction_no", length = 100)
+    private String transactionNo;
+
+    @Column(name = "gateway_response", columnDefinition = "TEXT")
+    private String gatewayResponse;
 
     @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal amount;
@@ -49,8 +61,16 @@ public class PaymentTransaction {
     public void setOrder(Order order) { this.order = order; }
     public String getProvider() { return provider; }
     public void setProvider(String provider) { this.provider = provider; }
+    public String getPaymentMethod() { return paymentMethod; }
+    public void setPaymentMethod(String paymentMethod) { this.paymentMethod = paymentMethod; }
+    public String getPaymentStatus() { return paymentStatus; }
+    public void setPaymentStatus(String paymentStatus) { this.paymentStatus = paymentStatus; }
     public String getTransactionId() { return transactionId; }
     public void setTransactionId(String transactionId) { this.transactionId = transactionId; }
+    public String getTransactionNo() { return transactionNo; }
+    public void setTransactionNo(String transactionNo) { this.transactionNo = transactionNo; }
+    public String getGatewayResponse() { return gatewayResponse; }
+    public void setGatewayResponse(String gatewayResponse) { this.gatewayResponse = gatewayResponse; }
     public BigDecimal getAmount() { return amount; }
     public void setAmount(BigDecimal amount) { this.amount = amount; }
     public String getStatus() { return status; }

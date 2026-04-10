@@ -204,7 +204,9 @@
         "status_confirm_change": "Are you sure you want to change status to \"{{status}}\"?",
         "push_ghtk_confirm": "Do you want to push this order to GHTK?",
         "push_ghtk_success": "Pushed to GHTK successfully!",
-        "update_status_success": "Status updated successfully"
+        "update_status_success": "Status updated successfully",
+        "btn_cancel_order": "Cancel Order",
+        "msg_cancel_confirm": "Are you sure you want to cancel this order?"
     },
     "products": {
         "title": "Products",
@@ -269,6 +271,7 @@
         "gallery_save": "Save Changes",
         "gallery_saving": "Saving...",
         "gallery_delete_confirm": "Delete this image?",
+        "flash_sale_end_time": "Flash Sale Expiry",
         "color_size_title": "Colors & Sizes",
         "color_size_subtitle": "Manage product variant attributes"
     },
@@ -657,7 +660,9 @@
         "msg_update_success": "Config updated successfully",
         "msg_update_error": "Failed to update config",
         "active": "ACTIVE",
-        "inactive": "PAUSED"
+        "inactive": "PAUSED",
+        "label_start_time": "Start Time",
+        "label_end_time": "End Time"
     },
     "tiers": {
         "title": "Membership Tiers",

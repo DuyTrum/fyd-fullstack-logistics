@@ -23,6 +23,9 @@ public class Notification {
     private String description;
 
     @Column(nullable = false)
+    private String message = "";
+
+    @Column(nullable = false)
     private LocalDateTime timestamp;
 
     @Column(name = "is_read", nullable = false)
@@ -46,6 +49,9 @@ public class Notification {
         if (timestamp == null) {
             timestamp = LocalDateTime.now();
         }
+        if (message == null || message.isEmpty()) {
+            message = description != null ? description : title;
+        }
     }
 
     // Getters and Setters
@@ -63,6 +69,9 @@ public class Notification {
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
+    public String getMessage() { return message; }
+    public void setMessage(String message) { this.message = message; }
 
     public LocalDateTime getTimestamp() { return timestamp; }
     public void setTimestamp(LocalDateTime timestamp) { this.timestamp = timestamp; }

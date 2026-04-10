@@ -27,4 +27,5 @@ export { default as ColorsAndSizes } from './pages/ColorsAndSizes.jsx';
 export { default as Reviews } from './pages/Reviews.jsx';
 export { default as ActivityLogs } from './pages/ActivityLogs.jsx';
 export { default as EventVouchers } from './pages/EventVouchers.jsx';
+export { default as FlashSaleAdmin } from './pages/FlashSale.jsx';
 

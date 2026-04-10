@@ -643,6 +643,7 @@
     max-width: 600px;
     margin: 60px auto;
     text-align: center;
+    color: #000000;
 }
 
 .success-icon {
@@ -678,14 +679,14 @@
 .success-title {
     font-size: 28px;
     font-weight: 800;
-    color: var(--shop-black);
+    color: #000000;
     margin-bottom: 16px;
     text-transform: uppercase;
     letter-spacing: 2px;
 }
 
 .success-message {
-    color: var(--shop-gray-500);
+    color: #505050;
     font-size: 15px;
     line-height: 1.6;
     margin-bottom: 32px;
@@ -693,11 +694,12 @@
 
 /* Order Info Card */
 .order-info-card {
-    background: var(--shop-white);
-    border: 1px solid var(--shop-gray-200);
+    background: #ffffff;
+    border: 1px solid #ebebeb;
     padding: 28px;
     text-align: left;
     margin-bottom: 32px;
+    color: #000000;
 }
 
 .order-header-row {
@@ -712,7 +714,7 @@
 .order-code .label {
     display: block;
     font-size: 11px;
-    color: var(--shop-gray-400);
+    color: #767677;
     margin-bottom: 4px;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -721,7 +723,7 @@
 .order-code .value {
     font-size: 20px;
     font-weight: 800;
-    color: var(--shop-black);
+    color: #000000;
 }
 
 .status-badge {
@@ -754,19 +756,19 @@
 
 .detail-label {
     font-size: 11px;
-    color: var(--shop-gray-400);
+    color: #767677;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 .detail-value {
-    color: var(--shop-black);
+    color: #000000;
     font-weight: 500;
     font-size: 14px;
 }
 
 .detail-value.payment-pending {
-    color: var(--shop-gray-600);
+    color: #363738;
 }
 
 .order-total-row {

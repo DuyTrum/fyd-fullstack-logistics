@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCompare } from "@shared/context/CompareContext";
 import { useTranslation } from "react-i18next";
 import { trackSearch } from "@shared/utils/analytics.js";
+import { nightMarketAPI } from "@shared/utils/api.js";
 
 // User Dropdown Menu for logged-in customers
 function UserDropdown({ customer, onLogout, isOpen, onToggle }) {
@@ -189,7 +190,57 @@ export default function ShopHeader({
   const { compareCount, openCompareModal } = useCompare();
   const { t } = useTranslation();
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [nmActive, setNmActive] = useState(true); // Default to true to avoid flicker if active
   const navigate = useNavigate();
+
+    useEffect(() => {
+    const checkNMStatus = async () => {
+      try {
+        const CACHE_KEY = 'nm_status_cache';
+        const CACHE_TTL = 30 * 1000; // 30 seconds
+        
+        const cached = localStorage.getItem(CACHE_KEY);
+        if (cached) {
+          const { active, timestamp } = JSON.parse(cached);
+          if (Date.now() - timestamp < CACHE_TTL) {
+            setNmActive(active);
+            return;
+          }
+        }
+
+        // Use cache-busting timestamp to bypass browser cache
+        const res = await nightMarketAPI.getStatus({ _t: Date.now() });
+        const isActive = res.active;
+        
+        // Debug logging for developers
+        console.log("Night Market Status Check:", {
+          active: isActive,
+          config: res.config,
+          serverTime: res.serverTime,
+          now: new Date().toISOString()
+        });
+
+        if (res.config && isActive === false) {
+          console.warn("Night Market inactive due to time mismatch or manual toggle", {
+            now: new Date().toLocaleString(),
+            startTime: new Date(res.config.startTime).toLocaleString(),
+            endTime: new Date(res.config.endTime).toLocaleString(),
+            isActiveConfig: res.config.isActive
+          });
+        }
+
+        setNmActive(isActive);
+        localStorage.setItem(CACHE_KEY, JSON.stringify({
+          active: isActive,
+          timestamp: Date.now()
+        }));
+      } catch (err) {
+        console.error("Failed to check NM status:", err);
+      }
+    };
+
+    checkNMStatus();
+  }, []);
 
   const aoCategory = categories.find(c => c.id === 1 || c.slug === 'ao');
   const quanCategory = categories.find(c => c.id === 2 || c.slug === 'quan');
@@ -268,7 +319,9 @@ export default function ShopHeader({
             />
           )}
           <button type="button" className="adidas-nav-item flash-sale-nav" onClick={onFlashSaleClick}>FLASH SALE</button>
-          <button type="button" className="adidas-nav-item night-market-nav" onClick={() => navigate('/shop/night-market')} style={{ color: '#06b6d4', fontWeight: '900' }}>NIGHT MARKET</button>
+          {nmActive && (
+            <button type="button" className="adidas-nav-item night-market-nav" onClick={() => navigate('/shop/night-market')} style={{ color: '#06b6d4', fontWeight: '900' }}>NIGHT MARKET</button>
+          )}
           <button type="button" className="adidas-nav-item sale" onClick={handleShowSaleClick}>SALE</button>
           <button type="button" className="adidas-nav-item lucky-spin" onClick={onLuckySpinClick}>VÒNG QUAY</button>
         </nav>

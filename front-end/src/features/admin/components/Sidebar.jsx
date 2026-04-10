@@ -143,6 +143,11 @@ const icons = {
       <path d="M19 14v1l-1 4H13l-1-4v-1" />
       <path d="M11 14h10" />
     </svg>
+  ),
+  flashSale: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+    </svg>
   )
 };
 
@@ -194,6 +199,7 @@ export default function Sidebar() {
         <Item to="/admin/gift-cards" icon={icons.giftCards} label={t("common.gift_cards")} />
         <Item to="/admin/lucky-spin" icon={icons.lucky} label={t("common.lucky_spin")} />
         <Item to="/admin/night-market" icon={icons.nightMarket} label={t("common.night_market")} />
+        <Item to="/admin/flash-sale" icon={icons.flashSale} label={t("common.flash_sale", "Flash Sale")} />
         <Item to="/admin/tiers" icon={icons.tiers} label={t("common.tiers")} />
       </div>
 

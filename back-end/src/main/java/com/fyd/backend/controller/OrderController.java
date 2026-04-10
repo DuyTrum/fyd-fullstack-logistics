@@ -7,6 +7,7 @@ import com.fyd.backend.entity.Notification;
 import com.fyd.backend.entity.Order;
 import com.fyd.backend.entity.OrderItem;
 import com.fyd.backend.repository.*;
+import com.fyd.backend.entity.Customer;
 import com.fyd.backend.entity.CustomerCoupon;
 import com.fyd.backend.entity.PaymentTransaction;
 import com.fyd.backend.service.CustomerCouponService;
@@ -14,6 +15,7 @@ import com.fyd.backend.service.EmailService;
 import com.fyd.backend.service.PointsService;
 import com.fyd.backend.service.VNPayService;
 import com.fyd.backend.service.MoMoService;
+import com.fyd.backend.service.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -21,6 +23,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -73,6 +76,9 @@ public class OrderController {
 
     @Autowired(required = false)
     private EmailService emailService;
+
+    @Autowired
+    private OrderService orderService;
 
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
@@ -169,6 +175,12 @@ public class OrderController {
             .orElse(ResponseEntity.notFound().build());
     }
 
+    // Alias for getOrderByCode used by PaymentCallback.jsx
+    @GetMapping("/number/{orderCode}")
+    public ResponseEntity<OrderDTO> getOrderByNumber(@PathVariable String orderCode) {
+        return getOrderByCode(orderCode);
+    }
+
     /**
      * Track order by code and phone - for guest customers
      * Requires both order code AND phone number for security
@@ -249,79 +261,15 @@ public class OrderController {
     public ResponseEntity<?> updateStatus(
             @PathVariable Long id,
             @RequestParam String status) {
-        return orderRepository.findById(id)
-            .map(order -> {
-                String currentStatus = order.getStatus();
-                
-                // 1. If same status, just return
-                if (status.equals(currentStatus)) {
-                    return ResponseEntity.ok(OrderDTO.fromEntity(order));
-                }
-
-                // 2. Validate strictly sequential status transition
-                boolean allowed = false;
-                if ("CANCELLED".equals(status)) {
-                    // Can cancel at any stage except after completion
-                    allowed = !"COMPLETED".equals(currentStatus);
-                } else if ("PENDING".equals(currentStatus)) {
-                    // From PENDING, can move to CONFIRMED or PENDING_CANCEL (by system/customer request)
-                    allowed = "CONFIRMED".equals(status) || "PENDING_CANCEL".equals(status);
-                } else if ("PENDING_CANCEL".equals(currentStatus)) {
-                    // From PENDING_CANCEL, admin can confirm (move to CONFIRMED) or accept cancellation (move to CANCELLED)
-                    allowed = "CONFIRMED".equals(status) || "CANCELLED".equals(status);
-                } else if ("CONFIRMED".equals(currentStatus)) {
-                    allowed = "PROCESSING".equals(status);
-                } else if ("PROCESSING".equals(currentStatus)) {
-                    allowed = "SHIPPING".equals(status);
-                } else if ("SHIPPING".equals(currentStatus)) {
-                    allowed = "DELIVERED".equals(status);
-                } else if ("DELIVERED".equals(currentStatus)) {
-                    allowed = "COMPLETED".equals(status);
-                }
-
-                if (!allowed) {
-                    return ResponseEntity.badRequest().body(Map.of("error", 
-                        String.format("Quy trình bắt buộc: Không thể chuyển từ '%s' sang '%s'. Vui lòng thực hiện theo từng bước.", 
-                        ORDER_STATUS_NAMES.getOrDefault(currentStatus, currentStatus), 
-                        ORDER_STATUS_NAMES.getOrDefault(status, status))));
-                }
-
-                // 3. Business logic for specific statuses
-                order.setStatus(status);
-                order.setUpdatedAt(LocalDateTime.now());
-                
-                if ("CONFIRMED".equals(status)) {
-                    if (order.getConfirmedAt() == null) order.setConfirmedAt(LocalDateTime.now());
-                } else if ("DELIVERED".equals(status) || "COMPLETED".equals(status)) {
-                    if (order.getDeliveredAt() == null) order.setDeliveredAt(LocalDateTime.now());
-                    
-                    // If COD, mark as paid automatically
-                    if ("COD".equalsIgnoreCase(order.getPaymentMethod())) {
-                        order.setPaymentStatus("PAID");
-                        if (order.getPaidAt() == null) {
-                            order.setPaidAt(LocalDateTime.now());
-                        }
-                    }
-                } else if ("CANCELLED".equals(status)) {
-                    if (order.getCancelledAt() == null) order.setCancelledAt(LocalDateTime.now());
-                }
-                
-                Order saved = orderRepository.save(order);
-
-                // 3. Communications
-                createStatusNotification(saved);
-                if (emailService != null) {
-                    try {
-                        emailService.sendOrderStatusUpdate(saved);
-                    } catch (Exception e) {
-                        // Log error but don't fail the request
-                        System.err.println("Failed to send status update email: " + e.getMessage());
-                    }
-                }
-
-                return ResponseEntity.ok(OrderDTO.fromEntity(saved));
-            })
-            .orElse(ResponseEntity.notFound().build());
+        try {
+            Order saved = orderService.updateStatus(id, status);
+            return ResponseEntity.ok(OrderDTO.fromEntity(saved));
+        } catch (IllegalStateException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(Map.of("error", 
+                e.getMessage() != null ? e.getMessage() : "Lỗi cập nhật trạng thái"));
+        }
     }
 
     @PatchMapping("/{id}/confirm-payment")
@@ -388,9 +336,9 @@ public class OrderController {
 
     @PostMapping
     @Loggable(action = "CREATE", entityType = "Order")
-    public ResponseEntity<?> createOrder(@RequestBody CreateOrderRequest request, HttpServletRequest httpRequest) {
-        try {
-            // 1. Validate customer
+    @Transactional
+    public ResponseEntity<Object> createOrder(@RequestBody CreateOrderRequest request, HttpServletRequest httpRequest) {
+        // 1. Validate customer
             var customer = customerRepository.findById(request.getCustomerId())
                 .orElse(null);
             
@@ -430,26 +378,7 @@ public class OrderController {
                         var variant = variantRepository.findById(itemReq.getVariantId()).orElse(null);
                         if (variant != null) {
                             item.setVariant(variant);
-                            // Reduce stock
-                            int oldStock = variant.getStockQuantity();
-                            int newStock = oldStock - itemReq.getQuantity();
-                            variant.setStockQuantity(Math.max(0, newStock));
-                            variantRepository.save(variant);
-                            
-                            // Create inventory notification if stock drops below threshold
-                            if (newStock <= 6 && oldStock > 6) {
-                                Notification inventoryNotif = new Notification();
-                                inventoryNotif.setType("inventory");
-                                inventoryNotif.setPriority(newStock <= 0 ? "urgent" : "high");
-                                inventoryNotif.setTitle(newStock <= 0 ? "Hết hàng" : "Sắp hết hàng");
-                                String productName = variant.getProduct().getName() + " - " + 
-                                    (variant.getSize() != null ? variant.getSize().getName() : "") + "/" +
-                                    (variant.getColor() != null ? variant.getColor().getName() : "");
-                                inventoryNotif.setDescription(productName + " còn " + Math.max(0, newStock) + " sản phẩm");
-                                inventoryNotif.setActionType("navigate");
-                                inventoryNotif.setActionUrl("/admin/inventory");
-                                notificationRepository.save(inventoryNotif);
-                            }
+                            // Stock deduction moved to CONFIRMED status in OrderService
                         }
                     }
                     
@@ -559,16 +488,21 @@ public class OrderController {
                 item.setOrder(savedOrder);
                 orderItemRepository.save(item);
             }
+            // Populate the items list for the deductStock logic to work
+            savedOrder.setItems(items);
 
-            // 6. Update customer balance and points earned
-            // Important: pointsEarned is only added when order is COMPLETED? 
-            // In many systems it is added now but "pending". 
-            // Here we add it immediately for simplicity as requested "mua hàng tới điểm nhất định".
-            pointsService.earnPoints(customer, pointsEarned);
-            
-            // Update other customer stats
-            customer.setTotalOrders(customer.getTotalOrders() + 1);
-            customer.setTotalSpent(customer.getTotalSpent().add(savedOrder.getTotalAmount()));
+            // 5b. Soft Reserve Stock (immediate deduction)
+            try {
+                orderService.deductStock(savedOrder);
+            } catch (Exception e) {
+                // If stock deduction fails, we should technically roll back the order
+                // but for now we'll throw error and let @Transactional handle it if available
+                throw new RuntimeException("Lỗi kho hàng: " + e.getMessage());
+            }
+
+            // 6. Update customer stats (points will be earned when order is DELIVERED)
+            customer.setTotalOrders((customer.getTotalOrders() != null ? customer.getTotalOrders() : 0) + 1);
+            customer.setTotalSpent((customer.getTotalSpent() != null ? customer.getTotalSpent() : BigDecimal.ZERO).add(savedOrder.getTotalAmount()));
             customerRepository.save(customer);
 
             // 6b. Mark customer coupon as used (if any)
@@ -603,7 +537,11 @@ public class OrderController {
 
             // 8. Send order confirmation email
             if (emailService != null) {
-                emailService.sendOrderConfirmation(savedOrder);
+                try {
+                    emailService.sendOrderConfirmation(savedOrder);
+                } catch (Exception e) {
+                    System.err.println("Failed to send order confirmation email: " + e.getMessage());
+                }
             }
 
             OrderDTO responseDto = OrderDTO.fromEntity(savedOrder);
@@ -616,7 +554,10 @@ public class OrderController {
                 PaymentTransaction transaction = new PaymentTransaction();
                 transaction.setOrder(savedOrder);
                 transaction.setProvider("VNPAY");
+                // Null-safe assignment to prevent DB 'default value' error
+                transaction.setPaymentMethod(savedOrder.getPaymentMethod() != null ? savedOrder.getPaymentMethod() : "VNPAY");
                 transaction.setAmount(savedOrder.getTotalAmount());
+                transaction.setPaymentStatus("PENDING");
                 transaction.setStatus("PENDING");
                 transaction.setPaymentUrl(paymentUrl);
                 paymentTransactionRepository.save(transaction);
@@ -629,20 +570,18 @@ public class OrderController {
                 PaymentTransaction transaction = new PaymentTransaction();
                 transaction.setOrder(savedOrder);
                 transaction.setProvider("MOMO");
+                // Null-safe assignment to prevent DB 'default value' error
+                transaction.setPaymentMethod(savedOrder.getPaymentMethod() != null ? savedOrder.getPaymentMethod() : "MOMO");
                 transaction.setAmount(savedOrder.getTotalAmount());
+                transaction.setPaymentStatus("PENDING");
                 transaction.setStatus("PENDING");
                 transaction.setPaymentUrl(paymentUrl);
                 paymentTransactionRepository.save(transaction);
                 
                 responseDto.setPaymentUrl(paymentUrl);
-            }
-            
-            return ResponseEntity.ok(responseDto);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.internalServerError()
-                .body(Map.of("error", "Failed to create order: " + e.getMessage()));
         }
+        
+        return ResponseEntity.ok(responseDto);
     }
 
     private void createStatusNotification(Order order) {

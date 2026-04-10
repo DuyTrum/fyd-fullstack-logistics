@@ -280,7 +280,6 @@ export default function Products() {
     initialColorId: "",
     isFeatured: false,
     isNew: false,
-    isFlashSale: false,
     status: "ACTIVE"
   });
   const [brands, setBrands] = useState([]);
@@ -335,7 +334,6 @@ export default function Products() {
       initialColorId: "",
       isFeatured: false,
       isNew: false,
-      isFlashSale: false,
       status: "ACTIVE"
     });
     setEditOpen(true);
@@ -359,7 +357,6 @@ export default function Products() {
       initialColorId: "",
       isFeatured: p.isFeatured || false,
       isNew: p.isNew || false,
-      isFlashSale: p.isFlashSale === true,
       status: p.status || "ACTIVE"
     });
     setEditOpen(true);
@@ -393,7 +390,6 @@ export default function Products() {
       material: form.material.trim(),
       isFeatured: form.isFeatured,
       isNew: form.isNew,
-      isFlashSale: form.isFlashSale,
       status: form.status,
       initialStock: form.initialStock ? Number(form.initialStock) : 0,
       initialSizeId: form.initialSizeId ? Number(form.initialSizeId) : null,
@@ -808,19 +804,12 @@ export default function Products() {
               </div>
             </label>
 
-            <label className={`admin-toggle ${form.isFlashSale ? 'flash-sale-highlight' : ''}`}>
-              <input
-                type="checkbox"
-                hidden
-                checked={form.isFlashSale}
-                onChange={(e) => setForm((f) => ({ ...f, isFlashSale: e.target.checked }))}
-              />
-              <div className="toggle-slider"></div>
-              <div className="toggle-label">
-                <span className="toggle-title">{t("products.is_flash_sale")}</span>
-                <span className="toggle-desc">⚡ Cháy túi khách</span>
-              </div>
-            </label>
+            <div className="admin-hint-box" style={{ flex: '1 0 100%', marginTop: '16px', padding: '12px', background: 'rgba(255,255,255,0.03)', borderRadius: 8, border: '1px dashed var(--admin-border)' }}>
+              <span style={{ fontSize: '12px', color: 'var(--admin-accent)', fontWeight: 600 }}>💡 Lưu ý:</span>
+              <p style={{ fontSize: '11px', color: 'var(--admin-text-muted)', marginTop: '4px' }}>
+                Tính năng Flash Sale đã được chuyển sang mục riêng. Để quản lý giá sale và thời gian cho sản phẩm này, vui lòng truy cập <b>Marketing &gt; Flash Sale</b>.
+              </p>
+            </div>
 
             <label className="admin-toggle">
               <input

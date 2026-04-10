@@ -22,6 +22,7 @@ const routesMeta = [
   { path: "/admin/tiers", kicker: "marketing", title: "tiers" },
   { path: "/admin/gift-cards", kicker: "marketing", title: "gift_cards" },
   { path: "/admin/lucky-spin", kicker: "marketing", title: "lucky_spin" },
+  { path: "/admin/flash-sale", kicker: "marketing", title: "flash_sale" },
   { path: "/admin/staff", kicker: "system", title: "staff" },
   { path: "/admin/activity-logs", kicker: "system", title: "activity.title" },
   { path: "/admin/ai", kicker: "system", title: "ai_suggestion" },
