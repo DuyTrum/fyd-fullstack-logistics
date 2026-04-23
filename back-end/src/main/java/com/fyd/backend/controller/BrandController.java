@@ -48,7 +48,6 @@ public class BrandController {
             brand.setSlug(slug);
             brand.setDescription(dto.getDescription());
             brand.setLogoUrl(dto.getLogoUrl());
-            brand.setWebsite(dto.getWebsite());
             brand.setStatus("ACTIVE");
             brand.setCreatedAt(LocalDateTime.now());
 
@@ -71,7 +70,6 @@ public class BrandController {
                 if (dto.getSlug() != null) brand.setSlug(dto.getSlug());
                 if (dto.getDescription() != null) brand.setDescription(dto.getDescription());
                 if (dto.getLogoUrl() != null) brand.setLogoUrl(dto.getLogoUrl());
-                if (dto.getWebsite() != null) brand.setWebsite(dto.getWebsite());
                 if (dto.getStatus() != null) brand.setStatus(dto.getStatus());
                 
                 brand.setUpdatedAt(LocalDateTime.now());
@@ -109,7 +107,6 @@ public class BrandController {
         map.put("slug", b.getSlug());
         map.put("description", b.getDescription());
         map.put("logoUrl", b.getLogoUrl());
-        map.put("website", b.getWebsite());
         map.put("status", b.getStatus());
         return map;
     }
@@ -136,7 +133,6 @@ public class BrandController {
         private String slug;
         private String description;
         private String logoUrl;
-        private String website;
         private String status;
 
         public String getName() { return name; }
@@ -147,8 +143,6 @@ public class BrandController {
         public void setDescription(String description) { this.description = description; }
         public String getLogoUrl() { return logoUrl; }
         public void setLogoUrl(String logoUrl) { this.logoUrl = logoUrl; }
-        public String getWebsite() { return website; }
-        public void setWebsite(String website) { this.website = website; }
         public String getStatus() { return status; }
         public void setStatus(String status) { this.status = status; }
     }

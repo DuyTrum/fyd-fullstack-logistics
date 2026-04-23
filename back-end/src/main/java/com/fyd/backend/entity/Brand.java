@@ -21,8 +21,6 @@ public class Brand {
     @Column(name = "logo_url")
     private String logoUrl;
     
-    private String website;
-
     @Column(length = 20)
     private String status = "ACTIVE";
 
@@ -43,8 +41,6 @@ public class Brand {
     public void setDescription(String description) { this.description = description; }
     public String getLogoUrl() { return logoUrl; }
     public void setLogoUrl(String logoUrl) { this.logoUrl = logoUrl; }
-    public String getWebsite() { return website; }
-    public void setWebsite(String website) { this.website = website; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
     public LocalDateTime getCreatedAt() { return createdAt; }

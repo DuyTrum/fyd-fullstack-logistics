@@ -1,5 +1,6 @@
 package com.fyd.backend.controller;
 
+import com.fyd.backend.annotation.Loggable;
 import com.fyd.backend.dto.ReviewDTO;
 import com.fyd.backend.entity.Review;
 import com.fyd.backend.repository.CustomerRepository;
@@ -202,6 +203,7 @@ public class ReviewController {
      * Update review status (approve/reject)
      */
     @PatchMapping("/{id}/status")
+    @Loggable(action = "UPDATE", entityType = "Review")
     public ResponseEntity<Map<String, Object>> updateStatus(
             @PathVariable Long id,
             @RequestParam String status) {
@@ -235,6 +237,7 @@ public class ReviewController {
      * Admin reply to review
      */
     @PatchMapping("/{id}/reply")
+    @Loggable(action = "UPDATE", entityType = "Review")
     public ResponseEntity<Map<String, Object>> replyToReview(
             @PathVariable Long id,
             @RequestBody Map<String, String> body) {
@@ -264,6 +267,7 @@ public class ReviewController {
      * Delete review
      */
     @DeleteMapping("/{id}")
+    @Loggable(action = "DELETE", entityType = "Review")
     public ResponseEntity<Map<String, Object>> deleteReview(@PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();
 

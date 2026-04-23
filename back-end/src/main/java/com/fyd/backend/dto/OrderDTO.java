@@ -32,7 +32,6 @@ public class OrderDTO {
     private String paymentUrl;
     private String trackingNumber;
     private String carrier;
-    private String shippingLabelUrl;
     private boolean pointsRefunded;
     private List<OrderItemDTO> items;
 
@@ -76,7 +75,6 @@ public class OrderDTO {
 
         dto.setTrackingNumber(o.getTrackingNumber());
         dto.setCarrier(o.getCarrier());
-        dto.setShippingLabelUrl(o.getShippingLabelUrl());
         dto.setPointsRefunded(o.isPointsRefunded());
         
         return dto;
@@ -138,9 +136,6 @@ public class OrderDTO {
     
     public String getCarrier() { return carrier; }
     public void setCarrier(String carrier) { this.carrier = carrier; }
-    
-    public String getShippingLabelUrl() { return shippingLabelUrl; }
-    public void setShippingLabelUrl(String shippingLabelUrl) { this.shippingLabelUrl = shippingLabelUrl; }
 
     public boolean isPointsRefunded() { return pointsRefunded; }
     public void setPointsRefunded(boolean pointsRefunded) { this.pointsRefunded = pointsRefunded; }

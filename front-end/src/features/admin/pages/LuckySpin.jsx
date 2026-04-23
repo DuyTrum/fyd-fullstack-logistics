@@ -90,6 +90,15 @@ export default function LuckySpin() {
         } catch (error) {
             console.error("Failed to fetch Lucky Spin info:", error);
             setFetchError(`${error.status || 'UNKNOWN'}: ${error.message}`);
+            // Set default program so UI can still render
+            setProgram({
+                name: "Vòng quay may mắn",
+                description: "",
+                dailyFreeSpins: 1,
+                pointsPerSpin: 100,
+                isActive: false,
+                rewards: []
+            });
             showToast(t("lucky_spin.msg_load_error"), "error");
         } finally {
             setLoading(false);

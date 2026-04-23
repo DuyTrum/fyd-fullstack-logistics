@@ -69,8 +69,9 @@ export default function FlashSaleHub({ onQuickView, onToggleWishlist, wishlist =
                 // Already ended
                 clearInterval(timer);
                 setTimeLeft({ hours: 0, minutes: 0, seconds: 0 });
-                // If it was running but now ended, refresh to see if next one is available
+                // If it was running but now ended, hide immediately and refresh
                 if (status === "RUNNING" || status === "UPCOMING") {
+                    setFlashSaleData(null);
                     setTimeout(fetchFlashSaleData, 3000);
                 }
                 return;
@@ -80,6 +81,8 @@ export default function FlashSaleHub({ onQuickView, onToggleWishlist, wishlist =
             if (distance <= 0) {
                 clearInterval(timer);
                 setTimeLeft({ hours: 0, minutes: 0, seconds: 0 });
+                // Immediately hide by setting data to null, then re-fetch
+                setFlashSaleData(null);
                 setTimeout(fetchFlashSaleData, 2000);
                 return;
             }
@@ -96,6 +99,7 @@ export default function FlashSaleHub({ onQuickView, onToggleWishlist, wishlist =
 
     if (loading) return null;
     if (!flashSaleData) return null;
+    if (flashSaleData.status === "NONE") return null;
 
     const isUpcoming = flashSaleData.status === "UPCOMING";
     const displayLabel = flashSaleData.config?.discountLabel || "FLASH SALE";

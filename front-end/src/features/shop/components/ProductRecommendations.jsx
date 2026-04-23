@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { BASE_URL } from "@shared/utils/api.js";
+import { BASE_URL, getAssetUrl } from "@shared/utils/api.js";
 import "./ProductRecommendations.css";
 
 const API_BASE = BASE_URL;
@@ -121,9 +121,12 @@ export default function ProductRecommendations({
     }
 
     return (
-        <div className="product-recommendations">
+        <div className={`product-recommendations-container ${type}`}>
             <div className="rec-header">
-                <h3 className="rec-title">{displayTitle}</h3>
+                <div className="rec-title-group">
+                    <span className="rec-subtitle">{t("shop.recommendations_for_you", "GỢI Ý RIÊNG CHO BẠN")}</span>
+                    <h3 className="rec-title">{displayTitle}</h3>
+                </div>
                 {type === "bought_together" && products.length > 0 && (
                     <button className="add-bundle-btn" onClick={handleAddBundle}>
                         <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
@@ -133,47 +136,56 @@ export default function ProductRecommendations({
                     </button>
                 )}
             </div>
-            <div className="rec-grid">
-                {products.map((product) => (
-                    <Link
-                        key={product.id}
-                        to={`/product/${product.id}`}
-                        className="rec-card"
-                    >
-                        <div className="rec-image-wrapper">
-                            <img
-                                src={product.image || "https://via.placeholder.com/200x200?text=No+Image"}
-                                alt={product.name}
-                                loading="lazy"
-                            />
-                            {product.discountPercent > 0 && (
-                                <span className="rec-badge sale">-{product.discountPercent}%</span>
-                            )}
-                        </div>
-                        <div className="rec-info">
-                            <h4 className="rec-name">{product.name}</h4>
-                            <div className="rec-price-row">
-                                <span className="rec-price">
-                                    {formatPrice(product.salePrice || product.basePrice)}
-                                </span>
-                                {product.salePrice && product.salePrice < product.basePrice && (
-                                    <span className="rec-original-price">
-                                        {formatPrice(product.basePrice)}
-                                    </span>
+            <div className="rec-scroll-container">
+                <div className="rec-grid">
+                    {products.map((product) => (
+                        <Link
+                            key={product.id}
+                            to={`/shop/product/${product.id}`}
+                            className="rec-card"
+                        >
+                            <div className="rec-image-wrapper">
+                                <img
+                                    src={getAssetUrl(product.image || product.thumbnail)}
+                                    alt={product.name}
+                                    loading="lazy"
+                                />
+                                <div className="rec-overlay">
+                                    <span className="view-btn">{t("shop.view_detail", "XEM CHI TIẾT")}</span>
+                                </div>
+                                {product.discountPercent > 0 && (
+                                    <span className="rec-badge sale">-{product.discountPercent}%</span>
+                                )}
+                                {product.isNew && (
+                                    <span className="rec-badge new">{t("products.badge_new", "MỚI")}</span>
                                 )}
                             </div>
-                            {product.averageRating > 0 && (
-                                <div className="rec-rating">
-                                    <span className="rec-stars">★</span>
-                                    <span>{product.averageRating.toFixed(1)}</span>
-                                    {product.reviewCount > 0 && (
-                                        <span className="rec-review-count">({product.reviewCount})</span>
+                            <div className="rec-info">
+                                <h4 className="rec-name">{product.name}</h4>
+                                <div className="rec-price-row">
+                                    <span className="rec-price">
+                                        {formatPrice(product.salePrice || product.basePrice)}
+                                    </span>
+                                    {product.salePrice && product.salePrice < product.basePrice && (
+                                        <span className="rec-original-price">
+                                            {formatPrice(product.basePrice)}
+                                        </span>
                                     )}
                                 </div>
-                            )}
-                        </div>
-                    </Link>
-                ))}
+                                {product.averageRating > 0 && (
+                                    <div className="rec-rating">
+                                        <div className="rec-stars">
+                                            {[...Array(5)].map((_, i) => (
+                                                <span key={i} className={i < Math.round(product.averageRating) ? "active" : ""}>★</span>
+                                            ))}
+                                        </div>
+                                        <span className="rec-rating-text">{product.averageRating.toFixed(1)}</span>
+                                    </div>
+                                )}
+                            </div>
+                        </Link>
+                    ))}
+                </div>
             </div>
         </div>
     );

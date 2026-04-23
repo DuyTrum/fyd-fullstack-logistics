@@ -28,95 +28,124 @@ public class LoggingAspect {
     @Autowired
     private ActivityLogService activityLogService;
     
+    @Autowired
+    private com.fyd.backend.repository.UserRepository userRepository;
+    
+    private static final ThreadLocal<Boolean> loggingInProgress = ThreadLocal.withInitial(() -> false);
+    
     /**
      * Around advice for @Loggable methods
      * Captures old data, executes method, captures new data, and logs activity
      */
     @Around("@annotation(com.fyd.backend.annotation.Loggable)")
     public Object logActivity(ProceedingJoinPoint joinPoint) throws Throwable {
-        System.out.println("=== LoggingAspect triggered! ===");
-        
-        // Get method signature and annotation
-        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        Method method = signature.getMethod();
-        Loggable loggable = method.getAnnotation(Loggable.class);
-        
-        System.out.println("Method: " + method.getName());
-        System.out.println("Loggable: " + loggable);
-        
-        if (loggable == null) {
+        if (loggingInProgress.get()) {
             return joinPoint.proceed();
         }
-        
-        String action = loggable.action();
-        String entityType = loggable.entityType();
-        
-        System.out.println("Action: " + action + ", EntityType: " + entityType);
-        
-        // Get current user
-        User user = getCurrentUser();
-        if (user == null) {
-            System.out.println("No user authenticated, skipping log");
-            // If no user is authenticated, just proceed without logging
-            return joinPoint.proceed();
-        }
-        
-        System.out.println("User: " + user.getUsername());
-        
-        // Get HTTP request info
-        String ipAddress = getClientIpAddress();
-        String userAgent = getUserAgent();
-        
-        Object oldData = null;
-        Object newData = null;
-        Long entityId = null;
-        String entityName = null;
         
         try {
-            // For UPDATE and DELETE, try to capture old data
-            if ("UPDATE".equals(action) || "DELETE".equals(action)) {
-                oldData = captureOldData(joinPoint);
+            loggingInProgress.set(true);
+            // Get method signature and annotation
+            MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+            Method method = signature.getMethod();
+            Loggable loggable = method.getAnnotation(Loggable.class);
+            
+            if (loggable == null) {
+                return joinPoint.proceed();
             }
             
-            // Execute the actual method
-            Object result = joinPoint.proceed();
+            String action = loggable.action();
+            String entityType = loggable.entityType();
             
-            // For CREATE and UPDATE, capture new data
-            if ("CREATE".equals(action) || "UPDATE".equals(action)) {
-                newData = captureNewData(joinPoint, result);
+            // Get current user
+            User user = getCurrentUser();
+            if (user == null) {
+                return joinPoint.proceed();
             }
             
-            // Extract entity ID and name
-            entityId = extractEntityId(joinPoint, result);
-            entityName = extractEntityName(joinPoint, result);
+            // Get HTTP request info
+            String ipAddress = getClientIpAddress();
+            String userAgent = getUserAgent();
             
-            // Log the activity asynchronously
-            activityLogService.logActivity(
-                user, action, entityType, entityId, entityName,
-                oldData, newData, ipAddress, userAgent
-            );
+            Object oldData = null;
+            Object newData = null;
+            Long entityId = null;
+            String entityName = null;
             
-            return result;
-            
-        } catch (Exception e) {
-            // If method throws exception, still try to log it
-            activityLogService.logActivity(
-                user, action + "_FAILED", entityType, entityId, entityName,
-                oldData, null, ipAddress, userAgent
-            );
-            throw e;
+            try {
+                // For UPDATE and DELETE, try to capture old data
+                if ("UPDATE".equals(action) || "DELETE".equals(action)) {
+                    oldData = captureOldData(joinPoint);
+                }
+                
+                // Execute the actual method
+                Object result = joinPoint.proceed();
+                
+                // For CREATE and UPDATE, capture new data
+                if ("CREATE".equals(action) || "UPDATE".equals(action)) {
+                    newData = captureNewData(joinPoint, result);
+                }
+                
+                // Extract entity ID and name
+                entityId = extractEntityId(joinPoint, result);
+                entityName = extractEntityName(joinPoint, result);
+                
+                // Log the activity asynchronously
+                activityLogService.logActivity(
+                    user, action, entityType, entityId, entityName,
+                    oldData, newData, ipAddress, userAgent
+                );
+                
+                return result;
+                
+            } catch (Exception e) {
+                // If method throws exception, still try to log it
+                activityLogService.logActivity(
+                    user, action + "_FAILED", entityType, entityId, entityName,
+                    oldData, null, ipAddress, userAgent
+                );
+                throw e;
+            }
+        } finally {
+            loggingInProgress.set(false);
         }
     }
     
     /**
      * Get current authenticated user
+     * Handles both cases: principal as User object or as String userId
      */
     private User getCurrentUser() {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (authentication != null && authentication.getPrincipal() instanceof User) {
-                return (User) authentication.getPrincipal();
+            if (authentication == null || authentication.getPrincipal() == null) {
+                return null;
             }
+            
+            Object principal = authentication.getPrincipal();
+            
+            // Case 1: Principal is a User object
+            if (principal instanceof User) {
+                return (User) principal;
+            }
+            
+            // Case 2: Principal is a String (userId from JWT filter)
+            if (principal instanceof String) {
+                try {
+                    Long userId = Long.parseLong((String) principal);
+                    return userRepository.findById(userId).orElse(null);
+                } catch (NumberFormatException e) {
+                    // Principal is not a numeric userId (e.g., "anonymousUser")
+                    System.err.println("Non-numeric principal: " + principal);
+                    return null;
+                }
+            }
+            
+            // Case 3: Principal is a Long
+            if (principal instanceof Long) {
+                return userRepository.findById((Long) principal).orElse(null);
+            }
+            
         } catch (Exception e) {
             System.err.println("Failed to get current user: " + e.getMessage());
         }
@@ -205,7 +234,12 @@ public class LoggingAspect {
             if (args.length > 0) {
                 Object lastArg = args[args.length - 1];
                 // Return the DTO or the result
-                return lastArg != null ? lastArg : result;
+                if (lastArg != null) {
+                    return lastArg;
+                }
+            }
+            if (result instanceof org.springframework.http.ResponseEntity) {
+                return ((org.springframework.http.ResponseEntity<?>) result).getBody();
             }
             return result;
         } catch (Exception e) {
@@ -227,14 +261,21 @@ public class LoggingAspect {
             
             // Try to get ID from result using reflection
             if (result != null) {
-                try {
-                    Method getIdMethod = result.getClass().getMethod("getId");
-                    Object id = getIdMethod.invoke(result);
-                    if (id instanceof Long) {
-                        return (Long) id;
+                // Unwrap ResponseEntity
+                if (result instanceof org.springframework.http.ResponseEntity) {
+                    result = ((org.springframework.http.ResponseEntity<?>) result).getBody();
+                }
+                
+                if (result != null) {
+                    try {
+                        Method getIdMethod = result.getClass().getMethod("getId");
+                        Object id = getIdMethod.invoke(result);
+                        if (id instanceof Long) {
+                            return (Long) id;
+                        }
+                    } catch (NoSuchMethodException e) {
+                        // No getId method, that's okay
                     }
-                } catch (NoSuchMethodException e) {
-                    // No getId method, that's okay
                 }
             }
         } catch (Exception e) {
@@ -250,22 +291,29 @@ public class LoggingAspect {
         try {
             // Try to get name from result using reflection
             if (result != null) {
-                try {
-                    Method getNameMethod = result.getClass().getMethod("getName");
-                    Object name = getNameMethod.invoke(result);
-                    if (name instanceof String) {
-                        return (String) name;
-                    }
-                } catch (NoSuchMethodException e) {
-                    // Try getSku for products
+                // Unwrap ResponseEntity
+                if (result instanceof org.springframework.http.ResponseEntity) {
+                    result = ((org.springframework.http.ResponseEntity<?>) result).getBody();
+                }
+                
+                if (result != null) {
                     try {
-                        Method getSkuMethod = result.getClass().getMethod("getSku");
-                        Object sku = getSkuMethod.invoke(result);
-                        if (sku instanceof String) {
-                            return (String) sku;
+                        Method getNameMethod = result.getClass().getMethod("getName");
+                        Object name = getNameMethod.invoke(result);
+                        if (name instanceof String) {
+                            return (String) name;
                         }
-                    } catch (NoSuchMethodException e2) {
-                        // No name or sku method, that's okay
+                    } catch (NoSuchMethodException e) {
+                        // Try getSku for products
+                        try {
+                            Method getSkuMethod = result.getClass().getMethod("getSku");
+                            Object sku = getSkuMethod.invoke(result);
+                            if (sku instanceof String) {
+                                return (String) sku;
+                            }
+                        } catch (NoSuchMethodException e2) {
+                            // No name or sku method, that's okay
+                        }
                     }
                 }
             }

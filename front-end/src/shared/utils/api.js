@@ -85,16 +85,19 @@ export const authAPI = {
       body: JSON.stringify({ username, password }),
     }),
 
-  getMe: () => fetchAPI('/auth/me'),
-
+  getMe: () => fetchAPI('/admin/profile'),
   updateProfile: (data) =>
-    fetchAPI('/auth/profile', {
+    fetchAPI('/admin/profile', {
       method: 'PUT',
       body: JSON.stringify(data),
     }),
-
+  changePassword: (data) =>
+    fetchAPI('/admin/profile/change-password', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
   getSessions: () => fetchAPI('/auth/sessions'),
-  getActivities: () => fetchAPI('/auth/activities'),
+  getActivities: () => fetchAPI('/admin/profile/activities'),
 };
 
 // ============ DASHBOARD ============
@@ -108,7 +111,7 @@ export const dashboardAPI = {
       body: JSON.stringify({ insightId, category, data }),
     }),
 
-  getProfileStats: () => fetchAPI('/dashboard/profile-stats'),
+  getProfileStats: () => fetchAPI('/admin/profile/stats'),
 };
 
 // ============ REPORTS (Excel Export) ============
@@ -619,11 +622,20 @@ export const aiAPI = {
 
   getAdminSummary: () => fetchAPI('/ai/admin-summary'),
 
-  // AI Size Advisor
-  suggestSize: (productId, height, weight, fit = 'regular') => {
+  // AI Size Advisor - supports category-specific measurements
+  suggestSize: (productId, height, weight, fit = 'regular', extraParams = {}) => {
     const params = new URLSearchParams({ productId, height, weight, fit }).toString();
-    return fetchAPI(`/ai/size-advisor?${params}`);
+    // Add optional category-specific params (bust, waist, footLength)
+    const extraQuery = Object.entries(extraParams)
+      .filter(([_, v]) => v !== undefined && v !== null && v !== '')
+      .map(([k, v]) => `${k}=${v}`)
+      .join('&');
+    const fullQuery = extraQuery ? `${params}&${extraQuery}` : params;
+    return fetchAPI(`/ai/size-advisor?${fullQuery}`);
   },
+
+  // AI Flash Sale Product Suggestions
+  getFlashSaleSuggestions: () => fetchAPI('/ai/flash-sale-suggestions'),
 
   // AI Product Management
   generateDescription: (productName, category) =>
@@ -827,7 +839,10 @@ export const flashSaleAdminAPI = {
 
 // ============ FLASH SALE PUBLIC API ============
 export const flashSalePublicAPI = {
-  getActive: () => fetchAPI('/flash-sale/active'),
+  getActive: (params = {}) => {
+    const query = new URLSearchParams(params).toString();
+    return fetchAPI(`/flash-sale/active${query ? `?${query}` : ''}`);
+  },
 };
 
 // ============ POINTS API ============

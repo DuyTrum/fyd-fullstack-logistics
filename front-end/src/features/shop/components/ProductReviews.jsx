@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { reviewAPI } from "@shared/utils/api.js";
+import { reviewAPI, getAssetUrl, BASE_URL } from "@shared/utils/api.js";
 import { getCustomerSession } from "@shared/utils/customerSession.js";
 import "./ProductReviews.css";
 
@@ -188,12 +188,11 @@ export default function ProductReviews({ productId, onLoginRequired }) {
         setSubmitError("");
 
         try {
-            const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8080";
             const uploadPromises = files.map(async (file) => {
                 const formData = new FormData();
                 formData.append("file", file);
 
-                const res = await fetch(`${API_BASE}/api/products/upload`, {
+                const res = await fetch(`${BASE_URL}/api/upload`, {
                     method: "POST",
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("customer_token")}`,
@@ -314,7 +313,7 @@ export default function ProductReviews({ productId, onLoginRequired }) {
                         <div className="review-images-upload">
                             {reviewImages.map((url, index) => (
                                 <div key={index} className="uploaded-image-preview">
-                                    <img src={url} alt={`Review ${index + 1}`} />
+                                    <img src={getAssetUrl(url)} alt={`Review ${index + 1}`} />
                                     <button type="button" className="remove-image-btn" onClick={() => removeImage(index)}>
                                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                                             <path d="M18 6L6 18M6 6l12 12" />
@@ -430,10 +429,10 @@ export default function ProductReviews({ productId, onLoginRequired }) {
                                     {parseImageUrls(review.imageUrls).map((url, idx) => (
                                         <img
                                             key={idx}
-                                            src={url}
+                                            src={getAssetUrl(url)}
                                             alt={`Review image ${idx + 1}`}
                                             className="review-image-thumb"
-                                            onClick={() => setLightboxImage(url)}
+                                            onClick={() => setLightboxImage(getAssetUrl(url))}
                                         />
                                     ))}
                                 </div>

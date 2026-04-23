@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import { isLoggedIn, logout } from '@shared/utils/authSession';
-import { authAPI, formatDate, dashboardAPI } from '@shared/utils/api';
+import { authAPI, formatDate, dashboardAPI, BASE_URL, getAssetUrl } from '@shared/utils/api';
 import Toast from '@shared/components/Toast';
 import '../styles/profile.css';
 import { useTranslation } from 'react-i18next';
@@ -346,8 +346,33 @@ export default function Profile() {
       return;
     }
 
-    // For now, just show a message - real upload would require API endpoint
-    showToast(t("profile.msg_upload_dev"), 'info');
+    try {
+      showToast(t("common.processing"), 'info');
+      // Upload file
+      const formData = new FormData();
+      formData.append('file', file);
+      
+      const token = localStorage.getItem('fyd_token');
+      const uploadRes = await fetch(`${BASE_URL}/api/upload`, {
+        method: 'POST',
+        headers: token ? { 'Authorization': `Bearer ${token}` } : {},
+        body: formData
+      });
+      
+      if (!uploadRes.ok) throw new Error("Upload failed");
+      const uploadData = await uploadRes.json();
+      
+      if (uploadData.success && uploadData.url) {
+        // Update profile
+        await authAPI.updateProfile({ avatarUrl: uploadData.url });
+        setUser(prev => ({ ...prev, avatar: uploadData.url }));
+        showToast(t("profile.msg_update_name_success"));
+      } else {
+        throw new Error(uploadData.error || "Upload failed");
+      }
+    } catch (error) {
+      showToast(error.message || t("profile.msg_update_name_error"), 'error');
+    }
   };
 
   const handleLogout = () => {
@@ -396,7 +421,7 @@ export default function Profile() {
         <div className="profile-header-inner">
           <div className="profile-avatar-container" onClick={() => fileInputRef.current?.click()}>
             {user.avatar ? (
-              <img src={user.avatar} alt="Avatar" className="profile-avatar-img" />
+              <img src={getAssetUrl(user.avatar)} alt="Avatar" className="profile-avatar-img" />
             ) : (
               <div className="profile-avatar-default">{initials}</div>
             )}

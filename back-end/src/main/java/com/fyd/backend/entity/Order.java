@@ -105,9 +105,6 @@ public class Order {
     @Column(name = "carrier", length = 30)
     private String carrier;
 
-    @Column(name = "shipping_label_url")
-    private String shippingLabelUrl;
-
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
@@ -176,9 +173,6 @@ public class Order {
     
     public String getCarrier() { return carrier; }
     public void setCarrier(String carrier) { this.carrier = carrier; }
-    
-    public String getShippingLabelUrl() { return shippingLabelUrl; }
-    public void setShippingLabelUrl(String shippingLabelUrl) { this.shippingLabelUrl = shippingLabelUrl; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }

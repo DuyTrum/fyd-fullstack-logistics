@@ -504,6 +504,17 @@ export default function Shop() {
         />
       )}
 
+      {/* AI Popular Products Recommendations */}
+      {!selectedCategory && !selectedParentCategory && !search && (
+        <section className="popular-products-section reveal reveal-stagger-3">
+          <ProductRecommendations
+            type="popular"
+            title="SẢN PHẨM PHỔ BIẾN"
+            limit={8}
+          />
+        </section>
+      )}
+
       {/* Products Section */}
       <section className="products-section" id="products-section">
         <div className="section-header">
@@ -637,16 +648,7 @@ export default function Shop() {
         />
       )}
 
-      {/* AI Popular Products Recommendations */}
-      {!selectedCategory && !selectedParentCategory && !search && (
-        <section className="popular-products-section">
-          <ProductRecommendations
-            type="popular"
-            title="SẢN PHẨM PHỔ BIẾN"
-            limit={8}
-          />
-        </section>
-      )}
+
 
       {/* Footer */}
       <ShopFooter />

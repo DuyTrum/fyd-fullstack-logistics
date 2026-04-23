@@ -213,3 +213,44 @@
     color: #999;
     text-align: center;
 }
+
+/* Category badge */
+.category-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+/* Extra measurement inputs */
+.extra-measurement {
+    margin-bottom: 16px;
+    padding: 14px;
+    background: #f0f7ff;
+    border-radius: 12px;
+    border: 1px solid #d0e3f7;
+}
+
+.extra-measurement label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.extra-measurement .optional {
+    font-weight: 400;
+    color: #999;
+    font-size: 11px;
+}
+
+.measurement-hint {
+    display: block;
+    color: #888;
+    font-size: 11px;
+    margin-top: 6px;
+    line-height: 1.3;
+}

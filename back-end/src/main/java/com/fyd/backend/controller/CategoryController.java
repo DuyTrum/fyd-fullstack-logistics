@@ -1,5 +1,6 @@
 package com.fyd.backend.controller;
 
+import com.fyd.backend.annotation.Loggable;
 import com.fyd.backend.dto.CategoryDTO;
 import com.fyd.backend.entity.Category;
 import com.fyd.backend.repository.CategoryRepository;
@@ -53,6 +54,7 @@ public class CategoryController {
     }
 
     @PostMapping
+    @Loggable(action = "CREATE", entityType = "Category")
     public ResponseEntity<Map<String, Object>> createCategory(@RequestBody CategoryDTO dto) {
         try {
             // Check slug uniqueness
@@ -87,6 +89,7 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
+    @Loggable(action = "UPDATE", entityType = "Category")
     public ResponseEntity<Map<String, Object>> updateCategory(@PathVariable Long id, @RequestBody CategoryDTO dto) {
         return categoryRepository.findById(id)
             .map(category -> {
@@ -116,6 +119,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
+    @Loggable(action = "DELETE", entityType = "Category")
     public ResponseEntity<Map<String, Object>> deleteCategory(@PathVariable Long id) {
         return categoryRepository.findById(id)
             .map(category -> {

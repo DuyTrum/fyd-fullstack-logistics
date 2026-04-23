@@ -41,9 +41,6 @@ public class Product {
     @Column(name = "sale_price", precision = 12, scale = 2)
     private BigDecimal salePrice;
 
-    @Column(name = "cost_price", precision = 12, scale = 2)
-    private BigDecimal costPrice;
-
     @Column(columnDefinition = "TEXT")
     private String description;
 
@@ -52,12 +49,6 @@ public class Product {
 
     @Column(length = 100)
     private String material;
-
-    @Column(name = "care_instructions", columnDefinition = "TEXT")
-    private String careInstructions;
-
-    @Column(precision = 8, scale = 2)
-    private BigDecimal weight;
 
     @Column(name = "is_featured")
     private Boolean isFeatured = false;
@@ -103,18 +94,12 @@ public class Product {
     public void setBasePrice(BigDecimal basePrice) { this.basePrice = basePrice; }
     public BigDecimal getSalePrice() { return salePrice; }
     public void setSalePrice(BigDecimal salePrice) { this.salePrice = salePrice; }
-    public BigDecimal getCostPrice() { return costPrice; }
-    public void setCostPrice(BigDecimal costPrice) { this.costPrice = costPrice; }
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
     public String getShortDescription() { return shortDescription; }
     public void setShortDescription(String shortDescription) { this.shortDescription = shortDescription; }
     public String getMaterial() { return material; }
     public void setMaterial(String material) { this.material = material; }
-    public String getCareInstructions() { return careInstructions; }
-    public void setCareInstructions(String careInstructions) { this.careInstructions = careInstructions; }
-    public BigDecimal getWeight() { return weight; }
-    public void setWeight(BigDecimal weight) { this.weight = weight; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
     public Boolean getIsFeatured() { return isFeatured; }

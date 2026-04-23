@@ -56,6 +56,17 @@ export default function NightMarketAdmin() {
             setConfig(data);
         } catch (error) {
             console.error("Failed to fetch Night Market config:", error);
+            // Set default config so UI can still render
+            setConfig({
+                minOffers: 3,
+                maxOffers: 5,
+                minDiscountPercent: 10,
+                maxDiscountPercent: 50,
+                offerDurationDays: 3,
+                isActive: false,
+                startTime: null,
+                endTime: null
+            });
             showToast(t("night_market.msg_load_error"), "error");
         } finally {
             setLoading(false);
@@ -94,6 +105,12 @@ export default function NightMarketAdmin() {
     if (loading) return (
         <div className="night-market-admin-page page-container">
             <div className="loading-state">{t("common.loading_data")}</div>
+        </div>
+    );
+
+    if (!config) return (
+        <div className="night-market-admin-page page-container">
+            <div className="empty-state">Không thể tải cấu hình Chợ Đêm</div>
         </div>
     );
 

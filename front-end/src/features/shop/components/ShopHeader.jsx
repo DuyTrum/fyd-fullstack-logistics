@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCompare } from "@shared/context/CompareContext";
 import { useTranslation } from "react-i18next";
 import { trackSearch } from "@shared/utils/analytics.js";
-import { nightMarketAPI } from "@shared/utils/api.js";
+import { nightMarketAPI, flashSalePublicAPI } from "@shared/utils/api.js";
 
 // User Dropdown Menu for logged-in customers
 function UserDropdown({ customer, onLogout, isOpen, onToggle }) {
@@ -191,55 +191,72 @@ export default function ShopHeader({
   const { t } = useTranslation();
   const [openDropdown, setOpenDropdown] = useState(null);
   const [nmActive, setNmActive] = useState(true); // Default to true to avoid flicker if active
+  const [fsActive, setFsActive] = useState(true); // Default to true to avoid flicker if active
   const navigate = useNavigate();
 
-    useEffect(() => {
-    const checkNMStatus = async () => {
+  useEffect(() => {
+    const checkStatus = async () => {
       try {
         const CACHE_KEY = 'nm_status_cache';
+        const FS_CACHE_KEY = 'fs_status_cache';
         const CACHE_TTL = 30 * 1000; // 30 seconds
         
-        const cached = localStorage.getItem(CACHE_KEY);
-        if (cached) {
-          const { active, timestamp } = JSON.parse(cached);
+        // 1. Check Night Market
+        const cachedNM = localStorage.getItem(CACHE_KEY);
+        let checkNM = true;
+        if (cachedNM) {
+          const { active, timestamp } = JSON.parse(cachedNM);
           if (Date.now() - timestamp < CACHE_TTL) {
             setNmActive(active);
-            return;
+            checkNM = false;
+          }
+        }
+        
+        // 2. Check Flash Sale
+        const cachedFS = localStorage.getItem(FS_CACHE_KEY);
+        let checkFS = true;
+        if (cachedFS) {
+          const { active, timestamp } = JSON.parse(cachedFS);
+          if (Date.now() - timestamp < CACHE_TTL) {
+            setFsActive(active);
+            checkFS = false;
           }
         }
 
-        // Use cache-busting timestamp to bypass browser cache
-        const res = await nightMarketAPI.getStatus({ _t: Date.now() });
-        const isActive = res.active;
+        const promises = [];
+        if (checkNM) promises.push(nightMarketAPI.getStatus({ _t: Date.now() }));
+        if (checkFS) promises.push(flashSalePublicAPI.getActive({ _t: Date.now() }));
         
-        // Debug logging for developers
-        console.log("Night Market Status Check:", {
-          active: isActive,
-          config: res.config,
-          serverTime: res.serverTime,
-          now: new Date().toISOString()
-        });
-
-        if (res.config && isActive === false) {
-          console.warn("Night Market inactive due to time mismatch or manual toggle", {
-            now: new Date().toLocaleString(),
-            startTime: new Date(res.config.startTime).toLocaleString(),
-            endTime: new Date(res.config.endTime).toLocaleString(),
-            isActiveConfig: res.config.isActive
-          });
+        if (promises.length > 0) {
+          const results = await Promise.allSettled(promises);
+          
+          let i = 0;
+          if (checkNM) {
+            const resNM = results[i++];
+            if (resNM.status === 'fulfilled') {
+              const isActive = resNM.value.active;
+              setNmActive(isActive);
+              localStorage.setItem(CACHE_KEY, JSON.stringify({ active: isActive, timestamp: Date.now() }));
+            }
+          }
+          
+          if (checkFS) {
+            const resFS = results[i++];
+            if (resFS.status === 'fulfilled') {
+              // Flash Sale is active if status is RUNNING or UPCOMING
+              const status = resFS.value?.status;
+              const isActive = status === 'RUNNING' || status === 'UPCOMING';
+              setFsActive(isActive);
+              localStorage.setItem(FS_CACHE_KEY, JSON.stringify({ active: isActive, timestamp: Date.now() }));
+            }
+          }
         }
-
-        setNmActive(isActive);
-        localStorage.setItem(CACHE_KEY, JSON.stringify({
-          active: isActive,
-          timestamp: Date.now()
-        }));
       } catch (err) {
-        console.error("Failed to check NM status:", err);
+        console.error("Failed to check status:", err);
       }
     };
 
-    checkNMStatus();
+    checkStatus();
   }, []);
 
   const aoCategory = categories.find(c => c.id === 1 || c.slug === 'ao');
@@ -318,7 +335,9 @@ export default function ShopHeader({
               onToggle={(open) => setOpenDropdown(open ? 'balo' : null)}
             />
           )}
-          <button type="button" className="adidas-nav-item flash-sale-nav" onClick={onFlashSaleClick}>FLASH SALE</button>
+          {fsActive && (
+            <button type="button" className="adidas-nav-item flash-sale-nav" onClick={onFlashSaleClick}>FLASH SALE</button>
+          )}
           {nmActive && (
             <button type="button" className="adidas-nav-item night-market-nav" onClick={() => navigate('/shop/night-market')} style={{ color: '#06b6d4', fontWeight: '900' }}>NIGHT MARKET</button>
           )}

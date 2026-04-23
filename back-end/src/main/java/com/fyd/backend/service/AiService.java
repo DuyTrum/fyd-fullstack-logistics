@@ -166,9 +166,10 @@ public class AiService {
     }
 
     /**
-     * AI Size Advisor - suggests size based on height/weight
+     * AI Size Advisor - suggests size based on height/weight and category-specific measurements
      */
-    public AiChatResponse suggestSize(Long productId, Double heightCm, Double weightKg, String preferredFit) {
+    public AiChatResponse suggestSize(Long productId, Double heightCm, Double weightKg, String preferredFit,
+                                       Double bust, Double waist, Double footLength) {
         try {
             Optional<Product> productOpt = productRepository.findById(productId);
             if (productOpt.isEmpty()) {
@@ -191,35 +192,132 @@ public class AiService {
             }
             
             String fit = preferredFit != null ? preferredFit : "regular";
+            String categoryName = product.getCategory() != null ? product.getCategory().getName() : "Thời trang";
+            
+            // Build category-specific size chart and measurements
+            String sizeChart = buildCategorySizeChart(categoryName);
+            String additionalMeasurements = buildAdditionalMeasurements(categoryName, bust, waist, footLength);
             
             String prompt = """
-                Bạn là chuyên gia tư vấn size quần áo. Dựa trên thông tin sau, hãy gợi ý SIZE PHÙ HỢP NHẤT:
+                Bạn là chuyên gia tư vấn size quần áo Việt Nam. Dựa trên thông tin sau, hãy gợi ý SIZE PHÙ HỢP NHẤT:
                 
                 THÔNG TIN KHÁCH HÀNG:
                 - Chiều cao: %.0f cm
                 - Cân nặng: %.0f kg
                 - Kiểu dáng mong muốn: %s (regular = vừa vặn, slim = ôm, loose = rộng thoải mái)
+                %s
                 
                 SẢN PHẨM: %s
                 DANH MỤC: %s
                 CÁC SIZE CÒN HÀNG: %s
                 
+                BẢNG SIZE THAM KHẢO THEO LOẠI SẢN PHẨM:
+                %s
+                
                 QUY TẮC TRẢ LỜI:
                 1. Chỉ gợi ý 1 size cụ thể từ danh sách có sẵn
-                2. Giải thích ngắn gọn lý do (1-2 câu)
+                2. Giải thích ngắn gọn lý do (2-3 câu)
                 3. Đề cập nếu size này có thể hơi rộng/chật dựa trên số đo
-                4. Format: "Size [X] sẽ phù hợp với bạn. [Lý do ngắn gọn]"
+                4. Nếu khách chọn kiểu slim, gợi ý size nhỏ hơn 1 bậc; nếu loose, gợi ý size lớn hơn 1 bậc
+                5. Lưu ý đặc thù size Việt Nam (thường nhỏ hơn size Âu-Mỹ)
+                6. Format: "👕 Size [X] sẽ phù hợp với bạn. [Lý do chi tiết dựa trên số đo]"
                 """.formatted(
                     heightCm, weightKg, fit,
+                    additionalMeasurements,
                     product.getName(),
-                    product.getCategory() != null ? product.getCategory().getName() : "Thời trang",
-                    String.join(", ", availableSizes)
+                    categoryName,
+                    String.join(", ", availableSizes),
+                    sizeChart
                 );
             
             return callGroqAPI(prompt);
         } catch (Exception e) {
             return AiChatResponse.error("Lỗi khi tư vấn size: " + e.getMessage());
         }
+    }
+    
+    /**
+     * Build category-specific size chart for AI prompt
+     */
+    private String buildCategorySizeChart(String categoryName) {
+        String lowerCategory = categoryName.toLowerCase();
+        
+        if (lowerCategory.contains("áo") || lowerCategory.contains("shirt") || lowerCategory.contains("polo") 
+            || lowerCategory.contains("hoodie") || lowerCategory.contains("jacket") || lowerCategory.contains("khoác")) {
+            return """
+                ÁO (Size Việt Nam):
+                | Size | Chiều cao | Cân nặng | Ngực (cm) | Vai (cm) |
+                |------|-----------|----------|-----------|----------|
+                | S    | 155-162   | 45-55    | 84-88     | 38-40    |
+                | M    | 160-168   | 55-65    | 88-92     | 40-42    |
+                | L    | 165-175   | 65-75    | 92-96     | 42-44    |
+                | XL   | 170-180   | 75-85    | 96-100    | 44-46    |
+                | XXL  | 175-185   | 85-95    | 100-106   | 46-48    |
+                """;
+        }
+        
+        if (lowerCategory.contains("quần") || lowerCategory.contains("pants") || lowerCategory.contains("jean")
+            || lowerCategory.contains("short") || lowerCategory.contains("jogger")) {
+            return """
+                QUẦN (Size Việt Nam):
+                | Size | Chiều cao | Cân nặng | Vòng eo (cm) | Vòng hông (cm) |
+                |------|-----------|----------|-------------|----------------|
+                | S/28 | 155-162   | 45-55    | 68-72       | 86-90          |
+                | M/29 | 160-168   | 55-65    | 72-76       | 90-94          |
+                | L/30 | 165-175   | 65-75    | 76-82       | 94-98          |
+                | XL/31| 170-180   | 75-85    | 82-88       | 98-102         |
+                | XXL/32| 175-185  | 85-95    | 88-94       | 102-106        |
+                """;
+        }
+        
+        if (lowerCategory.contains("giày") || lowerCategory.contains("shoe") || lowerCategory.contains("sneaker")
+            || lowerCategory.contains("boot") || lowerCategory.contains("sandal") || lowerCategory.contains("dép")) {
+            return """
+                GIÀY (Size Việt Nam/EU):
+                | Size VN | Size EU | Chiều dài bàn chân (cm) |
+                |---------|---------|------------------------|
+                | 38      | 38      | 24.0-24.5              |
+                | 39      | 39      | 24.5-25.0              |
+                | 40      | 40      | 25.0-25.5              |
+                | 41      | 41      | 25.5-26.0              |
+                | 42      | 42      | 26.0-26.5              |
+                | 43      | 43      | 26.5-27.0              |
+                | 44      | 44      | 27.0-27.5              |
+                * Nếu bàn chân rộng, nên tăng 0.5 size
+                """;
+        }
+        
+        // Default general size chart
+        return """
+            SIZE CHUNG (Thời trang Việt Nam):
+            | Size | Chiều cao | Cân nặng |
+            |------|-----------|----------|
+            | S    | 155-162   | 45-55    |
+            | M    | 160-168   | 55-65    |
+            | L    | 165-175   | 65-75    |
+            | XL   | 170-180   | 75-85    |
+            | XXL  | 175-185   | 85-95    |
+            """;
+    }
+    
+    /**
+     * Build additional measurements prompt section
+     */
+    private String buildAdditionalMeasurements(String categoryName, Double bust, Double waist, Double footLength) {
+        StringBuilder sb = new StringBuilder();
+        String lowerCategory = categoryName.toLowerCase();
+        
+        if (bust != null && (lowerCategory.contains("áo") || lowerCategory.contains("shirt"))) {
+            sb.append("- Vòng ngực: ").append(String.format("%.0f", bust)).append(" cm\n");
+        }
+        if (waist != null && (lowerCategory.contains("quần") || lowerCategory.contains("pants") || lowerCategory.contains("jean"))) {
+            sb.append("- Vòng eo: ").append(String.format("%.0f", waist)).append(" cm\n");
+        }
+        if (footLength != null && (lowerCategory.contains("giày") || lowerCategory.contains("shoe") || lowerCategory.contains("sneaker"))) {
+            sb.append("- Chiều dài bàn chân: ").append(String.format("%.1f", footLength)).append(" cm\n");
+        }
+        
+        return sb.length() > 0 ? sb.toString() : "";
     }
 
     /**
@@ -759,5 +857,94 @@ public class AiService {
         }
 
         return anomalies;
+    }
+
+    /**
+     * AI Flash Sale Suggestions - analyzes sales data and inventory to recommend products for flash sales
+     */
+    public AiChatResponse suggestFlashSaleProducts() {
+        try {
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime weekAgo = now.minusDays(7);
+            LocalDateTime monthAgo = now.minusDays(30);
+            
+            NumberFormat vndFormat = NumberFormat.getInstance(new Locale("vi", "VN"));
+            
+            StringBuilder dataContext = new StringBuilder();
+            
+            // 1. Top selling products (last 7 days)
+            List<Object[]> topProducts = orderItemRepository.getTopProductsByRevenueFrom(weekAgo);
+            dataContext.append("TOP SẢN PHẨM BÁN CHẠY (7 ngày qua):\n");
+            for (int i = 0; i < Math.min(10, topProducts.size()); i++) {
+                Object[] row = topProducts.get(i);
+                dataContext.append(String.format("  %d. ID:%s | %s | %s đơn | Doanh thu: %sđ\n",
+                    i + 1, row[0], row[1], row[2], vndFormat.format(((Number) row[3]).longValue())));
+            }
+            
+            // 2. Products with high stock (slow-moving, potential flash sale candidates)
+            List<Product> allProducts = productRepository.findAll();
+            dataContext.append("\nSẢN PHẨM TỒN KHO CAO (cần đẩy hàng):\n");
+            List<Product> highStockProducts = allProducts.stream()
+                .filter(p -> p.getVariants() != null && !p.getVariants().isEmpty())
+                .sorted((a, b) -> {
+                    int stockA = a.getVariants().stream().mapToInt(v -> v.getStockQuantity() != null ? v.getStockQuantity() : 0).sum();
+                    int stockB = b.getVariants().stream().mapToInt(v -> v.getStockQuantity() != null ? v.getStockQuantity() : 0).sum();
+                    return stockB - stockA;
+                })
+                .limit(10)
+                .collect(Collectors.toList());
+            
+            for (Product p : highStockProducts) {
+                int totalStock = p.getVariants().stream()
+                    .mapToInt(v -> v.getStockQuantity() != null ? v.getStockQuantity() : 0).sum();
+                String categoryName = p.getCategory() != null ? p.getCategory().getName() : "N/A";
+                dataContext.append(String.format("  - ID:%d | %s | Danh mục: %s | Giá: %sđ | Tồn kho: %d\n",
+                    p.getId(), p.getName(), categoryName, vndFormat.format(p.getBasePrice()), totalStock));
+            }
+            
+            // 3. Revenue summary
+            BigDecimal weekRevenue = orderRepository.getRevenueFrom(weekAgo);
+            BigDecimal monthRevenue = orderRepository.getRevenueFrom(monthAgo);
+            dataContext.append(String.format("\nDOANH THU:\n  - 7 ngày qua: %sđ\n  - 30 ngày qua: %sđ\n",
+                vndFormat.format(weekRevenue != null ? weekRevenue : BigDecimal.ZERO),
+                vndFormat.format(monthRevenue != null ? monthRevenue : BigDecimal.ZERO)));
+            
+            // 4. All available products for selection
+            dataContext.append("\nDANH SÁCH SẢN PHẨM (để chọn Flash Sale):\n");
+            for (Product p : allProducts) {
+                int totalStock = p.getVariants() != null 
+                    ? p.getVariants().stream().mapToInt(v -> v.getStockQuantity() != null ? v.getStockQuantity() : 0).sum() 
+                    : 0;
+                if (totalStock > 0) {
+                    dataContext.append(String.format("  - ID:%d | %s | Giá: %sđ | Tồn: %d\n",
+                        p.getId(), p.getName(), vndFormat.format(p.getBasePrice()), totalStock));
+                }
+            }
+            
+            String prompt = """
+                Bạn là chuyên gia phân tích kinh doanh thời trang. Dựa trên dữ liệu doanh số và tồn kho dưới đây, 
+                hãy đề xuất 5-8 sản phẩm nên đưa vào Flash Sale tiếp theo.
+                
+                %s
+                
+                YÊU CẦU PHÂN TÍCH:
+                1. Ưu tiên sản phẩm tồn kho cao cần đẩy nhanh
+                2. Kết hợp 1-2 sản phẩm bán chạy (tạo "anchor") để thu hút traffic
+                3. Cân nhắc xu hướng mùa hiện tại (tháng %d)
+                4. Đề xuất mức giảm giá phù hợp (10-50%%) cho từng sản phẩm
+                
+                FORMAT TRẢ LỜI (BẮT BUỘC theo format này):
+                Cho mỗi sản phẩm, viết CHÍNH XÁC:
+                📦 **[Tên SP]** (ID: [số])
+                - Giá gốc: [giá]đ → Giá Flash Sale đề xuất: [giá mới]đ (giảm [X]%%)
+                - Lý do: [1-2 câu giải thích vì sao nên flash sale SP này]
+                
+                Cuối cùng, viết 2-3 câu tóm tắt chiến lược Flash Sale tổng thể.
+                """.formatted(dataContext.toString(), now.getMonthValue());
+            
+            return callGroqAPI(prompt);
+        } catch (Exception e) {
+            return AiChatResponse.error("Lỗi khi phân tích đề xuất Flash Sale: " + e.getMessage());
+        }
     }
 }

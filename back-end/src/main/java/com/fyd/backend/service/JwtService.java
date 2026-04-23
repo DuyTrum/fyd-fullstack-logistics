@@ -87,7 +87,7 @@ public class JwtService {
                 .claim("email", user.getEmail())
                 .claim("fullName", user.getFullName())
                 .claim("type", "user")
-                .claim("role", user.getRole().getName());
+                .claim("role", user.getRole().getName().toUpperCase());
 
         if (user.getRole().getPermissions() != null) {
             java.util.List<String> permissions = user.getRole().getPermissions().stream()

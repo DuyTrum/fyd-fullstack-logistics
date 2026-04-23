@@ -19,7 +19,15 @@ public class AdminLuckySpinController {
     public ResponseEntity<?> getAdminInfo() {
         AdminProgramInfo info = luckySpinService.getAdminInfo();
         if (info == null) {
-            return ResponseEntity.notFound().build();
+            // Return empty/default config instead of 404 so admin UI can render
+            AdminProgramInfo emptyInfo = new AdminProgramInfo();
+            emptyInfo.setName("Vòng quay may mắn");
+            emptyInfo.setDescription("");
+            emptyInfo.setDailyFreeSpins(1);
+            emptyInfo.setPointsPerSpin(100);
+            emptyInfo.setIsActive(false);
+            emptyInfo.setRewards(java.util.Collections.emptyList());
+            return ResponseEntity.ok(emptyInfo);
         }
         return ResponseEntity.ok(info);
     }

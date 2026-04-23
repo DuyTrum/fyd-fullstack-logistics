@@ -55,14 +55,27 @@ public class AiController {
 
     /**
      * AI Size Advisor - suggests best size based on customer measurements
+     * Supports category-specific measurements: bust (shirts), waist (pants), footLength (shoes)
      */
     @GetMapping("/size-advisor")
     public ResponseEntity<AiChatResponse> sizeAdvisor(
             @RequestParam Long productId,
             @RequestParam Double height,
             @RequestParam Double weight,
-            @RequestParam(required = false, defaultValue = "regular") String fit) {
-        AiChatResponse response = aiService.suggestSize(productId, height, weight, fit);
+            @RequestParam(required = false, defaultValue = "regular") String fit,
+            @RequestParam(required = false) Double bust,
+            @RequestParam(required = false) Double waist,
+            @RequestParam(required = false) Double footLength) {
+        AiChatResponse response = aiService.suggestSize(productId, height, weight, fit, bust, waist, footLength);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * AI Flash Sale Suggestions - analyzes sales data to recommend products for flash sales
+     */
+    @GetMapping("/flash-sale-suggestions")
+    public ResponseEntity<AiChatResponse> getFlashSaleSuggestions() {
+        AiChatResponse response = aiService.suggestFlashSaleProducts();
         return ResponseEntity.ok(response);
     }
 

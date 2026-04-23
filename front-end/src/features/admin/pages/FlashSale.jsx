@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { createPortal } from "react-dom";
-import { flashSaleAdminAPI, productAPI, formatVND, getAssetUrl } from "@shared/utils/api.js";
+import { flashSaleAdminAPI, productAPI, formatVND, getAssetUrl, aiAPI } from "@shared/utils/api.js";
 import { useToast } from "@shared/context/ToastContext";
 import { useConfirm } from "@shared/context/ConfirmContext";
 import { useTranslation } from "react-i18next";
@@ -38,6 +38,11 @@ const CloseIcon = () => (
 const SearchIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
+  </svg>
+);
+const AiIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M12 2l2.4 7.4H22l-6.2 4.5L18.2 21 12 16.5 5.8 21l2.4-7.1L2 9.4h7.6z" />
   </svg>
 );
 
@@ -122,6 +127,12 @@ export default function FlashSale() {
   const [productSearch, setProductSearch] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [addSalePrice, setAddSalePrice] = useState("");
+
+  // AI Suggestions
+  const [aiModalOpen, setAiModalOpen] = useState(false);
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiResult, setAiResult] = useState(null);
+  const [aiError, setAiError] = useState("");
 
   // Load configs
   const loadConfigs = useCallback(async () => {
@@ -288,6 +299,26 @@ export default function FlashSale() {
     }
   };
 
+  // AI Flash Sale Suggestions
+  const fetchAiSuggestions = async () => {
+    setAiModalOpen(true);
+    setAiLoading(true);
+    setAiResult(null);
+    setAiError("");
+    try {
+      const response = await aiAPI.getFlashSaleSuggestions();
+      if (response.success) {
+        setAiResult(response.reply);
+      } else {
+        setAiError(response.error || "Không thể lấy gợi ý từ AI");
+      }
+    } catch (err) {
+      setAiError("Lỗi kết nối AI: " + (err.message || "Vui lòng thử lại"));
+    } finally {
+      setAiLoading(false);
+    }
+  };
+
   const formatDate = (str) => {
     if (!str) return "";
     return new Date(str).toLocaleString("vi-VN", {
@@ -315,9 +346,14 @@ export default function FlashSale() {
             <p className="fs-page-subtitle">{configs.length} chương trình • Quản lý Flash Sale tập trung</p>
           </div>
         </div>
-        <button className="fs-btn-create" type="button" onClick={openCreateConfig}>
-          <PlusIcon /> <span>Tạo Flash Sale</span>
-        </button>
+        <div className="fs-header-actions">
+          <button className="fs-btn-ai" type="button" onClick={fetchAiSuggestions}>
+            <AiIcon /> <span>🤖 AI Đề xuất</span>
+          </button>
+          <button className="fs-btn-create" type="button" onClick={openCreateConfig}>
+            <PlusIcon /> <span>Tạo Flash Sale</span>
+          </button>
+        </div>
       </div>
 
       {/* Campaign Selection */}
@@ -628,6 +664,43 @@ export default function FlashSale() {
           >
             Thêm vào Flash Sale
           </button>
+        </div>
+      </Modal>
+
+      {/* AI Suggestions Modal */}
+      <Modal
+        open={aiModalOpen}
+        title="🤖 AI Đề xuất sản phẩm Flash Sale"
+        onClose={() => setAiModalOpen(false)}
+        maxWidth={750}
+      >
+        <div className="fs-ai-modal">
+          {aiLoading && (
+            <div className="fs-ai-loading">
+              <div className="fs-ai-spinner"></div>
+              <p>AI đang phân tích doanh số và tồn kho...</p>
+              <small>Quá trình này có thể mất 10-20 giây</small>
+            </div>
+          )}
+          {aiError && (
+            <div className="fs-ai-error">
+              <p>❌ {aiError}</p>
+              <button type="button" className="fs-btn-ai" onClick={fetchAiSuggestions}>
+                Thử lại
+              </button>
+            </div>
+          )}
+          {aiResult && (
+            <div className="fs-ai-result">
+              <div className="fs-ai-badge">✨ Phân tích bởi AI</div>
+              <div className="fs-ai-content">{aiResult}</div>
+              <div className="fs-ai-actions">
+                <button type="button" className="fs-btn-ai" onClick={fetchAiSuggestions}>
+                  🔄 Phân tích lại
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </Modal>
     </div>

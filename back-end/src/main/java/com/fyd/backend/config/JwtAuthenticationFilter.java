@@ -49,7 +49,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     
                     String role = claims.get("role", String.class);
                     if (role != null) {
-                        authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
+                        authorities.add(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()));
                     }
                     
                     Object permsObj = claims.get("permissions");

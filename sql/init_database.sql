@@ -46,9 +46,11 @@ CREATE TABLE users (
   email VARCHAR(120) UNIQUE,
   password_hash VARCHAR(255) NOT NULL,
   full_name VARCHAR(120),
+  phone VARCHAR(20),
   avatar_url VARCHAR(500),
   role_id BIGINT NOT NULL,
   status ENUM('ACTIVE','LOCKED') DEFAULT 'ACTIVE',
+  last_login_at TIMESTAMP NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (role_id) REFERENCES roles(id)
@@ -133,7 +135,6 @@ CREATE TABLE brands (
   slug VARCHAR(120) UNIQUE,
   logo_url VARCHAR(500),
   description VARCHAR(500),
-  website VARCHAR(500),
   status ENUM('ACTIVE','INACTIVE') DEFAULT 'ACTIVE',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -162,12 +163,9 @@ CREATE TABLE products (
   brand_id BIGINT,
   base_price DECIMAL(12,2) NOT NULL,
   sale_price DECIMAL(12,2),
-  cost_price DECIMAL(12,2),
   description TEXT,
   short_description VARCHAR(500),
   material VARCHAR(100),
-  care_instructions TEXT,
-  weight DECIMAL(8,2),
   is_featured BOOLEAN DEFAULT FALSE,
   is_new BOOLEAN DEFAULT FALSE,
   status VARCHAR(30) DEFAULT 'ACTIVE',
@@ -230,6 +228,70 @@ CREATE TABLE promotions (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
+-- ============================================================================
+-- 4.1 FLASH SALE SYSTEM
+-- ============================================================================
+
+CREATE TABLE IF NOT EXISTS flash_sale_configs (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    start_time DATETIME NOT NULL,
+    end_time DATETIME NOT NULL,
+    is_active BOOLEAN DEFAULT FALSE,
+    discount_label VARCHAR(100),
+    version BIGINT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS flash_sale_items (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    flash_sale_config_id BIGINT NOT NULL,
+    product_id BIGINT NOT NULL,
+    variant_id BIGINT,
+    sale_price DECIMAL(12, 2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (flash_sale_config_id) REFERENCES flash_sale_configs(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
+    FOREIGN KEY (variant_id) REFERENCES product_variants(id) ON DELETE CASCADE,
+    UNIQUE KEY uk_flash_sale_product_variant (flash_sale_config_id, product_id, variant_id),
+    INDEX idx_flash_sale_lookup (flash_sale_config_id, product_id)
+) ENGINE=InnoDB;
+
+-- ============================================================================
+-- 4.2 NIGHT MARKET SYSTEM
+-- ============================================================================
+
+CREATE TABLE IF NOT EXISTS night_market_configs (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    min_offers INT DEFAULT 5,
+    max_offers INT DEFAULT 8,
+    min_discount_percent INT DEFAULT 10,
+    max_discount_percent INT DEFAULT 70,
+    offer_duration_days INT DEFAULT 7,
+    is_active BOOLEAN DEFAULT TRUE,
+    start_time DATETIME,
+    end_time DATETIME,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS night_market_customer_offers (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    customer_id BIGINT NOT NULL,
+    config_id BIGINT,
+    product_id BIGINT NOT NULL,
+    discount_percent INT NOT NULL,
+    expiration_date DATETIME NOT NULL,
+    is_revealed BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE,
+    FOREIGN KEY (config_id) REFERENCES night_market_configs(id) ON DELETE SET NULL,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
+    INDEX idx_customer_offer_expiry (customer_id, expiration_date),
+    INDEX idx_customer_offer_config (config_id)
+) ENGINE=InnoDB;
+
 CREATE TABLE orders (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
   order_code VARCHAR(40) NOT NULL UNIQUE,
@@ -260,7 +322,6 @@ CREATE TABLE orders (
   delivered_at TIMESTAMP NULL,
   tracking_number VARCHAR(50),
   carrier VARCHAR(30),
-  shipping_label_url TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (customer_id) REFERENCES customers(id),
@@ -942,7 +1003,7 @@ INSERT INTO product_variants (product_id, color_id, size_id, sku_variant, stock)
 (40, 5, 7, 'GS-005-RED-39', 8), (40, 5, 8, 'GS-005-RED-40', 12), (40, 5, 9, 'GS-005-RED-41', 15), (40, 5, 10, 'GS-005-RED-42', 12), (40, 5, 11, 'GS-005-RED-43', 8);
 
 
-SET FOREIGN_KEY_CHECKS = 1;
+-- FOREIGN KEY CHECKS will be enabled at the end (line 1030+)
 
 INSERT INTO lucky_spin_programs (name, description, start_date, end_date, daily_free_spins, points_per_spin, is_active, created_at, updated_at)
 VALUES (
@@ -999,3 +1060,28 @@ SELECT * FROM lucky_spin_programs WHERE id = @program_id;
 
 SELECT 'Rewards created:' AS info;
 SELECT id, name, reward_type, reward_value, base_probability, sort_order FROM lucky_spin_rewards WHERE program_id = @program_id ORDER BY sort_order;
+
+-- ============================================================================
+-- 9. FLASH SALE & NIGHT MARKET DEMO DATA
+-- ============================================================================
+
+-- Flash Sale Demo (Active starting now)
+INSERT INTO flash_sale_configs (name, start_time, end_time, is_active, discount_label)
+VALUES (N'Flash Sale Khai Trương', NOW(), DATE_ADD(NOW(), INTERVAL 24 HOUR), TRUE, N'GIẢM SỐC GIỜ VÀNG');
+
+SET @fs_id = LAST_INSERT_ID();
+-- Sale Áo Thun (ID 1) giá 99k, Giày Sneaker (ID 10) giá 999k, Balo Urban (ID 28) giá 499k
+INSERT INTO flash_sale_items (flash_sale_config_id, product_id, variant_id, sale_price) VALUES 
+(@fs_id, 1, 1, 99000), 
+(@fs_id, 10, 26, 999000), 
+(@fs_id, 28, 47, 499000);
+
+-- Night Market Configuration (Base settings)
+INSERT INTO night_market_configs (min_offers, max_offers, min_discount_percent, max_discount_percent, offer_duration_days, is_active)
+VALUES (3, 6, 20, 80, 7, TRUE);
+
+-- ============================================================================
+-- FINALIZATION
+-- ============================================================================
+SET FOREIGN_KEY_CHECKS = 1;
+SELECT 'Database initialization completed successfully.' AS status;

@@ -198,7 +198,6 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    @Loggable(action = "DELETE", entityType = "Product")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id, jakarta.servlet.http.HttpServletRequest request) {
         // Get product info BEFORE checking existence to avoid transaction issues
         Product product = productRepository.findById(id).orElse(null);
