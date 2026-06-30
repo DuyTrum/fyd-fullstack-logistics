@@ -1,4 +1,4 @@
-﻿# ====================== JAVA / SPRING BOOT ======================
+# ====================== JAVA / SPRING BOOT ======================
 *.class
 *.jar
 *.war
@@ -27,7 +27,9 @@ buildNumber.properties
 /build/
 
 # Spring Boot
-back-end/uploads/
+# back-end/uploads/ (Allow tracking product images)
+back-end/uploads/reviews/
+back-end/uploads/avatars/
 back-end/.jqwik-database
 
 # ====================== NODE / REACT / VITE ======================
