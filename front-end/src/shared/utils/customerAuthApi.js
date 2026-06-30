@@ -1,6 +1,7 @@
 // customerAuthApi.js - API service for Customer Authentication
 
-const API_BASE = 'http://localhost:8080/api/customer/auth';
+const VITE_API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+const API_BASE = `${VITE_API_URL}/api/customer/auth`;
 
 /**
  * Helper function for customer auth API calls

@@ -29,7 +29,7 @@ const API_BASE = `${BASE_URL}/api`;
 export const getAssetUrl = (url) => {
   if (!url) return null;
   if (url.startsWith('http')) {
-    if (!url.includes('localhost') && !url.includes('127.0.0.1') && !url.includes('192.168.') && !url.includes('unsplash.com') && !url.includes('placehold.co') && !url.includes('via.placeholder.com') && !url.includes('nike.com') && !url.includes('shopify.com')) {
+    if (!url.includes('localhost') && !url.includes('127.0.0.1') && !url.includes('192.168.') && !url.includes('unsplash.com') && !url.includes('placehold.co') && !url.includes('via.placeholder.com') && !url.includes('nike.com') && !url.includes('shopify.com') && !url.includes('onrender.com')) {
       const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
         <rect width="100%" height="100%" fill="#14141c"/>
         <rect x="8" y="8" width="184" height="184" rx="12" fill="none" stroke="#252535" stroke-width="2"/>

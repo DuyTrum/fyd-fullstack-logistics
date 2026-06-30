@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useToast } from "@shared/context/ToastContext";
+import { BASE_URL } from '@shared/utils/api';
 import FileDropzone from './FileDropzone';
 import PreviewTable from './PreviewTable';
 import ImportResult from './ImportResult';
@@ -37,7 +38,7 @@ function ImportProducts({ open, onClose, onSuccess }) {
   const handleDownloadTemplate = async () => {
     try {
       const token = localStorage.getItem('fyd_token');
-      const response = await fetch('http://localhost:8080/api/import/template', {
+      const response = await fetch(`${BASE_URL}/api/import/template`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -71,7 +72,7 @@ function ImportProducts({ open, onClose, onSuccess }) {
       const formData = new FormData();
       formData.append('file', file);
 
-      const response = await fetch('http://localhost:8080/api/import/products/preview', {
+      const response = await fetch(`${BASE_URL}/api/import/products/preview`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -104,7 +105,7 @@ function ImportProducts({ open, onClose, onSuccess }) {
       const formData = new FormData();
       formData.append('file', file);
 
-      const response = await fetch('http://localhost:8080/api/import/products/execute', {
+      const response = await fetch(`${BASE_URL}/api/import/products/execute`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
