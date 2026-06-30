@@ -1,7 +1,7 @@
 import React from 'react';
 import { Sparkles, User } from 'lucide-react';
 import ProductCard from './ProductCard';
-import { getAssetUrl } from '@shared/utils/api';
+import { getAssetUrl } from '@shared/utils/api.js';
 
 export default function ChatMessage({ role, content, onProductClick }) {
   const isAssistant = role === 'assistant';
@@ -32,7 +32,7 @@ export default function ChatMessage({ role, content, onProductClick }) {
     return segments.map((seg, sIdx) => {
       if (seg.type === 'code') {
         return (
-          <pre key={`code-${sIdx}`} className="p-3.5 my-3 font-mono text-xs rounded-xl bg-black/35 border border-white/5 overflow-x-auto text-[var(--accent)] max-w-full">
+          <pre key={`code-${sIdx}`}>
             <code>{seg.content}</code>
           </pre>
         );
@@ -100,7 +100,7 @@ export default function ChatMessage({ role, content, onProductClick }) {
         if (match.index > lastIdx) {
           parts.push(line.substring(lastIdx, match.index));
         }
-        parts.push(<strong key={`b-${match.index}`} className="font-extrabold text-[var(--accent)]">{match[1]}</strong>);
+        parts.push(<strong key={`b-${match.index}`}>{match[1]}</strong>);
         lastIdx = boldRegex.lastIndex;
       }
 
@@ -115,7 +115,7 @@ export default function ChatMessage({ role, content, onProductClick }) {
       const element = parts.length > 0 ? parts : cleanLine;
 
       return (
-        <span key={lIdx} className={`block ${isBullet ? 'pl-4 relative before:content-["•"] before:absolute before:left-0 before:text-[var(--accent)]' : ''} ${lIdx > 0 ? 'mt-1' : ''}`}>
+        <span key={lIdx} className={`ai-block ${isBullet ? 'ai-bullet-point' : ''} ${lIdx > 0 ? 'ai-mt-1' : ''}`}>
           {element}
         </span>
       );
@@ -123,22 +123,14 @@ export default function ChatMessage({ role, content, onProductClick }) {
   };
 
   return (
-    <div className={`flex gap-3 max-w-[85%] ${isAssistant ? 'self-start' : 'self-end flex-row-reverse'}`}>
+    <div className={`ai-msg-wrapper ${role}`}>
       {/* Avatar */}
-      <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm border ${
-        isAssistant 
-          ? 'bg-[var(--panel)] border-[var(--border)] text-[var(--accent)]' 
-          : 'bg-[var(--accent)] border-[var(--accent)] text-black'
-      }`}>
-        {isAssistant ? <Sparkles className="w-4.5 h-4.5" /> : <User className="w-4.5 h-4.5" />}
+      <div className="ai-msg-avatar-bubble">
+        {isAssistant ? <Sparkles style={{ width: '16px', height: '16px' }} /> : <User style={{ width: '16px', height: '16px' }} />}
       </div>
 
       {/* Message content */}
-      <div className={`px-4 py-3 rounded-2xl text-xs sm:text-sm leading-relaxed shadow-sm border ${
-        isAssistant 
-          ? 'bg-[var(--panel)] border-[var(--border)] text-[var(--text)] rounded-tl-sm' 
-          : 'bg-[var(--panel2)] border-[var(--border)] text-[var(--text)] rounded-tr-sm'
-      }`}>
+      <div className="ai-msg-text-bubble">
         {renderContent(content)}
       </div>
     </div>

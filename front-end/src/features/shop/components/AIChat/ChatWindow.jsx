@@ -38,61 +38,40 @@ export default function ChatWindow({
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 30, scale: 0.95 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="fixed bottom-24 right-6 w-[400px] max-w-[calc(100vw-48px)] h-[580px] max-h-[calc(100vh-140px)] rounded-2xl bg-[var(--bg)]/95 border border-[var(--border)] shadow-2xl backdrop-blur-xl flex flex-col z-[9998] overflow-hidden"
+          className="ai-chat-window"
         >
           {/* Header */}
           <ChatHeader onMinimize={onMinimize} onClose={onClose} />
 
           {/* Body / Scrollable Area */}
-          <div
-            ref={scrollRef}
-            className="flex-1 overflow-y-auto overflow-x-hidden p-4 flex flex-col gap-4 scroll-smooth"
-            style={{
-              scrollbarWidth: 'thin',
-              scrollbarColor: 'var(--border) transparent'
-            }}
-          >
+          <div ref={scrollRef} className="ai-chat-body">
             {messages.length === 0 ? (
               /* Welcome State */
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex flex-col items-center text-center p-6 my-auto"
+                className="ai-welcome-card"
               >
                 {/* Glowing Assist Logo */}
-                <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-tr from-[var(--accent)] to-[var(--accent2)] flex items-center justify-center text-black shadow-lg shadow-[var(--accent)]/10 mb-4 animate-bounce">
-                  <Sparkles className="w-7 h-7" />
+                <div className="ai-welcome-logo">
+                  <Sparkles style={{ width: '28px', height: '28px' }} />
                 </div>
                 
-                <h4 className="text-xs sm:text-sm font-extrabold text-[var(--text)] tracking-tight uppercase">
-                  Xin chào! 👋
-                </h4>
-                <p className="text-[11px] sm:text-xs text-[var(--muted)] mt-1.5 leading-relaxed max-w-[85%] font-medium">
+                <h4>Xin chào! 👋</h4>
+                <p>
                   Tôi là trợ lý ảo cao cấp của FYD Store. Tôi có thể hỗ trợ bạn:
                 </p>
 
                 {/* Features List */}
-                <ul className="text-left text-[11px] sm:text-xs text-[var(--text)]/85 space-y-1.5 my-5 pl-1.5 font-semibold">
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
-                    Tìm kiếm sản phẩm phù hợp
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
-                    So sánh các sản phẩm chi tiết
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
-                    Tư vấn size và phối đồ thời trang
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
-                    Theo dõi đơn hàng của bạn
-                  </li>
+                <ul className="ai-features-list">
+                  <li>Tìm kiếm sản phẩm phù hợp</li>
+                  <li>So sánh các sản phẩm chi tiết</li>
+                  <li>Tư vấn size và phối đồ thời trang</li>
+                  <li>Theo dõi đơn hàng của bạn</li>
                 </ul>
 
                 {/* Quick actions chips */}
-                <div className="flex flex-wrap gap-2 justify-center mt-2 max-w-full">
+                <div className="ai-welcome-suggested">
                   {quickActions.map((action, idx) => (
                     <SuggestionChip
                       key={idx}

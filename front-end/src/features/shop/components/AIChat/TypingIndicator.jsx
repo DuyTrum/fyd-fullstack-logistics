@@ -1,29 +1,15 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 
 export default function TypingIndicator() {
   return (
-    <div className="flex items-center gap-2.5 self-start max-w-[80%]">
-      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--panel)] border border-[var(--border)] text-[var(--accent)] flex-shrink-0 shadow-inner">
-        <SparklesIcon className="w-4 h-4 animate-pulse" />
+    <div className="ai-typing-container">
+      <div className="ai-msg-avatar-bubble">
+        <SparklesIcon className="w-4 h-4" />
       </div>
-      <div className="flex items-center gap-1.5 px-4 py-3 rounded-2xl bg-[var(--panel)] border border-[var(--border)] shadow-sm">
-        {[0, 1, 2].map((i) => (
-          <motion.span
-            key={i}
-            className="w-2 h-2 rounded-full bg-[var(--accent)]"
-            animate={{
-              y: ["0%", "-40%", "0%"],
-              opacity: [0.4, 1, 0.4]
-            }}
-            transition={{
-              duration: 0.8,
-              repeat: Infinity,
-              delay: i * 0.15,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
+      <div className="ai-typing-dots-box">
+        <span className="ai-typing-dot"></span>
+        <span className="ai-typing-dot"></span>
+        <span className="ai-typing-dot"></span>
       </div>
     </div>
   );
@@ -38,6 +24,7 @@ function SparklesIcon({ className }) {
       strokeWidth={2}
       stroke="currentColor"
       className={className}
+      style={{ width: '16px', height: '16px' }}
     >
       <path
         strokeLinecap="round"

@@ -5,7 +5,7 @@ export default function SuggestionChip({ text, onClick }) {
     <button
       onClick={onClick}
       type="button"
-      className="px-4 py-2 text-xs font-semibold rounded-full bg-[var(--panel)] border border-[var(--border)] text-[var(--text)] hover:bg-[var(--panel2)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all duration-350 active:scale-95 shadow-sm"
+      className="ai-suggestion-chip"
     >
       {text}
     </button>

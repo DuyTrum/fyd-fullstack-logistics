@@ -11,17 +11,17 @@ export default function ChatInput({ value, onChange, onSend, onKeyPress, disable
   }, [disabled]);
 
   return (
-    <div className="p-4 bg-[var(--panel)] border-t border-[var(--border)] backdrop-blur-md">
-      <div className="flex items-center gap-2 bg-[var(--panel2)] border border-[var(--border)] rounded-2xl p-1.5 focus-within:border-[var(--accent)] transition-all duration-350">
+    <div className="ai-input-bar">
+      <div className="ai-input-wrapper">
         
         {/* Attachment button (Mocked) */}
         <button
           type="button"
           disabled={disabled}
-          className="w-8 h-8 rounded-xl flex items-center justify-center text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--panel)] disabled:opacity-50 transition-colors duration-200 active:scale-95"
+          className="ai-icon-btn"
           aria-label="Đính kèm tệp"
         >
-          <Paperclip className="w-4 h-4" />
+          <Paperclip style={{ width: '16px', height: '16px' }} />
         </button>
 
         {/* Text Input */}
@@ -33,17 +33,17 @@ export default function ChatInput({ value, onChange, onSend, onKeyPress, disable
           onKeyDown={onKeyPress}
           disabled={disabled}
           placeholder="Hỏi bất cứ điều gì về sản phẩm..."
-          className="flex-1 bg-transparent border-none outline-none text-xs sm:text-sm text-[var(--text)] placeholder:text-[var(--muted2)] px-1 py-2 min-w-0"
+          className="ai-input-field"
         />
 
         {/* Voice button (Mocked) */}
         <button
           type="button"
           disabled={disabled}
-          className="w-8 h-8 rounded-xl flex items-center justify-center text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--panel)] disabled:opacity-50 transition-colors duration-200 active:scale-95"
+          className="ai-icon-btn"
           aria-label="Tìm bằng giọng nói"
         >
-          <Mic className="w-4 h-4" />
+          <Mic style={{ width: '16px', height: '16px' }} />
         </button>
 
         {/* Send Button */}
@@ -51,10 +51,10 @@ export default function ChatInput({ value, onChange, onSend, onKeyPress, disable
           onClick={onSend}
           type="button"
           disabled={!value.trim() || disabled}
-          className="w-8 h-8 rounded-xl flex items-center justify-center bg-gradient-to-r from-[var(--accent)] to-[var(--accent2)] text-black font-extrabold disabled:from-[var(--panel)] disabled:to-[var(--panel)] disabled:text-[var(--muted2)] disabled:cursor-not-allowed transition-all duration-350 active:scale-95 shadow-md"
+          className="ai-icon-btn send"
           aria-label="Gửi tin nhắn"
         >
-          <Send className="w-3.5 h-3.5" />
+          <Send style={{ width: '14px', height: '14px' }} />
         </button>
 
       </div>

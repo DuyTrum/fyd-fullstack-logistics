@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../../styles/ai-chat.css';
 import ChatBubble from './ChatBubble';
 import ChatWindow from './ChatWindow';
 import { aiAPI } from '@shared/utils/api.js';
