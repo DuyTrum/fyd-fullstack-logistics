@@ -3,7 +3,7 @@ import { Sparkles, User } from 'lucide-react';
 import ProductCard from './ProductCard';
 import { getAssetUrl } from '@shared/utils/api.js';
 
-export default function ChatMessage({ role, content, onProductClick }) {
+export default function ChatMessage({ role, content, image, onProductClick }) {
   const isAssistant = role === 'assistant';
 
   // Function to parse the message content for markdown and custom tags
@@ -131,6 +131,13 @@ export default function ChatMessage({ role, content, onProductClick }) {
 
       {/* Message content */}
       <div className="ai-msg-text-bubble">
+        {image && (
+          <img
+            src={image}
+            alt="Đính kèm"
+            className="ai-message-attachment"
+          />
+        )}
         {renderContent(content)}
       </div>
     </div>

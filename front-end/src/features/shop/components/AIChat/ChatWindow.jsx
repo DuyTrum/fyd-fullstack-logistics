@@ -19,7 +19,12 @@ export default function ChatWindow({
   onQuickAction,
   onMinimize,
   onClose,
-  quickActions
+  quickActions,
+  attachedImage,
+  onAttachImage,
+  onClearImage,
+  isRecording,
+  onToggleRecording
 }) {
   const scrollRef = useRef(null);
 
@@ -88,6 +93,7 @@ export default function ChatWindow({
                   key={idx}
                   role={msg.role}
                   content={msg.content}
+                  image={msg.image}
                   onProductClick={onProductClick}
                 />
               ))
@@ -104,6 +110,11 @@ export default function ChatWindow({
             onSend={onSend}
             onKeyPress={onKeyPress}
             disabled={isLoading}
+            attachedImage={attachedImage}
+            onAttachImage={onAttachImage}
+            onClearImage={onClearImage}
+            isRecording={isRecording}
+            onToggleRecording={onToggleRecording}
           />
 
         </motion.div>
