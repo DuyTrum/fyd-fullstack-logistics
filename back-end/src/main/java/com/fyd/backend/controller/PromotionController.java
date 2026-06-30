@@ -2,6 +2,7 @@ package com.fyd.backend.controller;
 
 import com.fyd.backend.entity.Promotion;
 import com.fyd.backend.repository.PromotionRepository;
+import com.fyd.backend.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,29 +20,57 @@ public class PromotionController {
     @Autowired
     private PromotionRepository promotionRepository;
 
+    @Autowired
+    private OrderRepository orderRepository;
+
+    private void syncUsedCount(Promotion p) {
+        if (p != null) {
+            long realCount = orderRepository.countByPromotionCodeIgnoreCase(p.getCode());
+            if (p.getUsedCount() == null || p.getUsedCount() != (int) realCount) {
+                p.setUsedCount((int) realCount);
+                promotionRepository.save(p);
+            }
+        }
+    }
+
+    private void syncUsedCount(List<Promotion> promotions) {
+        for (Promotion p : promotions) {
+            syncUsedCount(p);
+        }
+    }
+
     // Get all promotions (admin)
     @GetMapping
     public ResponseEntity<List<Promotion>> getAllPromotions() {
-        return ResponseEntity.ok(promotionRepository.findAll());
+        List<Promotion> list = promotionRepository.findAll();
+        syncUsedCount(list);
+        return ResponseEntity.ok(list);
     }
 
     // Get active promotions
     @GetMapping("/list/active")
     public ResponseEntity<List<Promotion>> getActivePromotions() {
-        return ResponseEntity.ok(promotionRepository.findAllValidPromotions());
+        List<Promotion> list = promotionRepository.findAllValidPromotions();
+        syncUsedCount(list);
+        return ResponseEntity.ok(list);
     }
 
     // Get active flash sales
     @GetMapping("/list/flash-sale")
     public ResponseEntity<List<Promotion>> getFlashSales() {
-        return ResponseEntity.ok(promotionRepository.findActiveFlashSales());
+        List<Promotion> list = promotionRepository.findActiveFlashSales();
+        syncUsedCount(list);
+        return ResponseEntity.ok(list);
     }
 
     // Get promotion by ID
     @GetMapping("/{id}")
     public ResponseEntity<Promotion> getPromotion(@PathVariable Long id) {
         return promotionRepository.findById(id)
-                .map(ResponseEntity::ok)
+                .map(p -> {
+                    syncUsedCount(p);
+                    return ResponseEntity.ok(p);
+                })
                 .orElse(ResponseEntity.notFound().build());
     }
 
@@ -103,6 +132,7 @@ public class PromotionController {
         }
 
         Promotion promotion = promoOpt.get();
+        syncUsedCount(promotion);
         
         if (!promotion.isValid()) {
             response.put("valid", false);
@@ -136,7 +166,8 @@ public class PromotionController {
         
         return promotionRepository.findByCodeIgnoreCase(code)
                 .map(promotion -> {
-                    promotion.setUsedCount(promotion.getUsedCount() + 1);
+                    long realCount = orderRepository.countByPromotionCodeIgnoreCase(promotion.getCode());
+                    promotion.setUsedCount((int) realCount + 1);
                     promotionRepository.save(promotion);
                     return ResponseEntity.ok().<Void>build();
                 })

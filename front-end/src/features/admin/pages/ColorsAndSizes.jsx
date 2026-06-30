@@ -205,7 +205,7 @@ function ColorsTab() {
             <div
                 style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
+                    gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
                     gap: 12,
                 }}
             >
@@ -221,31 +221,58 @@ function ColorsTab() {
                                 background: "var(--glass-bg)",
                                 border: "1px solid var(--admin-border)",
                                 borderRadius: "var(--admin-radius-md)",
-                                padding: 16,
+                                padding: "12px 16px",
                                 display: "flex",
                                 alignItems: "center",
+                                justifyContent: "space-between",
                                 gap: 12,
                             }}
                         >
                             <div
                                 style={{
-                                    width: 40,
-                                    height: 40,
-                                    borderRadius: 8,
-                                    background: c.hexCode || "#000",
-                                    border: "2px solid rgba(255,255,255,0.2)",
-                                    flexShrink: 0,
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 12,
+                                    minWidth: 0,
+                                    flex: 1,
                                 }}
-                                title={c.hexCode}
-                            />
-                            <div style={{ flex: 1, minWidth: 0 }}>
-                                <div style={{ fontWeight: 600, color: "var(--admin-text)" }}>{c.name}</div>
-                                <div className="mono" style={{ fontSize: 11, color: "var(--admin-text-muted)" }}>
-                                    {c.hexCode}
+                            >
+                                <div
+                                    style={{
+                                        width: 40,
+                                        height: 40,
+                                        borderRadius: 8,
+                                        background: c.hexCode || "#000",
+                                        border: "2px solid rgba(255,255,255,0.2)",
+                                        flexShrink: 0,
+                                    }}
+                                    title={c.hexCode}
+                                />
+                                <div style={{ minWidth: 0, flex: 1 }}>
+                                    <div
+                                        style={{
+                                            fontWeight: 600,
+                                            color: "var(--admin-text)",
+                                            whiteSpace: "nowrap",
+                                            overflow: "hidden",
+                                            textOverflow: "ellipsis",
+                                        }}
+                                        title={c.name}
+                                    >
+                                        {c.name}
+                                    </div>
+                                    <div className="mono" style={{ fontSize: 11, color: "var(--admin-text-muted)" }}>
+                                        {c.hexCode}
+                                    </div>
                                 </div>
                             </div>
-                            <div style={{ display: "flex", gap: 4 }}>
-                                <button className="linkBtn" type="button" onClick={() => openEdit(c)} style={{ padding: "4px 6px" }}>
+                            <div style={{ display: "flex", gap: 4, flexShrink: 0 }}>
+                                <button
+                                    className="linkBtn"
+                                    type="button"
+                                    onClick={() => openEdit(c)}
+                                    style={{ padding: "4px 6px" }}
+                                >
                                     {t("common.edit")}
                                 </button>
                                 <button

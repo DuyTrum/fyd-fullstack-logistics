@@ -187,6 +187,11 @@
     color: var(--shop-white);
 }
 
+.gallery-main .product-badge.flash-sale {
+    background: #ff4b2b;
+    color: var(--shop-white);
+}
+
 .gallery-main .product-badge.new {
     background: var(--shop-black);
     color: var(--shop-white);
@@ -250,6 +255,10 @@
     font-weight: 700;
 }
 
+.product-price-section .discount-badge.flash-sale {
+    background: #ff4b2b;
+}
+
 /* Color Selector */
 .color-selector {
     margin-bottom: 24px;
@@ -282,7 +291,7 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    border: 2px solid transparent;
+    border: 1px solid rgba(0, 0, 0, 0.15);
     cursor: pointer;
     transition: all var(--shop-transition);
     position: relative;
@@ -777,3 +786,103 @@
         height: 60px;
     }
 }
+
+/* Sticky Purchase Bar for Mobile */
+.sticky-mobile-purchase-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border-top: 1px solid var(--shop-gray-200);
+    padding: 12px 20px env(safe-area-inset-bottom, 12px);
+    z-index: 999;
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.06);
+    display: none;
+    animation: slideUp 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.sticky-purchase-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+}
+
+.sticky-purchase-img {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: var(--shop-radius);
+    border: 1px solid var(--shop-gray-200);
+}
+
+.sticky-purchase-info {
+    flex: 1;
+    overflow: hidden;
+}
+
+.sticky-purchase-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--shop-black);
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.sticky-purchase-meta {
+    font-size: 11px;
+    color: var(--shop-gray-500);
+    margin: 2px 0 0 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.sticky-purchase-add-btn {
+    background: var(--shop-black);
+    color: var(--shop-white);
+    border: none;
+    padding: 12px 24px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: var(--shop-radius);
+    transition: opacity 0.2s ease;
+}
+
+.sticky-purchase-add-btn:hover {
+    opacity: 0.9;
+}
+
+.sticky-purchase-add-btn:disabled {
+    background: var(--shop-gray-300);
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .sticky-mobile-purchase-bar {
+        display: block;
+    }
+    /* Add extra padding at the bottom of main detail page to avoid overlapping footer/sticky bar */
+    .product-detail-main {
+        padding-bottom: 100px;
+    }
+}

@@ -1,0 +1,647 @@
+/* ai-management.css - Style system for Enterprise AI Management */
+
+.ai-mgmt-container {
+  padding: 0;
+  max-width: 1600px;
+  margin: 0 auto;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.ai-mgmt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.ai-status-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--admin-success-bg);
+  color: var(--admin-success);
+  padding: 6px 16px;
+  border-radius: var(--admin-radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.pulsing {
+  width: 8px;
+  height: 8px;
+  background-color: var(--admin-success);
+  border-radius: 50%;
+  animation: pulse-glow-success 1.5s infinite;
+}
+
+@keyframes pulse-glow-success {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+/* Sub Menu Double Column Layout */
+.ai-mgmt-grid {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.ai-mgmt-sidebar {
+  padding: 16px 8px;
+  border-radius: var(--admin-radius-lg);
+  border: 1px solid var(--admin-border);
+  background: var(--admin-surface);
+}
+
+.ai-sub-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ai-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+  border-radius: var(--admin-radius-md);
+  color: var(--admin-text-muted);
+  font-family: var(--admin-font);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--admin-transition);
+}
+
+.ai-nav-item:hover {
+  background: var(--admin-surface-elevated);
+  color: var(--admin-text);
+}
+
+.ai-nav-item.active {
+  background: rgba(var(--admin-accent-rgb), 0.1);
+  color: var(--admin-text);
+  font-weight: 600;
+  border-left: 3px solid var(--admin-accent);
+}
+
+.ai-mgmt-content {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-lg);
+  padding: 24px;
+  min-height: 600px;
+}
+
+/* =====================================================
+   DASHBOARD WIDGETS
+   ===================================================== */
+.widgets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.widget-card {
+  background: var(--admin-surface-elevated);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-md);
+  padding: 18px;
+  transition: all var(--admin-transition);
+}
+
+.widget-card:hover {
+  border-color: var(--admin-border-hover);
+  transform: translateY(-2px);
+}
+
+.widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.widget-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--admin-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.widget-icon {
+  color: var(--admin-accent);
+  opacity: 0.8;
+}
+
+.widget-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--admin-text);
+  margin-bottom: 6px;
+  font-family: var(--admin-font);
+  letter-spacing: -0.5px;
+}
+
+.widget-footer {
+  font-size: 11px;
+  color: var(--admin-text-muted-2);
+}
+
+.badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: var(--admin-radius-sm);
+}
+
+.badge.positive {
+  background: var(--admin-success-bg);
+  color: var(--admin-success);
+}
+
+.badge.negative {
+  background: var(--admin-error-bg);
+  color: var(--admin-error);
+}
+
+.badge.neutral {
+  background: var(--admin-surface-elevated);
+  color: var(--admin-text-muted);
+}
+
+.badge.warning {
+  background: var(--admin-warning-bg);
+  color: var(--admin-warning);
+}
+
+/* =====================================================
+   CHAT ASSISTANT
+   ===================================================== */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 550px;
+  background: var(--admin-surface-elevated);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-md);
+  overflow: hidden;
+}
+
+.chat-history {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chat-bubble {
+  display: flex;
+  gap: 12px;
+  max-width: 80%;
+  align-self: flex-start;
+}
+
+.chat-bubble.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.chat-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--admin-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--admin-text);
+}
+
+.chat-bubble.user .chat-avatar {
+  background: var(--admin-accent);
+}
+
+.chat-text {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  padding: 12px 16px;
+  border-radius: var(--admin-radius-lg);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--admin-text);
+  white-space: pre-line;
+}
+
+.chat-bubble.user .chat-text {
+  background: var(--admin-accent);
+  color: #fff;
+  border-color: var(--admin-accent);
+}
+
+.chat-input-pane {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  background: var(--admin-surface);
+  border-top: 1px solid var(--admin-border);
+}
+
+/* =====================================================
+   PRODUCT GENERATOR
+   ===================================================== */
+.product-gen-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 24px;
+  min-height: 500px;
+}
+
+.gen-input-pane {
+  background: var(--admin-surface-elevated);
+  border: 1px solid var(--admin-border);
+  padding: 20px;
+  border-radius: var(--admin-radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gen-input-pane h3, .gen-output-pane h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: var(--admin-text);
+}
+
+.gen-input-pane textarea {
+  width: 100%;
+  height: 120px;
+  padding: 12px;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-md);
+  color: var(--admin-text);
+  font-family: var(--admin-font);
+  font-size: 14px;
+  resize: none;
+  outline: none;
+}
+
+.gen-input-pane textarea:focus {
+  border-color: var(--admin-accent);
+}
+
+.gen-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.gen-options label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: var(--admin-surface-elevated);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-md);
+  color: var(--admin-text-muted);
+  cursor: pointer;
+  transition: all var(--admin-transition);
+  user-select: none;
+}
+
+.gen-options label:hover {
+  border-color: var(--admin-border-hover);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--admin-text);
+}
+
+.gen-options label:has(input:checked) {
+  border-color: var(--admin-accent);
+  background: rgba(var(--admin-accent-rgb), 0.05);
+  color: var(--admin-text);
+  box-shadow: 0 0 10px rgba(var(--admin-accent-rgb), 0.1);
+}
+
+.gen-options label input[type="checkbox"] {
+  accent-color: var(--admin-accent);
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.gen-output-pane {
+  border: 1px solid var(--admin-border);
+  padding: 20px;
+  border-radius: var(--admin-radius-md);
+  background: var(--admin-surface);
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+  max-height: 450px;
+  padding-right: 8px;
+}
+
+.preview-section {
+  border-bottom: 1px solid var(--admin-border);
+  padding-bottom: 16px;
+}
+
+.preview-section:last-child {
+  border-bottom: none;
+}
+
+.preview-section h4 {
+  font-size: 13px;
+  color: var(--admin-text-muted);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.seo-snippet {
+  background: var(--admin-surface-elevated);
+  border: 1px solid var(--admin-border);
+  padding: 14px;
+  border-radius: var(--admin-radius-md);
+}
+
+.seo-title {
+  display: block;
+  color: #3b82f6;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+
+.seo-url {
+  display: block;
+  color: var(--admin-text-muted-2);
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.seo-desc {
+  display: block;
+  color: var(--admin-text-muted);
+  font-size: 13px;
+}
+
+.tag-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  background: var(--admin-surface-elevated);
+  border: 1px solid var(--admin-border);
+  padding: 4px 10px;
+  border-radius: var(--admin-radius-sm);
+  font-size: 12px;
+  color: var(--admin-text);
+}
+
+/* =====================================================
+   RECOMMENDATIONS
+   ===================================================== */
+.recommendations-header {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--admin-border);
+  padding-bottom: 12px;
+}
+
+.reco-sub-tab {
+  background: transparent;
+  border: none;
+  color: var(--admin-text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: var(--admin-radius-sm);
+}
+
+.reco-sub-tab.active {
+  background: var(--admin-surface-elevated);
+  color: var(--admin-text);
+}
+
+/* =====================================================
+   COST MONITORING
+   ===================================================== */
+.budget-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 600px;
+}
+
+.budget-progress-container {
+  background: var(--admin-surface-elevated);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-md);
+  padding: 24px;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 12px;
+  background: var(--admin-surface);
+  border-radius: var(--admin-radius-full);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--admin-accent);
+  border-radius: var(--admin-radius-full);
+  transition: width 0.3s ease;
+}
+
+.progress-bar-fill.warning {
+  background: var(--admin-warning);
+}
+
+.progress-bar-fill.error {
+  background: var(--admin-error);
+}
+
+/* =====================================================
+   SETTINGS PANEL
+   ===================================================== */
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 600px;
+}
+
+.ai-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--admin-text-muted);
+}
+
+.range-slider-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.range-slider-group input {
+  flex: 1;
+}
+
+.range-val {
+  font-family: var(--admin-font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  min-width: 32px;
+  text-align: right;
+}
+
+/* =====================================================
+   SHARED & GENERAL
+   ===================================================== */
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--admin-text-muted-2);
+  font-size: 14px;
+  padding: 40px;
+  text-align: center;
+}
+
+.loading-spinner-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  gap: 16px;
+}
+
+.spinner-glow {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(var(--admin-accent-rgb), 0.1);
+  border-top-color: var(--admin-accent);
+  border-radius: 50%;
+  animation: spinner-spin 0.8s linear infinite;
+}
+
+@keyframes spinner-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =====================================================
+   ISOLATED AI INPUTS & CONTROLS SPECIFIC STYLING
+   ===================================================== */
+
+/* Force inputs, selects, and textareas inside AI Mgmt to match dark design tokens */
+.ai-mgmt-container input.admin-input,
+.ai-mgmt-container select.admin-input,
+.ai-mgmt-container textarea {
+  background-color: var(--admin-surface-elevated) !important;
+  color: var(--admin-text) !important;
+  border: 1px solid var(--admin-border) !important;
+  padding: 10px 14px !important;
+  border-radius: var(--admin-radius-md) !important;
+  font-family: var(--admin-font) !important;
+  font-size: 14px !important;
+  transition: all var(--admin-transition) !important;
+}
+
+/* Textarea specific height and resize settings */
+.ai-mgmt-container textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Focus styles */
+.ai-mgmt-container input.admin-input:focus,
+.ai-mgmt-container select.admin-input:focus,
+.ai-mgmt-container textarea:focus {
+  border-color: var(--admin-accent) !important;
+  box-shadow: 0 0 0 3px rgba(var(--admin-accent-rgb), 0.15) !important;
+  background-color: rgba(var(--admin-accent-rgb), 0.02) !important;
+  outline: none !important;
+}
+
+/* Hover styles */
+.ai-mgmt-container input.admin-input:hover:not(:focus),
+.ai-mgmt-container select.admin-input:hover:not(:focus),
+.ai-mgmt-container textarea:hover:not(:focus) {
+  border-color: var(--admin-border-hover) !important;
+}
+
+/* Placeholders */
+.ai-mgmt-container input.admin-input::placeholder,
+.ai-mgmt-container textarea::placeholder {
+  color: var(--admin-text-muted-2) !important;
+  opacity: 0.8;
+}
+
+/* Force dark styling on option items across all browsers (safari, chrome, firefox) */
+.ai-mgmt-container select option {
+  background-color: #1f1f23 !important;
+  color: var(--admin-text) !important;
+}
+
+/* Custom premium chevron arrow for Select dropdowns */
+.ai-mgmt-container select.admin-input {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 14px center !important;
+  background-size: 14px !important;
+  padding-right: 40px !important;
+  cursor: pointer !important;
+}

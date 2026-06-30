@@ -109,7 +109,12 @@ export default function LuckySpin() {
         e.preventDefault();
         setSaving(true);
         try {
-            await luckySpinAdminAPI.updateProgram(program);
+            const payload = {
+                ...program,
+                startDate: program.startDate ? program.startDate.replace(' ', 'T').substring(0, 16) + ':00' : null,
+                endDate: program.endDate ? program.endDate.replace(' ', 'T').substring(0, 16) + ':00' : null
+            };
+            await luckySpinAdminAPI.updateProgram(payload);
             showToast(t("lucky_spin.msg_update_program_success"));
         } catch (error) {
             showToast(t("common.update_error") + ": " + error.message, "error");
@@ -251,7 +256,7 @@ export default function LuckySpin() {
                                         <label>{t("promotions.col_start")}</label>
                                         <input
                                             type="datetime-local"
-                                            value={program.startDate ? program.startDate.substring(0, 16) : ""}
+                                            value={program.startDate ? program.startDate.replace(' ', 'T').substring(0, 16) : ""}
                                             onChange={(e) => setProgram({ ...program, startDate: e.target.value })}
                                         />
                                     </div>
@@ -259,7 +264,7 @@ export default function LuckySpin() {
                                         <label>{t("promotions.col_end")}</label>
                                         <input
                                             type="datetime-local"
-                                            value={program.endDate ? program.endDate.substring(0, 16) : ""}
+                                            value={program.endDate ? program.endDate.replace(' ', 'T').substring(0, 16) : ""}
                                             onChange={(e) => setProgram({ ...program, endDate: e.target.value })}
                                         />
                                     </div>

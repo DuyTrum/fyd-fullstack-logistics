@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { initFacebookSdk } from "@shared/utils/facebookSdk.js";
+import { useTranslation } from "react-i18next";
 
 // Admin feature
 import {
@@ -13,7 +14,6 @@ import {
   Revenue,
   Inventory,
   Promotions,
-  GiftCards,
   Tiers,
   Profile,
   FeaturedZones,
@@ -25,8 +25,8 @@ import {
   ColorsAndSizes,
   Reviews,
   ActivityLogs,
-  EventVouchers,
-  FlashSaleAdmin
+  FlashSaleAdmin,
+  DevPortal
 } from "@admin";
 
 // Auth feature
@@ -44,6 +44,7 @@ import ReloadPrompt from "@shared/components/ReloadPrompt.jsx";
 
 export default function App() {
   const location = useLocation();
+  const { i18n } = useTranslation();
 
   // Initialize Facebook SDK and manage Theme class on body
   useEffect(() => {
@@ -52,14 +53,25 @@ export default function App() {
 
   // Manage dynamic theme class on body to prevent CSS leaking
   // Shop needs .light class for global.css overrides, Admin uses dark by default
+  // Also force Vietnamese language for shop client and restore admin language preference
   useEffect(() => {
     const path = location.pathname;
-    if (path.startsWith('/shop') || path === '/') {
+    if (path.startsWith('/shop') || path === '/' || path.startsWith('/product')) {
       document.body.classList.add('light');
+      if (i18n.language === 'en') {
+        localStorage.setItem('admin_lng', 'en');
+        i18n.changeLanguage('vi');
+      }
     } else {
       document.body.classList.remove('light');
+      if (path.startsWith('/admin')) {
+        const savedAdminLng = localStorage.getItem('admin_lng');
+        if (savedAdminLng && savedAdminLng !== i18n.language) {
+          i18n.changeLanguage(savedAdminLng);
+        }
+      }
     }
-  }, [location]);
+  }, [location, i18n]);
 
   return (
     <ConfirmProvider>
@@ -102,7 +114,6 @@ export default function App() {
                 <Route path="revenue" element={<Revenue />} />
                 <Route path="inventory" element={<Inventory />} />
                 <Route path="promotions" element={<Promotions />} />
-                <Route path="gift-cards" element={<GiftCards />} />
                 <Route path="tiers" element={<Tiers />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="featured" element={<FeaturedZones />} />
@@ -121,8 +132,8 @@ export default function App() {
                 <Route path="colors-sizes" element={<ColorsAndSizes />} />
                 <Route path="reviews" element={<Reviews />} />
                 <Route path="activity-logs" element={<ActivityLogs />} />
-                <Route path="event-vouchers" element={<EventVouchers />} />
                 <Route path="flash-sale" element={<FlashSaleAdmin />} />
+                <Route path="dev-portal" element={<DevPortal />} />
               </Route>
 
               {/* Legacy redirects */}

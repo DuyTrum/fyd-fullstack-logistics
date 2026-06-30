@@ -25,9 +25,9 @@ import ShareWishlistModal from "../components/ShareWishlistModal.jsx";
 import ProductRecommendations from "../components/ProductRecommendations.jsx";
 import FlashSaleHub from "../components/FlashSaleHub.jsx";
 import ProductCardSkeleton from "../components/ProductCardSkeleton.jsx";
+import TrustBar from "../components/TrustBar.jsx";
 
-// Utils
-import { fetchProducts, fetchCategories, fetchColors, fetchSizes, getAssetUrl } from "@shared/utils/api.js";
+import { fetchProducts, fetchCategories, fetchColors, fetchSizes, getAssetUrl, flashSalePublicAPI } from "@shared/utils/api.js";
 import { getCustomer, logout as customerLogout } from "@shared/utils/customerSession.js";
 
 const PRODUCTS_PER_PAGE = 12;
@@ -87,14 +87,31 @@ export default function Shop() {
     const loadData = async () => {
       try {
         setLoading(true);
-        const [productsData, categoriesData, colorsData, sizesData, zonesData] = await Promise.all([
+        const [productsData, categoriesData, colorsData, sizesData, zonesData, flashSaleData] = await Promise.all([
           fetchProducts(),
           fetchCategories(),
           fetchColors(),
           fetchSizes(),
-          import("@shared/utils/api.js").then(m => m.featuredAPI.getActiveZones()) // Fetch zones
+          import("@shared/utils/api.js").then(m => m.featuredAPI.getActiveZones()), // Fetch zones
+          flashSalePublicAPI.getActive().catch(() => null)
         ]);
-        setProducts(productsData);
+
+        let mergedProducts = productsData;
+        if (flashSaleData && flashSaleData.status === "RUNNING" && flashSaleData.products?.length > 0) {
+          mergedProducts = productsData.map(p => {
+            const fsProduct = flashSaleData.products.find(fs => String(fs.id) === String(p.id));
+            if (fsProduct) {
+              return {
+                ...p,
+                salePrice: fsProduct.salePrice,
+                isFlashSale: true
+              };
+            }
+            return p;
+          });
+        }
+
+        setProducts(mergedProducts);
         setCategories(categoriesData);
         setColors(colorsData);
         setSizes(sizesData);
@@ -157,7 +174,8 @@ export default function Shop() {
           p.name?.toLowerCase().includes(q) ||
           p.sku?.toLowerCase().includes(q) ||
           p.shortDescription?.toLowerCase().includes(q) ||
-          p.category?.toLowerCase().includes(q)
+          p.category?.toLowerCase().includes(q) ||
+          p.brand?.toLowerCase().includes(q)
       );
     }
 
@@ -462,6 +480,11 @@ export default function Shop() {
         />
       )}
 
+      {/* Trust Bar Section */}
+      {!selectedCategory && !selectedParentCategory && !search && (
+        <TrustBar />
+      )}
+
       {/* Flash Sale Hub */}
       {!selectedCategory && !selectedParentCategory && !search && (
         <div className="shop-container reveal reveal-stagger-1" id="flash-sale-hub">
@@ -538,7 +561,7 @@ export default function Shop() {
                 <line x1="9" y1="8" x2="15" y2="8" />
                 <line x1="17" y1="16" x2="23" y2="16" />
               </svg>
-              BỘ LỌC
+              {filterSidebarOpen ? 'ẨN BỘ LỌC' : 'HIỆN BỘ LỌC'}
             </button>
             <SortDropdown value={sortBy} onChange={setSortBy} />
           </div>
@@ -649,6 +672,20 @@ export default function Shop() {
       )}
 
 
+
+      {/* Newsletter Section */}
+      {!selectedCategory && !selectedParentCategory && !search && (
+        <section className="newsletter-section reveal">
+          <div className="newsletter-container">
+            <h2 className="newsletter-title">ĐĂNG KÝ NHẬN BẢN TIN</h2>
+            <p className="newsletter-subtitle">Đăng ký để nhận thông tin về bộ sưu tập mới nhất và ưu đãi độc quyền từ FYD.</p>
+            <form className="newsletter-form" onSubmit={(e) => { e.preventDefault(); alert("Cảm ơn bạn đã đăng ký nhận bản tin!"); e.target.reset(); }}>
+              <input type="email" placeholder="Nhập địa chỉ email của bạn..." required className="newsletter-input" />
+              <button type="submit" className="newsletter-submit-btn">ĐĂNG KÝ</button>
+            </form>
+          </div>
+        </section>
+      )}
 
       {/* Footer */}
       <ShopFooter />

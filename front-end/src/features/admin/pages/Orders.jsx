@@ -97,6 +97,26 @@ function Pill({ status }) {
 function Drawer({ open, order, onClose, onUpdateStatus, onUpdateOrderData, onPushToGHTK }) {
   const { t } = useTranslation();
   const [isStatusOpen, setIsStatusOpen] = useState(false);
+  const [trackingData, setTrackingData] = useState(null);
+  const [loadingTracking, setLoadingTracking] = useState(false);
+
+  useEffect(() => {
+    if (order && order.trackingNumber) {
+      setLoadingTracking(true);
+      shippingAPI.getTracking(order.id)
+        .then(res => {
+          setTrackingData(res);
+        })
+        .catch(err => {
+          console.error("Failed to fetch GHTK tracking:", err);
+        })
+        .finally(() => {
+          setLoadingTracking(false);
+        });
+    } else {
+      setTrackingData(null);
+    }
+  }, [order?.id, order?.trackingNumber]);
 
   if (!open || !order) return null;
 
@@ -191,6 +211,43 @@ function Drawer({ open, order, onClose, onUpdateStatus, onUpdateOrderData, onPus
                 <span style={{ color: '#64748b' }}>{t("orders.drawer_tracking_code")}:</span>
                 <span className="mono" style={{ fontWeight: 700, color: '#2563eb' }}>{order.trackingNumber}</span>
               </div>
+
+              {/* Timeline GHTK */}
+              {loadingTracking ? (
+                <div style={{ padding: '15px 0 5px 0', fontSize: 13, color: '#64748b', textAlign: 'center' }}>
+                  Đang tải hành trình...
+                </div>
+              ) : trackingData?.order?.logs?.length > 0 ? (
+                <div className="ghtk-timeline" style={{ marginTop: 15, borderTop: '1px solid var(--admin-border, #e2e8f0)', paddingTop: 12 }}>
+                  <div style={{ fontSize: 12, fontWeight: 700, marginBottom: 10, color: 'var(--admin-text, #1e293b)' }}>Hành trình bưu tá GHTK:</div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12, position: 'relative', paddingLeft: 12, borderLeft: '2px dashed var(--admin-border, #cbd5e1)' }}>
+                    {trackingData.order.logs.map((log, lIdx) => (
+                      <div key={lIdx} style={{ position: 'relative' }}>
+                        {/* Point decoration */}
+                        <div style={{
+                          position: 'absolute',
+                          left: -17,
+                          top: 4,
+                          width: 8,
+                          height: 8,
+                          borderRadius: '50%',
+                          background: lIdx === 0 ? '#10b981' : '#cbd5e1',
+                          border: lIdx === 0 ? '2px solid #fff' : 'none',
+                          boxShadow: lIdx === 0 ? '0 0 0 2px #10b981' : 'none'
+                        }} />
+                        <div style={{ fontSize: 10, color: '#64748b', fontWeight: 500 }}>{log.time}</div>
+                        <div style={{ fontSize: 12, color: lIdx === 0 ? '#0f766e' : 'var(--admin-text, #334155)', fontWeight: lIdx === 0 ? 600 : 400, marginTop: 2 }}>
+                          {log.status}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div style={{ padding: '15px 0 5px 0', fontSize: 12, color: '#64748b', textAlign: 'center' }}>
+                  Chưa có thông tin cập nhật hành trình từ bưu tá.
+                </div>
+              )}
             </div>
           </div>
         )}

@@ -1,0 +1,3207 @@
+{
+  "props": {
+    "pageProps": {
+      "cloudUrlFragment": "vn",
+      "initialState": {
+        "global": {
+          "metaTags": {
+            "defaultTitle": "Nike Store. Shoes, Clothing & Gear.",
+            "meta": [
+              {
+                "content": "Products",
+                "name": "keywords"
+              },
+              {
+                "content": "Find Products at Nike.com. Free delivery and returns on select orders.",
+                "name": "description"
+              },
+              {
+                "content": "noindex, nofollow",
+                "name": "robots"
+              },
+              {
+                "content": "x-callback-url/facet-search?name=&conceptid=",
+                "name": "branch:deeplink:$deeplink_path"
+              },
+              {
+                "content": "Products. Nike VN",
+                "property": "og:title"
+              },
+              {
+                "content": "Find Products at Nike.com. Free delivery and returns on select orders.",
+                "property": "og:description"
+              },
+              {
+                "content": "https://www.nike.com/android-icon-192x192.png",
+                "property": "og:image"
+              },
+              {
+                "content": "website",
+                "property": "og:type"
+              },
+              {
+                "content": "https://www.nike.com/vn/w",
+                "property": "og:url"
+              },
+              {
+                "content": "Nike.com",
+                "property": "og:site_name"
+              },
+              {
+                "content": "Products. Nike VN",
+                "name": "twitter:title"
+              },
+              {
+                "content": "Find Products at Nike.com. Free delivery and returns on select orders.",
+                "name": "twitter:description"
+              },
+              {
+                "content": "https://www.nike.com/android-icon-192x192.png",
+                "name": "twitter:image"
+              },
+              {
+                "content": "summary_large_image",
+                "name": "twitter:card"
+              },
+              {
+                "content": "@nike",
+                "name": "twitter:site"
+              },
+              {
+                "content": "@nike",
+                "name": "twitter:creator"
+              }
+            ],
+            "titleTemplate": "%s",
+            "link": [
+              {
+                "href": "https://www.nike.com/vn/w",
+                "rel": "canonical"
+              }
+            ],
+            "title": "Products. Nike VN",
+            "urlPath": "/vn/w"
+          }
+        },
+        "localization": {
+          "urlParam": "en",
+          "language": "en-GB",
+          "intl": "en-GB",
+          "langRegion": "en-GB",
+          "hreflang": "en-VN",
+          "default": true,
+          "country": "vn",
+          "countryName": "Vietnam",
+          "currency": "VND",
+          "reactIntl": "",
+          "merchGroup": "",
+          "messages": {
+            "AE.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Free delivery and returns.",
+            "AT.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "AU.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com.",
+            "AU.NikeCom_PDP_SEO_Desc2": "Free 30-day member returns.",
+            "AU.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Free 30-day member returns.",
+            "BE.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "BG.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "BR.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "BR.NikeCom_PDP_SEO_Desc2": "Free delivery and returns on select orders.",
+            "CA.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "CH.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "CL.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Free delivery and returns.",
+            "CN.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "CN.NikeCom_PDP_SEO_Desc2": "Free delivery and returns on select orders.",
+            "CN.NikeCom_PDP_Suffix": "",
+            "CN.NikeCom_Suffix": "",
+            "CN.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Free delivery and returns on select orders.",
+            "CZ.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "CZ.NikeCom_PDP_SEO_Desc2": "Shop online at Nike.com.",
+            "CZ.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "DE.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com.  ",
+            "DE.NikeCom_PDP_SEO_Desc2": "Shop online at Nike.com.",
+            "DE.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "DK.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "DK.NikeCom_PDP_SEO_Desc2": "Shop online at Nike.com.",
+            "DK.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "EG.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Free delivery and returns.",
+            "ES.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "ES.NikeCom_PDP_SEO_Desc2": "Free delivery and returns.",
+            "ES.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "FI.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "FR.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "FR.NikeCom_PDP_SEO_Desc2": "Free delivery and returns.",
+            "FR.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "GB.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "GB.NikeCom_PDP_SEO_Desc2": "Shop online at Nike.com.",
+            "GB.NikeCom_Suffix": ". Nike UK",
+            "GB.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "GB.NikeCom_Wall_SEO_Title_Suffix": ". Nike UK\n",
+            "GR.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "GR.NikeCom_PDP_SEO_Desc2": "Shop online at Nike.com.",
+            "GR.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "HR.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "HU.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "HU.NikeCom_PDP_SEO_Desc2": "Shop online at Nike.com.",
+            "HU.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "HurleyCom_Wall_SEO_Title_Suffix": "",
+            "ID.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Free delivery and returns on select orders.",
+            "IE.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "IL.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "IN.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Free delivery and returns on select orders.",
+            "IT.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "IT.NikeCom_PDP_SEO_Desc2": "Free delivery and returns.",
+            "IT.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "JP.NikeCom_PDP": "",
+            "JP.NikeCom_PDP_Prefix": "",
+            "JP.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "JP.NikeCom_PDP_SEO_Desc2": "Free delivery and returns on select orders.",
+            "JP.NikeCom_PDP_Suffix": "",
+            "JP.NikeCom_Prefix": "",
+            "JP.NikeCom_Suffix": "",
+            "JP.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Free delivery and returns on select orders.",
+            "JP.NikeCom_Wall_SEO_Title_Suffix": "",
+            "KR.NikeCom_Suffix": "",
+            "KR.NikeCom_Wall_SEO_Desc": "",
+            "KR.NikeCom_Wall_SEO_Title_Suffix": "",
+            "LU.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "MA.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Free delivery and returns.",
+            "MX.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Free delivery and returns.",
+            "MY.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Free delivery and returns on select orders.",
+            "NL.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "NL.NikeCom_PDP_SEO_Desc2": "Shop online at Nike.com.",
+            "NL.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "NO.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "NO.NikeCom_PDP_SEO_Desc2": "Shop online at Nike.com.",
+            "NO.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "NZ.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Free delivery and returns.",
+            "NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "NikeCom_PDP_SEO_Desc2": "Shop online at Nike.com.",
+            "NikeCom_PDP_SEO_Keywords": "{Product_Full_Title}",
+            "NikeCom_PDP_SEO_Title": "{NikeCom_Prefix}{Product_Full_Title}{NikeCom_Suffix}",
+            "NikeCom_PDP_Suffix": ". Nike {country_code}",
+            "NikeCom_Suffix": ". Nike {country_code}",
+            "NikeCom_Wall_SEO_Keywords": "{TITLE}",
+            "NikeCom_Wall_SEO_Title": "{TITLE}",
+            "NikeCom_Wall_SEO_Title_Default": "Products",
+            "NikeCom_Wall_SEO_Title_Suffix": ". Nike {Country Code}",
+            "PH.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Free delivery and returns on select orders.",
+            "PL.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "PL.NikeCom_PDP_SEO_Desc2": "Shop online at Nike.com.",
+            "PL.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "PR.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Free delivery and returns.",
+            "PT.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "PT.NikeCom_PDP_SEO_Desc2": "Shop online at Nike.com.",
+            "PT.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "RO.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "RU.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "RU.NikeCom_PDP_SEO_Desc2": "Free delivery and returns.",
+            "RU.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Free delivery and returns.",
+            "SA.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Free delivery and returns.",
+            "SE.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "SE.NikeCom_PDP_SEO_Desc2": "Shop online at Nike.com.",
+            "SE.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "SG.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Free delivery and returns on select orders.",
+            "SI.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "SK.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "TH.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "TH.NikeCom_PDP_SEO_Desc2": "Free delivery and returns on select orders.",
+            "TH.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Free delivery and returns on select orders.",
+            "TR.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "TR.NikeCom_PDP_SEO_Desc2": "Free delivery and returns on select orders.",
+            "TR.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Shop online at Nike.com.",
+            "TW.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "TW.NikeCom_PDP_SEO_Desc2": "Free delivery and returns on select orders.",
+            "TW.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Free delivery and returns on select orders.",
+            "US.NikeCom_PDP_SEO_Desc1": "Find the {Product_Full_Title} at Nike.com. ",
+            "US.NikeCom_PDP_SEO_Desc2": "Free delivery and returns.",
+            "US.NikeCom_PDP_Suffix": ". Nike.com",
+            "US.NikeCom_Suffix": ". Nike.com",
+            "US.NikeCom_Wall_SEO_Desc": "",
+            "VN.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Free delivery and returns on select orders.",
+            "ZA.NikeCom_Wall_SEO_Desc": "Find {TITLE} at Nike.com. Free delivery and returns.",
+            "AU.pw_wall_card_snkrs": "Available in SNKRS",
+            "AU.pw_wall_card_snkrsComingSoon": "Launching in SNKRS",
+            "JP.pw_discount_addendum": "Sale Price",
+            "JP.pw_tax_included": "(Tax Incl.)",
+            "NZ.pw_wall_card_snkrs": "Available in SNKRS",
+            "NZ.pw_wall_card_snkrsComingSoon": "Launching in SNKRS",
+            "crossell.certona.pw_cart_rr": "YOU MIGHT ALSO LIKE",
+            "price_high_low": "Price: High-Low",
+            "pw__favorites__added": "Added to Favourites",
+            "pw__favorites__not_added": "Product Not Added",
+            "pw__favorites__not_removed": "Product Not Removed",
+            "pw_a11y_filters-selected_aria-label": "{filter} ({selectedFilters} filters applied)",
+            "pw_addtobag_cta": "Add to Bag ",
+            "pw_at": "at",
+            "pw_best_seller": "Bestseller",
+            "pw_cancel": "Cancel",
+            "pw_card_customizeDesc": "Edit this product with Nike By You",
+            "pw_card_exclusivelyOnSNKRS": "Exclusively on SNKRS",
+            "pw_change_store": "Change Store",
+            "pw_close_all_modals": "Close all modals.",
+            "pw_close_store_locator": "Close store locator.",
+            "pw_closed": "Closed",
+            "pw_clubs": "Clubs",
+            "pw_crossSellPopItemLowerCase": "These popular items might interest you",
+            "pw_discount_price_aria_label": "current price {currentPrice}, original price {originalPrice}",
+            "pw_favorites_removed_from_favorites": "Removed from Favourites",
+            "pw_featured": "Featured",
+            "pw_filter": "Filter",
+            "pw_filter_by": "Filter by {Filtername}",
+            "pw_filter_by_store": "Filter by Store",
+            "pw_filter_by_store_modal_error_state": "We couldn't find any stores available within 50 miles of this location. Try another postcode.",
+            "pw_filter_for": "Filter for {text}",
+            "pw_filter_for_shop_by_price_aria_label": "({priceStart} to {priceEnd})",
+            "pw_interests_following": "Following",
+            "pw_lowest_price": "Lowest price",
+            "pw_mi_abbreviation": "{distance}mi",
+            "pw_nations": "Nations",
+            "pw_newest": "Newest",
+            "pw_open": "Open",
+            "pw_opens": "Opens {time}",
+            "pw_pick_up_today": "Pick Up Today",
+            "pw_pick_up_today_at": "Pick Up Today At:",
+            "pw_price_low_high": "Price: Low-High",
+            "pw_seePriceInCart": "See Price in Bag",
+            "pw_select": "Select",
+            "pw_selectsize_errorstate": "Select size",
+            "pw_showless_aria_label": "Less {parentAriaLabel}",
+            "pw_showmore_aria_label": "More {parentAriaLabel}",
+            "pw_skip_to_products": "skip to products",
+            "pw_sort_filter": "Sort & Filter",
+            "pw_try_again_later": "Try again later",
+            "pw_viewfulldetails_cta": "View Full Details",
+            "wall__price_range": "{lowestPrice}—{highestPrice}",
+            "wall_all_products": "All Products",
+            "wall_card_colorsLabel": "{productCount} {productCount, plural, one {Colour} other {Colours}}",
+            "wall_card_colors_aria_label": "Available in {numOfColors} {numOfColors, plural, one {Color} other {Colors}}",
+            "wall_card_comingSoon": "Coming Soon",
+            "wall_card_customizeLabel": "Customise",
+            "wall_card_justIn": "Just In",
+            "wall_card_member_badging": "Member Product",
+            "wall_card_member_hover": "Get this product with your free Nike Membership",
+            "wall_card_moreColors": "+ More",
+            "wall_card_new": "New",
+            "wall_card_nikeByYou": "Nike By You",
+            "wall_card_outOfStock": "Sold Out",
+            "wall_card_percentageOff": "{number}% off",
+            "wall_card_playersLabel": "{productCount} {productCount, plural, one {Player} other {Players}} Available",
+            "wall_card_playersLabel_Customized": "Players Available",
+            "wall_card_players_aria_label": "Available for {numOfPlayers} {numOfPlayers, plural, one {Player} other {Players}}",
+            "wall_card_preOrder": "Pre-Order",
+            "wall_card_promoExclude": "Promo Exclusion",
+            "wall_card_snkrs": "Available in SNKRS",
+            "wall_card_snkrsComingSoon": "Launching in SNKRS",
+            "wall_card_sustainableMaterials": "Recycled Materials",
+            "wall_card_widthsAvailable": "Widths Available",
+            "wall_couldntFindAnything": "We could not find anything for \"{query}\".",
+            "wall_couldntFindPage": "Sorry, we couldn't find the page you're looking for.",
+            "wall_filter_group_aria_label": "{filterGroupLabel}{selectedFiltersInGroup, plural, =0 {} other {, {selectedFiltersInGroup} Selected}}",
+            "wall_filter_group_label": "{filterGroupLabel} {selectedFiltersInGroup, plural, =0 {} other {({selectedFiltersInGroup})}}",
+            "wall_grid_collection_count": "{collectionCount} {collectionCount, plural, one {Item} other {Items}}",
+            "wall_hide_filters": "Hide Filters",
+            "wall_nav__apply_filters": "Apply Filters",
+            "wall_nav__apply_label": "Apply",
+            "wall_nav__clear_filters": "Clear Filters",
+            "wall_nav__clear_label": "Clear",
+            "wall_nav_less_filters": "- Less",
+            "wall_nav_more_filters": "+ More",
+            "wall_next": "Next",
+            "wall_numberResults_plural": "{productCount} {productCount, plural, one {Result} other {Results}}",
+            "wall_previous": "Previous",
+            "wall_read_less": "Read less",
+            "wall_read_more": "Read more",
+            "wall_related_categories": "Related Categories",
+            "wall_related_content": "Related Stories",
+            "wall_results_for": "Results for",
+            "wall_search_results_for": "Search results for",
+            "wall_show_filters": "Show Filters",
+            "wall_sort_by": "Sort By",
+            "wall_sort_by_colon": "Sort By:"
+          },
+          "countryNames": {
+            "en-GB": "Vietnam",
+            "en": "Vietnam"
+          },
+          "currencySymbol": "₫",
+          "cloudUrlFragment": "vn",
+          "translationsLanguage": "en-VN"
+        },
+        "banner": {
+          "rendered": false,
+          "requestFailed": false,
+          "results": []
+        },
+        "User": {
+          "initialized": false,
+          "isLoggedIn": false,
+          "isSwoosh": false
+        },
+        "Wall": {
+          "apiMetaData": {
+            "x-b3-traceid": "dcb05fd492b5fcdde8b0bf8289a3ed06"
+          },
+          "canonicalUrl": "https://www.nike.com/vn/w",
+          "cmsContent": null,
+          "facetNav": {
+            "categories": [],
+            "clearAllFilters": null,
+            "selectedConcepts": [],
+            "pageName": "",
+            "breadcrumbs": [],
+            "filters": [
+              {
+                "attributeId": "527f2d29-89bd-422d-a53a-cdb52784a8a9",
+                "displayText": "Gender",
+                "alternateName": "Gender",
+                "showMoreAfter": 4,
+                "expanded": false,
+                "options": [
+                  {
+                    "attributeId": "0f64ecc7-d624-4e91-b171-b83a03dd8550",
+                    "crawlable": true,
+                    "displayText": "Men",
+                    "alternateName": "Men",
+                    "selected": false,
+                    "resultCount": 61,
+                    "navigationAttributeIds": [
+                      "0f64ecc7-d624-4e91-b171-b83a03dd8550"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/mens-nik1",
+                      "pageUrl": "https://www.nike.com/vn/w/mens-nik1?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/mens-nik1?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "7baf216c-acc6-4452-9e07-39c2ca77ba32",
+                    "crawlable": true,
+                    "displayText": "Women",
+                    "alternateName": "Women",
+                    "selected": false,
+                    "resultCount": 26,
+                    "navigationAttributeIds": [
+                      "7baf216c-acc6-4452-9e07-39c2ca77ba32"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/womens-5e1x6",
+                      "pageUrl": "https://www.nike.com/vn/w/womens-5e1x6?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/womens-5e1x6?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "568f7ffc-ee7f-49ed-98eb-0b94708d6e88",
+                    "crawlable": true,
+                    "displayText": "Unisex",
+                    "alternateName": "Unisex",
+                    "selected": false,
+                    "resultCount": 13,
+                    "navigationAttributeIds": [
+                      "568f7ffc-ee7f-49ed-98eb-0b94708d6e88"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/unisex-3rauv",
+                      "pageUrl": "https://www.nike.com/vn/w/unisex-3rauv?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/unisex-3rauv?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  }
+                ],
+                "optionsCount": 3,
+                "selected": false
+              },
+              {
+                "attributeId": "145ce13c-5740-49bd-b2fd-0f67214765b3",
+                "displayText": "Kids",
+                "alternateName": "Kids",
+                "showMoreAfter": 4,
+                "expanded": false,
+                "options": [
+                  {
+                    "attributeId": "270b2369-f52e-4c5c-a462-778900a89192",
+                    "crawlable": true,
+                    "displayText": "Boys",
+                    "alternateName": "Boys Synthetic",
+                    "selected": false,
+                    "resultCount": 10,
+                    "navigationAttributeIds": [
+                      "270b2369-f52e-4c5c-a462-778900a89192"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/boys-1onra",
+                      "pageUrl": "https://www.nike.com/vn/w/boys-1onra?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/boys-1onra?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "4bbaa5c3-62dc-4932-8a23-3054456ccc42",
+                    "crawlable": true,
+                    "displayText": "Girls",
+                    "alternateName": "Girls Synthetic",
+                    "selected": false,
+                    "resultCount": 10,
+                    "navigationAttributeIds": [
+                      "4bbaa5c3-62dc-4932-8a23-3054456ccc42"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/girls-3aqeg",
+                      "pageUrl": "https://www.nike.com/vn/w/girls-3aqeg?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/girls-3aqeg?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  }
+                ],
+                "optionsCount": 2,
+                "selected": false
+              },
+              {
+                "attributeId": "030efdfe-8bde-415b-99bb-c793e921056b",
+                "displayText": "Shop By Price",
+                "alternateName": "Shop by Price",
+                "showMoreAfter": 4,
+                "expanded": false,
+                "options": [
+                  {
+                    "attributeId": "751e1541-21ab-46f1-9f09-2a7e6f7a9e83",
+                    "crawlable": false,
+                    "displayText": "Under 1,000,000đ",
+                    "alternateName": "Under 1.000.000đ",
+                    "selected": false,
+                    "resultCount": 24,
+                    "navigationAttributeIds": [
+                      "751e1541-21ab-46f1-9f09-2a7e6f7a9e83"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/under-1000000-540mi?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/under-1000000-540mi?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "7539eaaa-881f-47c1-b4d6-5f9de96547f1",
+                    "crawlable": false,
+                    "displayText": "1,000,000₫ - 2,000,000₫",
+                    "alternateName": "1.001.000đ - 2.700.000đ",
+                    "selected": false,
+                    "resultCount": 42,
+                    "navigationAttributeIds": [
+                      "7539eaaa-881f-47c1-b4d6-5f9de96547f1"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/1000000-2000000-546g3?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/1000000-2000000-546g3?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "ce9a29eb-956b-4435-9c9b-ab8b39f119e3",
+                    "crawlable": false,
+                    "displayText": "2,000,001₫ - 4,999,999₫",
+                    "alternateName": "2.701.000đ - 3.999.000đ",
+                    "selected": false,
+                    "resultCount": 19,
+                    "navigationAttributeIds": [
+                      "ce9a29eb-956b-4435-9c9b-ab8b39f119e3"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/2000001-4999999-90rxq?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/2000001-4999999-90rxq?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "95568b9b-64a5-467d-9dac-4385c21168d0",
+                    "crawlable": false,
+                    "displayText": "Over 5,000,000₫",
+                    "alternateName": "Over 4.000.000đ",
+                    "selected": false,
+                    "resultCount": 3,
+                    "navigationAttributeIds": [
+                      "95568b9b-64a5-467d-9dac-4385c21168d0"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/over-5000000-6i9e4?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/over-5000000-6i9e4?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  }
+                ],
+                "optionsCount": 4,
+                "selected": false
+              },
+              {
+                "attributeId": "b407d2a7-6b0c-4aab-b9e4-583b7f4bbd93",
+                "displayText": "Sale & Offers",
+                "alternateName": "ON SALE",
+                "showMoreAfter": 4,
+                "expanded": false,
+                "options": [
+                  {
+                    "attributeId": "5b21a62a-0503-400c-8336-3ccfbff2a684",
+                    "crawlable": true,
+                    "displayText": "Sale",
+                    "alternateName": "Clearance",
+                    "selected": false,
+                    "resultCount": 31,
+                    "navigationAttributeIds": [
+                      "5b21a62a-0503-400c-8336-3ccfbff2a684"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/sale-3yaep",
+                      "pageUrl": "https://www.nike.com/vn/w/sale-3yaep?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/sale-3yaep?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  }
+                ],
+                "optionsCount": 1,
+                "selected": false
+              },
+              {
+                "attributeId": "6de391eb-ab3d-4625-a5e7-d537e87f2bfa",
+                "displayText": "Sports",
+                "alternateName": "Sports",
+                "showMoreAfter": 4,
+                "expanded": false,
+                "options": [
+                  {
+                    "attributeId": "193af413-39b0-4d7e-ae34-558821381d3f",
+                    "crawlable": true,
+                    "displayText": "Lifestyle",
+                    "alternateName": "Lifestyle",
+                    "selected": false,
+                    "resultCount": 18,
+                    "navigationAttributeIds": [
+                      "193af413-39b0-4d7e-ae34-558821381d3f"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/lifestyle-13jrm",
+                      "pageUrl": "https://www.nike.com/vn/w/lifestyle-13jrm?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/lifestyle-13jrm?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "49db2f3e-c999-48c2-b5b4-9296635ae75e",
+                    "crawlable": true,
+                    "displayText": "Running",
+                    "alternateName": "Running",
+                    "selected": false,
+                    "resultCount": 2,
+                    "navigationAttributeIds": [
+                      "49db2f3e-c999-48c2-b5b4-9296635ae75e"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/running-37v7j",
+                      "pageUrl": "https://www.nike.com/vn/w/running-37v7j?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/running-37v7j?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "219e4fa3-73ef-427b-8f93-9d8f51b93443",
+                    "crawlable": true,
+                    "displayText": "Football",
+                    "alternateName": "Soccer",
+                    "selected": false,
+                    "resultCount": 9,
+                    "navigationAttributeIds": [
+                      "219e4fa3-73ef-427b-8f93-9d8f51b93443"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/football-1gdj0",
+                      "pageUrl": "https://www.nike.com/vn/w/football-1gdj0?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/football-1gdj0?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "7817e756-7721-4cfb-b404-04df79c685e4",
+                    "crawlable": true,
+                    "displayText": "Training & Gym",
+                    "alternateName": "Training & Gym",
+                    "selected": false,
+                    "resultCount": 17,
+                    "navigationAttributeIds": [
+                      "7817e756-7721-4cfb-b404-04df79c685e4"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/training-gym-58jto",
+                      "pageUrl": "https://www.nike.com/vn/w/training-gym-58jto?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/training-gym-58jto?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "f48a5cbc-87f1-4a8b-86a1-8630dcade8a9",
+                    "crawlable": true,
+                    "displayText": "Yoga",
+                    "alternateName": "Yoga",
+                    "selected": false,
+                    "resultCount": 1,
+                    "navigationAttributeIds": [
+                      "f48a5cbc-87f1-4a8b-86a1-8630dcade8a9"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/yoga-anrlj",
+                      "pageUrl": "https://www.nike.com/vn/w/yoga-anrlj?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/yoga-anrlj?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "303fd8ae-7e35-4333-ba7c-da75ea3d6f2e",
+                    "crawlable": true,
+                    "displayText": "Golf",
+                    "alternateName": "Golf",
+                    "selected": false,
+                    "resultCount": 35,
+                    "navigationAttributeIds": [
+                      "303fd8ae-7e35-4333-ba7c-da75ea3d6f2e"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/golf-23q9w",
+                      "pageUrl": "https://www.nike.com/vn/w/golf-23q9w?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/golf-23q9w?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "c5dea190-43f0-4630-b6b0-c062f1df81d2",
+                    "crawlable": true,
+                    "displayText": "Skateboarding",
+                    "alternateName": "Skateboarding",
+                    "selected": false,
+                    "resultCount": 2,
+                    "navigationAttributeIds": [
+                      "c5dea190-43f0-4630-b6b0-c062f1df81d2"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/skateboarding-8mfrf",
+                      "pageUrl": "https://www.nike.com/vn/w/skateboarding-8mfrf?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/skateboarding-8mfrf?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "09672cd8-7640-48d6-9956-b1246e1dc1df",
+                    "crawlable": true,
+                    "displayText": "Tennis",
+                    "alternateName": "Tennis",
+                    "selected": false,
+                    "resultCount": 4,
+                    "navigationAttributeIds": [
+                      "09672cd8-7640-48d6-9956-b1246e1dc1df"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/tennis-ed1q",
+                      "pageUrl": "https://www.nike.com/vn/w/tennis-ed1q?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/tennis-ed1q?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "af9ac707-4fbf-472c-b1e6-7a7d17cb5835",
+                    "crawlable": true,
+                    "displayText": "Athletics",
+                    "alternateName": "Track & Field",
+                    "selected": false,
+                    "resultCount": 1,
+                    "navigationAttributeIds": [
+                      "af9ac707-4fbf-472c-b1e6-7a7d17cb5835"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/track-field-7nem3",
+                      "pageUrl": "https://www.nike.com/vn/w/track-field-7nem3?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/track-field-7nem3?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  }
+                ],
+                "optionsCount": 9,
+                "selected": false
+              },
+              {
+                "attributeId": "67063381-90eb-4763-8f87-acc30b392f38",
+                "displayText": "Color",
+                "alternateName": "Color",
+                "showMoreAfter": 4,
+                "expanded": false,
+                "options": [
+                  {
+                    "attributeId": "ce8f6431-b545-44b5-bb2d-6a2d7b5df3cc",
+                    "crawlable": false,
+                    "displayText": "Black",
+                    "alternateName": "Black",
+                    "selected": false,
+                    "resultCount": 18,
+                    "navigationAttributeIds": [
+                      "ce8f6431-b545-44b5-bb2d-6a2d7b5df3cc"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/black-90poy?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/black-90poy?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "c29a0094-d302-4b7a-b5f0-73e46f772348",
+                    "crawlable": false,
+                    "displayText": "Blue",
+                    "alternateName": "Blue",
+                    "selected": false,
+                    "resultCount": 11,
+                    "navigationAttributeIds": [
+                      "c29a0094-d302-4b7a-b5f0-73e46f772348"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/blue-8hfx3?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/blue-8hfx3?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "75e7807a-9800-4b52-9f9b-1e1c056d451a",
+                    "crawlable": false,
+                    "displayText": "Brown",
+                    "alternateName": "Brown",
+                    "selected": false,
+                    "resultCount": 7,
+                    "navigationAttributeIds": [
+                      "75e7807a-9800-4b52-9f9b-1e1c056d451a"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/brown-557pq?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/brown-557pq?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "07734439-08a3-461f-a720-17fb86f65b85",
+                    "crawlable": false,
+                    "displayText": "Green",
+                    "alternateName": "Green",
+                    "selected": false,
+                    "resultCount": 8,
+                    "navigationAttributeIds": [
+                      "07734439-08a3-461f-a720-17fb86f65b85"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/green-bdka?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/green-bdka?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "9bcffd0c-90ac-4ed5-bff8-3183079c0850",
+                    "crawlable": false,
+                    "displayText": "Grey",
+                    "alternateName": "Grey",
+                    "selected": false,
+                    "resultCount": 11,
+                    "navigationAttributeIds": [
+                      "9bcffd0c-90ac-4ed5-bff8-3183079c0850"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/grey-6s5r5?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/grey-6s5r5?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "5c5e6edb-e59b-48c8-85a4-46a8d2a3c45c",
+                    "crawlable": false,
+                    "displayText": "Multi-Colour",
+                    "alternateName": "Multi-Color",
+                    "selected": false,
+                    "resultCount": 1,
+                    "navigationAttributeIds": [
+                      "5c5e6edb-e59b-48c8-85a4-46a8d2a3c45c"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/multi-color-416lq?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/multi-color-416lq?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "2601a4f8-f6a0-4408-8c87-4eb21982001c",
+                    "crawlable": false,
+                    "displayText": "Orange",
+                    "alternateName": "Orange",
+                    "selected": false,
+                    "resultCount": 1,
+                    "navigationAttributeIds": [
+                      "2601a4f8-f6a0-4408-8c87-4eb21982001c"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/orange-1n3ad?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/orange-1n3ad?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "e9263ae7-2808-486b-843b-57ebc71257a6",
+                    "crawlable": false,
+                    "displayText": "Pink",
+                    "alternateName": "Pink",
+                    "selected": false,
+                    "resultCount": 6,
+                    "navigationAttributeIds": [
+                      "e9263ae7-2808-486b-843b-57ebc71257a6"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/pink-a6d74?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/pink-a6d74?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "60c56877-b0c6-41e2-a3e8-eabe060dbc9e",
+                    "crawlable": false,
+                    "displayText": "Purple",
+                    "alternateName": "Purple",
+                    "selected": false,
+                    "resultCount": 3,
+                    "navigationAttributeIds": [
+                      "60c56877-b0c6-41e2-a3e8-eabe060dbc9e"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/purple-47w4r?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/purple-47w4r?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "4b741281-8e04-498c-85d0-eb6d34d6c2d9",
+                    "crawlable": false,
+                    "displayText": "Red",
+                    "alternateName": "Red",
+                    "selected": false,
+                    "resultCount": 3,
+                    "navigationAttributeIds": [
+                      "4b741281-8e04-498c-85d0-eb6d34d6c2d9"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/red-3abn9?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/red-3abn9?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "6631b5c3-937a-4174-942e-3ab3c5b16642",
+                    "crawlable": false,
+                    "displayText": "White",
+                    "alternateName": "White",
+                    "selected": false,
+                    "resultCount": 18,
+                    "navigationAttributeIds": [
+                      "6631b5c3-937a-4174-942e-3ab3c5b16642"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/white-4g797?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/white-4g797?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "fbb0fc16-01b7-40f6-94f4-a794ce25a017",
+                    "crawlable": false,
+                    "displayText": "Yellow",
+                    "alternateName": "Yellow",
+                    "selected": false,
+                    "resultCount": 1,
+                    "navigationAttributeIds": [
+                      "fbb0fc16-01b7-40f6-94f4-a794ce25a017"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/yellow-ayp69?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/yellow-ayp69?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  }
+                ],
+                "optionsCount": 12,
+                "selected": false
+              },
+              {
+                "attributeId": "2bde5502-5b5b-44a0-9215-7ccba6accd13",
+                "displayText": "Features",
+                "alternateName": "Features",
+                "showMoreAfter": 4,
+                "expanded": false,
+                "options": [
+                  {
+                    "attributeId": "eabe5653-3d4e-4582-851f-f2cf6d33e6d3",
+                    "crawlable": false,
+                    "displayText": "Vented",
+                    "alternateName": "Vented",
+                    "selected": false,
+                    "resultCount": 2,
+                    "navigationAttributeIds": [
+                      "eabe5653-3d4e-4582-851f-f2cf6d33e6d3"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/vented-a8sh5?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/vented-a8sh5?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "5256c64d-426b-4a78-b2dd-695bf76dd16c",
+                    "crawlable": false,
+                    "displayText": "Curved Peak",
+                    "alternateName": "Curved Bill",
+                    "selected": false,
+                    "resultCount": 5,
+                    "navigationAttributeIds": [
+                      "5256c64d-426b-4a78-b2dd-695bf76dd16c"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/curved-peak-3ku16?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/curved-peak-3ku16?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "e1e0249a-f718-4a98-bb48-dc58a22d212b",
+                    "crawlable": false,
+                    "displayText": "Standard Brim",
+                    "alternateName": "Standard Brim",
+                    "selected": false,
+                    "resultCount": 1,
+                    "navigationAttributeIds": [
+                      "e1e0249a-f718-4a98-bb48-dc58a22d212b"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/standard-brim-9u92a?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/standard-brim-9u92a?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "2b15e698-5129-4915-96b6-9ca676508ccb",
+                    "crawlable": false,
+                    "displayText": "Drawcord",
+                    "alternateName": "Drawcord",
+                    "selected": false,
+                    "resultCount": 6,
+                    "navigationAttributeIds": [
+                      "2b15e698-5129-4915-96b6-9ca676508ccb"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/drawcord-1uu0t?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/drawcord-1uu0t?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "0b2b6ee0-868e-4b5e-bea7-19a7f7795f68",
+                    "crawlable": false,
+                    "displayText": "Flat Peak",
+                    "alternateName": "Flat Bill",
+                    "selected": false,
+                    "resultCount": 3,
+                    "navigationAttributeIds": [
+                      "0b2b6ee0-868e-4b5e-bea7-19a7f7795f68"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/flat-peak-h2jo?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/flat-peak-h2jo?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "0f155795-8e43-4124-9659-6eac0d190ca5",
+                    "crawlable": false,
+                    "displayText": "Padded Cups",
+                    "alternateName": "Padded Cups",
+                    "selected": false,
+                    "resultCount": 1,
+                    "navigationAttributeIds": [
+                      "0f155795-8e43-4124-9659-6eac0d190ca5"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/padded-cups-n1wx?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/padded-cups-n1wx?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "2ecd0726-cffb-40b1-b8ca-0056167a3796",
+                    "crawlable": false,
+                    "displayText": "Strappy Back",
+                    "alternateName": "Strappy Back",
+                    "selected": false,
+                    "resultCount": 1,
+                    "navigationAttributeIds": [
+                      "2ecd0726-cffb-40b1-b8ca-0056167a3796"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/strappy-back-21irn?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/strappy-back-21irn?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "71656378-24ab-478c-988a-adb33065a6f9",
+                    "crawlable": false,
+                    "displayText": "Front Zip",
+                    "alternateName": "Front Zip",
+                    "selected": false,
+                    "resultCount": 4,
+                    "navigationAttributeIds": [
+                      "71656378-24ab-478c-988a-adb33065a6f9"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/front-zip-4xbj8?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/front-zip-4xbj8?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "6f54f4c6-6a72-43c7-9b91-d7099cd61c94",
+                    "crawlable": false,
+                    "displayText": "Breathable",
+                    "alternateName": "Breathable",
+                    "selected": false,
+                    "resultCount": 1,
+                    "navigationAttributeIds": [
+                      "6f54f4c6-6a72-43c7-9b91-d7099cd61c94"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/stay-dry-4u644?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/stay-dry-4u644?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "2220b737-9ebb-4615-a58c-80b1190d05c9",
+                    "crawlable": false,
+                    "displayText": "Pockets",
+                    "alternateName": "Pockets",
+                    "selected": false,
+                    "resultCount": 15,
+                    "navigationAttributeIds": [
+                      "2220b737-9ebb-4615-a58c-80b1190d05c9"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/pockets-1h5rt?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/pockets-1h5rt?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "ffa71a26-8e96-49e9-a832-77a25fbcb225",
+                    "crawlable": false,
+                    "displayText": "Thumbholes",
+                    "alternateName": "Thumbholes",
+                    "selected": false,
+                    "resultCount": 1,
+                    "navigationAttributeIds": [
+                      "ffa71a26-8e96-49e9-a832-77a25fbcb225"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/thumbholes-b5r3s?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/thumbholes-b5r3s?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "0fb4be70-2a0f-487a-8896-92c1ac3cd120",
+                    "crawlable": false,
+                    "displayText": "Water-resistant",
+                    "alternateName": "Water Resistant",
+                    "selected": false,
+                    "resultCount": 5,
+                    "navigationAttributeIds": [
+                      "0fb4be70-2a0f-487a-8896-92c1ac3cd120"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/water-resistant-o08u?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/water-resistant-o08u?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "167007f9-a4a2-4c5d-9226-14cb13d225d7",
+                    "crawlable": false,
+                    "displayText": "Waterproof",
+                    "alternateName": "Waterproof",
+                    "selected": false,
+                    "resultCount": 2,
+                    "navigationAttributeIds": [
+                      "167007f9-a4a2-4c5d-9226-14cb13d225d7"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/waterproof-yadg?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/waterproof-yadg?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "85a5fccf-c06d-4bdf-8292-537f679cd2ec",
+                    "crawlable": false,
+                    "displayText": "Wind-resistant",
+                    "alternateName": "Wind Resistant",
+                    "selected": false,
+                    "resultCount": 3,
+                    "navigationAttributeIds": [
+                      "85a5fccf-c06d-4bdf-8292-537f679cd2ec"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/wind-resistant-5ta0u?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/wind-resistant-5ta0u?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  }
+                ],
+                "optionsCount": 14,
+                "selected": false
+              },
+              {
+                "attributeId": "d6d74250-a3ba-4dcd-866c-3f3e9c35f7ef",
+                "displayText": "Fit",
+                "alternateName": "Fit",
+                "showMoreAfter": 4,
+                "expanded": false,
+                "options": [
+                  {
+                    "attributeId": "540c72f1-7ee6-4369-b811-d8c68e25fbcb",
+                    "crawlable": false,
+                    "displayText": "Oversized",
+                    "alternateName": "Oversized",
+                    "selected": false,
+                    "resultCount": 9,
+                    "navigationAttributeIds": [
+                      "540c72f1-7ee6-4369-b811-d8c68e25fbcb"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/oversized-3nghf?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/oversized-3nghf?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "62d7f471-e923-406a-8a6f-02127b41b660",
+                    "crawlable": false,
+                    "displayText": "Loose",
+                    "alternateName": "Loose",
+                    "selected": false,
+                    "resultCount": 9,
+                    "navigationAttributeIds": [
+                      "62d7f471-e923-406a-8a6f-02127b41b660"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/loose-4b30c?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/loose-4b30c?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "b071b395-3f52-4ff8-b0b5-3af4ef7d5b54",
+                    "crawlable": false,
+                    "displayText": "Standard",
+                    "alternateName": "Standard",
+                    "selected": false,
+                    "resultCount": 52,
+                    "navigationAttributeIds": [
+                      "b071b395-3f52-4ff8-b0b5-3af4ef7d5b54"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/standard-7ooj3?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/standard-7ooj3?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "944d3b53-7aac-43cb-b71f-9b85e6b2e401",
+                    "crawlable": false,
+                    "displayText": "Slim",
+                    "alternateName": "Slim",
+                    "selected": false,
+                    "resultCount": 10,
+                    "navigationAttributeIds": [
+                      "944d3b53-7aac-43cb-b71f-9b85e6b2e401"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/slim-6gnxj?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/slim-6gnxj?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "42888541-be87-476b-8f0b-c609c8e2329b",
+                    "crawlable": false,
+                    "displayText": "Tight",
+                    "alternateName": "Tight",
+                    "selected": false,
+                    "resultCount": 1,
+                    "navigationAttributeIds": [
+                      "42888541-be87-476b-8f0b-c609c8e2329b"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/tight-2vofp?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/tight-2vofp?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "1519ba6b-9aef-47fd-aa3b-4d5f17ee8400",
+                    "crawlable": false,
+                    "displayText": "Structured",
+                    "alternateName": "Structured",
+                    "selected": false,
+                    "resultCount": 4,
+                    "navigationAttributeIds": [
+                      "1519ba6b-9aef-47fd-aa3b-4d5f17ee8400"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/structured-w8tr?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/structured-w8tr?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "3af6883e-ba35-425e-aa8d-31307378dcba",
+                    "crawlable": false,
+                    "displayText": "Unstructured",
+                    "alternateName": "Unstructured",
+                    "selected": false,
+                    "resultCount": 5,
+                    "navigationAttributeIds": [
+                      "3af6883e-ba35-425e-aa8d-31307378dcba"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/unstructured-2k4fp?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/unstructured-2k4fp?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  }
+                ],
+                "optionsCount": 7,
+                "selected": false
+              },
+              {
+                "attributeId": "758f6b44-e5a7-46be-b288-bac9c3ebe83f",
+                "displayText": "Brand",
+                "alternateName": "Brand",
+                "showMoreAfter": 4,
+                "expanded": false,
+                "options": [
+                  {
+                    "attributeId": "5ddfb803-2f11-4265-84b2-f7f450f0b697",
+                    "crawlable": true,
+                    "displayText": "Nike Sportswear",
+                    "alternateName": "Nike Sportswear",
+                    "selected": false,
+                    "resultCount": 15,
+                    "navigationAttributeIds": [
+                      "5ddfb803-2f11-4265-84b2-f7f450f0b697"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/sportswear-43h4u",
+                      "pageUrl": "https://www.nike.com/vn/w/sportswear-43h4u?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/sportswear-43h4u?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "498ac76f-4c2c-4b55-bbdc-dd37011887b1",
+                    "crawlable": true,
+                    "displayText": "Jordan",
+                    "alternateName": "Jordan",
+                    "selected": false,
+                    "resultCount": 18,
+                    "navigationAttributeIds": [
+                      "498ac76f-4c2c-4b55-bbdc-dd37011887b1"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/jordan-37eef",
+                      "pageUrl": "https://www.nike.com/vn/w/jordan-37eef?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/jordan-37eef?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "4d0c333e-17e1-45c6-b1d4-6668497411bf",
+                    "crawlable": true,
+                    "displayText": "Nike Pro",
+                    "alternateName": "Nike Pro",
+                    "selected": false,
+                    "resultCount": 1,
+                    "navigationAttributeIds": [
+                      "4d0c333e-17e1-45c6-b1d4-6668497411bf"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/nike-pro-3cqxf",
+                      "pageUrl": "https://www.nike.com/vn/w/nike-pro-3cqxf?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/nike-pro-3cqxf?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  }
+                ],
+                "optionsCount": 3,
+                "selected": false
+              },
+              {
+                "attributeId": "6e7e4809-fccb-4e82-8a7b-047125398076",
+                "displayText": "Technology",
+                "alternateName": "Technology",
+                "showMoreAfter": 4,
+                "expanded": false,
+                "options": [
+                  {
+                    "attributeId": "46433cb7-5789-4b9d-9c38-8dce42832bf0",
+                    "crawlable": false,
+                    "displayText": "Dri-FIT",
+                    "alternateName": "Dri-FIT",
+                    "selected": false,
+                    "resultCount": 56,
+                    "navigationAttributeIds": [
+                      "46433cb7-5789-4b9d-9c38-8dce42832bf0"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/dri-fit-32dxr?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/dri-fit-32dxr?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "caebf6d2-d131-4a8d-882d-5fca1e5131b5",
+                    "crawlable": false,
+                    "displayText": "Dri-FIT ADV",
+                    "alternateName": "Dri-FIT ADV",
+                    "selected": false,
+                    "resultCount": 1,
+                    "navigationAttributeIds": [
+                      "caebf6d2-d131-4a8d-882d-5fca1e5131b5"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/dri-fit-adv-8u628?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/dri-fit-adv-8u628?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "bfd1f7b2-a8c2-4a75-8684-e23eb7595a8c",
+                    "crawlable": false,
+                    "displayText": "Nike Flyknit",
+                    "alternateName": "Nike Flyknit",
+                    "selected": false,
+                    "resultCount": 1,
+                    "navigationAttributeIds": [
+                      "bfd1f7b2-a8c2-4a75-8684-e23eb7595a8c"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/flyknit-8d752?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/flyknit-8d752?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "a88f8af7-f480-4265-99dc-65e995bda252",
+                    "crawlable": false,
+                    "displayText": "Nike React",
+                    "alternateName": "Nike React",
+                    "selected": false,
+                    "resultCount": 2,
+                    "navigationAttributeIds": [
+                      "a88f8af7-f480-4265-99dc-65e995bda252"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/react-7cmro?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/react-7cmro?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "53eb5698-21e2-485c-b9f1-bbbf81cd0b3e",
+                    "crawlable": false,
+                    "displayText": "Therma-FIT",
+                    "alternateName": "Therma-FIT",
+                    "selected": false,
+                    "resultCount": 3,
+                    "navigationAttributeIds": [
+                      "53eb5698-21e2-485c-b9f1-bbbf81cd0b3e"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/therma-fit-3n9k9?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/therma-fit-3n9k9?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "cd94d027-01e9-4989-b9b7-3736a3f6dbb8",
+                    "crawlable": false,
+                    "displayText": "Nike Zoom Air",
+                    "alternateName": "Nike Zoom Air",
+                    "selected": false,
+                    "resultCount": 2,
+                    "navigationAttributeIds": [
+                      "cd94d027-01e9-4989-b9b7-3736a3f6dbb8"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/zoom-air-8y8c6?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/zoom-air-8y8c6?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  }
+                ],
+                "optionsCount": 6,
+                "selected": false
+              },
+              {
+                "attributeId": "6ac862a8-d169-4355-bad5-7ced3d5cf95d",
+                "displayText": "Best For",
+                "alternateName": "Best For",
+                "showMoreAfter": 4,
+                "expanded": false,
+                "options": [
+                  {
+                    "attributeId": "0ce600e2-f385-4290-beb7-40245dcc8fee",
+                    "crawlable": false,
+                    "displayText": "Wet Weather Conditions",
+                    "alternateName": "Wet Weather Conditions",
+                    "selected": false,
+                    "resultCount": 4,
+                    "navigationAttributeIds": [
+                      "0ce600e2-f385-4290-beb7-40245dcc8fee"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/wet-weather-conditions-jp1r?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/wet-weather-conditions-jp1r?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  }
+                ],
+                "optionsCount": 1,
+                "selected": false
+              },
+              {
+                "attributeId": "3543d089-62da-46f9-8ec1-977222dbee7a",
+                "displayText": "Material",
+                "alternateName": "Material",
+                "showMoreAfter": 4,
+                "expanded": false,
+                "options": [
+                  {
+                    "attributeId": "718064fe-785b-41f8-ab1f-f469cc008d65",
+                    "crawlable": false,
+                    "displayText": "Fleece",
+                    "alternateName": "Fleece",
+                    "selected": false,
+                    "resultCount": 6,
+                    "navigationAttributeIds": [
+                      "718064fe-785b-41f8-ab1f-f469cc008d65"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/fleece-4xh6q?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/fleece-4xh6q?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "540d7f56-33d8-4687-965d-f74f8f8d18c5",
+                    "crawlable": true,
+                    "displayText": "Recycled Materials",
+                    "alternateName": "Recycled Materials",
+                    "selected": false,
+                    "resultCount": 59,
+                    "navigationAttributeIds": [
+                      "540d7f56-33d8-4687-965d-f74f8f8d18c5"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/sustainability-3ngp4",
+                      "pageUrl": "https://www.nike.com/vn/w/sustainability-3ngp4?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/sustainability-3ngp4?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "59debe5a-f434-46ac-92c7-416f1c2fddf9",
+                    "crawlable": false,
+                    "displayText": "InfinaSoft",
+                    "alternateName": "InfinaSoft",
+                    "selected": false,
+                    "resultCount": 2,
+                    "navigationAttributeIds": [
+                      "59debe5a-f434-46ac-92c7-416f1c2fddf9"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/infinasoft-3wcwv?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/infinasoft-3wcwv?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  }
+                ],
+                "optionsCount": 3,
+                "selected": false
+              },
+              {
+                "attributeId": "a00f0bb2-648b-4853-9559-4cd943b7d6c6",
+                "displayText": "Clothing",
+                "alternateName": "Clothing",
+                "showMoreAfter": 4,
+                "expanded": true,
+                "options": [
+                  {
+                    "attributeId": "7e0d88b7-b082-4fee-aa65-d8af260c158d",
+                    "crawlable": true,
+                    "displayText": "Bottoms",
+                    "alternateName": "Bottoms",
+                    "selected": false,
+                    "resultCount": 22,
+                    "navigationAttributeIds": [
+                      "7e0d88b7-b082-4fee-aa65-d8af260c158d"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/bottoms-5hnnk",
+                      "pageUrl": "https://www.nike.com/vn/w/bottoms-5hnnk?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/bottoms-5hnnk?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "9b674c8e-25c9-45c3-8635-c284c07d3d17",
+                    "crawlable": true,
+                    "displayText": "Hoodies & Sweatshirts",
+                    "alternateName": "Hoodies and Pullovers",
+                    "selected": false,
+                    "resultCount": 5,
+                    "navigationAttributeIds": [
+                      "9b674c8e-25c9-45c3-8635-c284c07d3d17"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/hoodies-sweatshirts-6rive",
+                      "pageUrl": "https://www.nike.com/vn/w/hoodies-sweatshirts-6rive?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/hoodies-sweatshirts-6rive?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "72ff5f48-1b58-4042-8d72-f8a1c057ee06",
+                    "crawlable": true,
+                    "displayText": "Jackets",
+                    "alternateName": "Jackets and Vests",
+                    "selected": false,
+                    "resultCount": 1,
+                    "navigationAttributeIds": [
+                      "72ff5f48-1b58-4042-8d72-f8a1c057ee06"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/jackets-gilets-50r7y",
+                      "pageUrl": "https://www.nike.com/vn/w/jackets-gilets-50r7y?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/jackets-gilets-50r7y?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "cd7ee063-a9d4-43ea-a126-ef74582fdb7f",
+                    "crawlable": true,
+                    "displayText": "Skirts & Dresses",
+                    "alternateName": "Skirts and Dresses",
+                    "selected": false,
+                    "resultCount": 7,
+                    "navigationAttributeIds": [
+                      "cd7ee063-a9d4-43ea-a126-ef74582fdb7f"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/skirts-dresses-8y3qp",
+                      "pageUrl": "https://www.nike.com/vn/w/skirts-dresses-8y3qp?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/skirts-dresses-8y3qp?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "aff7f99d-b113-4fd1-8189-306dfb1aae50",
+                    "crawlable": true,
+                    "displayText": "Socks",
+                    "alternateName": "Socks Synthetic",
+                    "selected": false,
+                    "resultCount": 1,
+                    "navigationAttributeIds": [
+                      "aff7f99d-b113-4fd1-8189-306dfb1aae50"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/socks-7ny3q",
+                      "pageUrl": "https://www.nike.com/vn/w/socks-7ny3q?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/socks-7ny3q?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "de314d73-b9c5-4b15-93dd-0bef5257d3b4",
+                    "crawlable": true,
+                    "displayText": "Tops & T-Shirts",
+                    "alternateName": "Tops and T-Shirts",
+                    "selected": false,
+                    "resultCount": 50,
+                    "navigationAttributeIds": [
+                      "de314d73-b9c5-4b15-93dd-0bef5257d3b4"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/tops-t-shirts-9om13",
+                      "pageUrl": "https://www.nike.com/vn/w/tops-t-shirts-9om13?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/tops-t-shirts-9om13?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "ded58fcd-f5e5-44b7-a7b2-3bf2c6495e22",
+                    "crawlable": true,
+                    "displayText": "Underwear",
+                    "alternateName": "Underwear",
+                    "selected": false,
+                    "resultCount": 1,
+                    "navigationAttributeIds": [
+                      "ded58fcd-f5e5-44b7-a7b2-3bf2c6495e22"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/underwear-9plci",
+                      "pageUrl": "https://www.nike.com/vn/w/underwear-9plci?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/underwear-9plci?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  }
+                ],
+                "optionsCount": 7,
+                "selected": false
+              },
+              {
+                "attributeId": "df44c57e-ec56-45ce-a551-da8a68394936",
+                "displayText": "Tops",
+                "alternateName": "Tops",
+                "showMoreAfter": 4,
+                "expanded": true,
+                "options": [
+                  {
+                    "attributeId": "1c22693c-9064-4c97-81d0-df072fb120e5",
+                    "crawlable": false,
+                    "displayText": "Tops",
+                    "alternateName": "Shirts",
+                    "selected": false,
+                    "resultCount": 50,
+                    "navigationAttributeIds": [
+                      "1c22693c-9064-4c97-81d0-df072fb120e5"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/tops-1805h?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/tops-1805h?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  }
+                ],
+                "optionsCount": 1,
+                "selected": false
+              },
+              {
+                "attributeId": "7e0d88b7-b082-4fee-aa65-d8af260c158d",
+                "displayText": "Bottoms",
+                "alternateName": "Bottoms",
+                "showMoreAfter": 4,
+                "expanded": true,
+                "options": [
+                  {
+                    "attributeId": "3b5dd430-2183-4019-97cb-5bd8735f10bf",
+                    "crawlable": true,
+                    "displayText": "Trousers & Tights",
+                    "alternateName": "Pants and Tights",
+                    "selected": false,
+                    "resultCount": 7,
+                    "navigationAttributeIds": [
+                      "3b5dd430-2183-4019-97cb-5bd8735f10bf"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/trousers-tights-2kq19",
+                      "pageUrl": "https://www.nike.com/vn/w/trousers-tights-2kq19?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/trousers-tights-2kq19?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "4a388e98-5844-4fe7-8ed3-a2e6ee5e4333",
+                    "crawlable": true,
+                    "displayText": "Shorts",
+                    "alternateName": "Shorts",
+                    "selected": false,
+                    "resultCount": 9,
+                    "navigationAttributeIds": [
+                      "4a388e98-5844-4fe7-8ed3-a2e6ee5e4333"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/shorts-38fph",
+                      "pageUrl": "https://www.nike.com/vn/w/shorts-38fph?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/shorts-38fph?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "974671bf-03b7-499e-994e-ac098841370a",
+                    "crawlable": false,
+                    "displayText": "Skirts",
+                    "alternateName": "Skirts",
+                    "selected": false,
+                    "resultCount": 6,
+                    "navigationAttributeIds": [
+                      "974671bf-03b7-499e-994e-ac098841370a"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/skirts-6l819?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/skirts-6l819?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  }
+                ],
+                "optionsCount": 3,
+                "selected": false
+              },
+              {
+                "attributeId": "912ba7a5-b513-4472-bc00-5378614d798a",
+                "displayText": "Equipment",
+                "alternateName": "Equipment",
+                "showMoreAfter": 4,
+                "expanded": true,
+                "options": [
+                  {
+                    "attributeId": "4591a4a7-cd16-46fd-ad5b-20f91b34b9e8",
+                    "crawlable": false,
+                    "displayText": "Headwear",
+                    "alternateName": "Headwear",
+                    "selected": false,
+                    "resultCount": 9,
+                    "navigationAttributeIds": [
+                      "4591a4a7-cd16-46fd-ad5b-20f91b34b9e8"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/hats-visors-headbands-31bts?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/hats-visors-headbands-31bts?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  },
+                  {
+                    "attributeId": "fa863563-4508-416d-bae9-a53188c04937",
+                    "crawlable": true,
+                    "displayText": "Accessories & Equipment",
+                    "alternateName": "Accessories and Equipment",
+                    "selected": false,
+                    "resultCount": 10,
+                    "navigationAttributeIds": [
+                      "fa863563-4508-416d-bae9-a53188c04937"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w/accessories-equipment-awwpw",
+                      "pageUrl": "https://www.nike.com/vn/w/accessories-equipment-awwpw?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/accessories-equipment-awwpw?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  }
+                ],
+                "optionsCount": 2,
+                "selected": false
+              },
+              {
+                "attributeId": "86100864-8775-456d-9647-0bb7d36da3ac",
+                "displayText": "Shoe Height",
+                "alternateName": "Shoe Height",
+                "showMoreAfter": 4,
+                "expanded": true,
+                "options": [
+                  {
+                    "attributeId": "abb0cf06-d7c2-41b7-97ba-c6d5ef5f43ed",
+                    "crawlable": false,
+                    "displayText": "Low Top",
+                    "alternateName": "Low Top",
+                    "selected": false,
+                    "resultCount": 3,
+                    "navigationAttributeIds": [
+                      "abb0cf06-d7c2-41b7-97ba-c6d5ef5f43ed"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/low-top-7hf8e?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/low-top-7hf8e?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  }
+                ],
+                "optionsCount": 1,
+                "selected": false
+              },
+              {
+                "attributeId": "c1c607b9-11f3-4375-a50b-47677cdd8595",
+                "displayText": "Sock Height",
+                "alternateName": "Sock Height",
+                "showMoreAfter": 4,
+                "expanded": true,
+                "options": [
+                  {
+                    "attributeId": "9973f6c5-f562-4a35-871c-b91f07f59e71",
+                    "crawlable": false,
+                    "displayText": "Medium",
+                    "alternateName": "Medium",
+                    "selected": false,
+                    "resultCount": 1,
+                    "navigationAttributeIds": [
+                      "9973f6c5-f562-4a35-871c-b91f07f59e71"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/medium-6ojj4?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/medium-6ojj4?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  }
+                ],
+                "optionsCount": 1,
+                "selected": false
+              },
+              {
+                "attributeId": "b5cd158b-b105-490c-b777-652943e742b0",
+                "displayText": "Width",
+                "alternateName": "Width",
+                "showMoreAfter": 4,
+                "expanded": true,
+                "options": [
+                  {
+                    "attributeId": "9e5e6948-8820-4a24-a4d3-01cdb5dc8291",
+                    "crawlable": false,
+                    "displayText": "Regular",
+                    "alternateName": "Regular",
+                    "selected": false,
+                    "resultCount": 3,
+                    "navigationAttributeIds": [
+                      "9e5e6948-8820-4a24-a4d3-01cdb5dc8291"
+                    ],
+                    "navigation": {
+                      "canonicalUrl": "https://www.nike.com/vn/w",
+                      "pageUrl": "https://www.nike.com/vn/w/regular-width-6w2ir?q=Dri-FIT%20Victory%20Polo",
+                      "path": "/vn/w/regular-width-6w2ir?q=Dri-FIT%20Victory%20Polo"
+                    }
+                  }
+                ],
+                "optionsCount": 1,
+                "selected": false
+              }
+            ]
+          },
+          "loading": false,
+          "pageData": {
+            "next": "/discover/product_wall/v1/marketplace/VN/language/en-GB/consumerChannelId/d9a5bc42-4b9c-4976-858a-f159cf99c647?path=/vn/w?q%3DDri-FIT%20Victory%20Polo&searchTerms=Dri-FIT%20Victory%20Polo&queryType=PRODUCTS&anchor=24&count=24",
+            "prev": "",
+            "totalPages": 4,
+            "totalResources": 88
+          },
+          "productGroupings": [
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "TVvw443S",
+                  "productCode": "IB9873-641",
+                  "productType": "APPAREL",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "f22f7b7e-f710-450a-9691-1d6df6c8c67b",
+                  "internalPid": "1015850313",
+                  "merchProductId": "43267793-7371-5ebc-98f5-33775d54cd2d",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Nike Zenvy",
+                    "subTitle": "Women's Light-Support Sports Bra Tank"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "Pink",
+                      "hex": "F3B0C9"
+                    },
+                    "colorDescription": "Peony/White"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 1579000,
+                    "employeePrice": 1579000,
+                    "initialPrice": 1579000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/5f4375ad-5b8c-4d13-bdf8-0a6f9005270b/AS+W+NK+ZENVY+BRA+TANK.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32d9888e-cccf-4b37-a32a-63fb135d6499/AS+W+NK+ZENVY+BRA+TANK.png"
+                  },
+                  "featuredAttributes": null,
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/zenvy-light-support-sports-bra-tank-TVvw443S/IB9873-641",
+                    "path": "/vn/t/zenvy-light-support-sports-bra-tank-TVvw443S/IB9873-641"
+                  },
+                  "isNewUntil": null,
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": null,
+                  "badgeLabel": null
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "cVG1f3",
+                  "productCode": "FD8411-101",
+                  "productType": "FOOTWEAR",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "bb128d68-2e74-492f-a6c7-24026d75bbff",
+                  "internalPid": "1015797701",
+                  "merchProductId": "91ca2b19-efc9-5ef7-8ca1-d59bbd194373",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Nike Victory 2",
+                    "subTitle": "Athletics Distance Spikes"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "White",
+                      "hex": "F0F4FF"
+                    },
+                    "colorDescription": "White/Bright Crimson/Fire Pink/Obsidian"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 5279000,
+                    "employeePrice": 5279000,
+                    "initialPrice": 5279000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/6ea074ac-14ce-46fb-9dcb-f942cd726dc1/AIR+ZOOM+VICTORY+2.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/17af3f35-628a-46cd-8c5b-6c0b2c659828/AIR+ZOOM+VICTORY+2.png"
+                  },
+                  "featuredAttributes": null,
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/victory-2-athletics-distance-spikes-cVG1f3/FD8411-101",
+                    "path": "/vn/t/victory-2-athletics-distance-spikes-cVG1f3/FD8411-101"
+                  },
+                  "isNewUntil": null,
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": null,
+                  "badgeLabel": null
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "zZq8bt",
+                  "productCode": "FZ4155-105",
+                  "productType": "FOOTWEAR",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "cd83acda-8706-493f-ad60-dbdca028d234",
+                  "internalPid": "1015878878",
+                  "merchProductId": "629b9196-2da3-55d7-9506-f8ad164e2877",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Nike Victory Tour 4",
+                    "subTitle": "Golf Shoes"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "White",
+                      "hex": "F0F4FF"
+                    },
+                    "colorDescription": "White/Malachite/Black"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 5589000,
+                    "employeePrice": 5589000,
+                    "initialPrice": 5589000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/83666482-ec4f-4a03-bbc9-1279b1aa0e19/VICTORY+TOUR+4.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/20366852-5229-42d7-9cd1-6d2acc936857/VICTORY+TOUR+4.png"
+                  },
+                  "featuredAttributes": null,
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/victory-tour-4-golf-shoes-zZq8bt/FZ4155-105",
+                    "path": "/vn/t/victory-tour-4-golf-shoes-zZq8bt/FZ4155-105"
+                  },
+                  "isNewUntil": null,
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": null,
+                  "badgeLabel": null
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "osl7wkyW",
+                  "productCode": "HV4699-102",
+                  "productType": "FOOTWEAR",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "f8d99312-e7ca-4d5f-8018-d3b4a96a637f",
+                  "internalPid": "1015878768",
+                  "merchProductId": "c9606e7e-be65-5474-a59d-7b9b3b968a12",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Nike NEXT% TOUR 3",
+                    "subTitle": "Golf Shoes"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "White",
+                      "hex": "F0F4FF"
+                    },
+                    "colorDescription": "White/Phantom/Black"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 5279000,
+                    "employeePrice": 5279000,
+                    "initialPrice": 5279000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/39a5686b-c7dc-4f3a-8513-7bab37c0b5ca/NIKE+NEXT%25+TOUR+3.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/d60c0a73-cfc7-4116-a08b-968c5c78a995/NIKE+NEXT%25+TOUR+3.png"
+                  },
+                  "featuredAttributes": null,
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/next-tour-3-golf-shoes-osl7wkyW/HV4699-102",
+                    "path": "/vn/t/next-tour-3-golf-shoes-osl7wkyW/HV4699-102"
+                  },
+                  "isNewUntil": null,
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": null,
+                  "badgeLabel": null
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "3CalD5Rx",
+                  "productCode": "IB0234-100",
+                  "productType": "APPAREL",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "9ceca9a8-2635-461c-9641-619e0f19f7d0",
+                  "internalPid": "1015828006",
+                  "merchProductId": "5e60256b-5ab0-56f5-9ae3-874a028d8900",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Nike Par",
+                    "subTitle": "Men's Dri-FIT Golf Polo"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "White",
+                      "hex": "F0F4FF"
+                    },
+                    "colorDescription": "White/Black"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 2039000,
+                    "employeePrice": 2039000,
+                    "initialPrice": 2039000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/cfc3e631-41af-45d5-a21d-60a8ea5eae5c/AS+M+NK+DF+PAR+POLO+SS+SOLID.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32c4789c-d73c-4340-8e22-d041adaae9dd/AS+M+NK+DF+PAR+POLO+SS+SOLID.png"
+                  },
+                  "featuredAttributes": [
+                    "SUSTAINABLE_MATERIALS"
+                  ],
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/par-dri-fit-golf-polo-3CalD5Rx/IB0234-100",
+                    "path": "/vn/t/par-dri-fit-golf-polo-3CalD5Rx/IB0234-100"
+                  },
+                  "isNewUntil": null,
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": "SUSTAINABLE_MATERIALS",
+                  "badgeLabel": "Recycled Materials"
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "xcC8rISu",
+                  "productCode": "IF1462-010",
+                  "productType": "APPAREL",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "01d1e44a-a5b6-4bd7-a39d-3e716c5d87ad",
+                  "internalPid": "1015827603",
+                  "merchProductId": "c4e19e03-592a-51a2-b154-3aaead5624d7",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Nike Strike",
+                    "subTitle": "Men's Dri-FIT Short-Sleeve Football Shirt"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "Black",
+                      "hex": "27292B"
+                    },
+                    "colorDescription": "Black/White/White/White"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 1019000,
+                    "employeePrice": 1019000,
+                    "initialPrice": 1019000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/8d5414b3-4b58-488a-925e-7ca099e557f5/AS+M+NK+DF+STRK+TOP+SS.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/e47db67d-0529-40bd-b901-7bfca4348dc9/AS+M+NK+DF+STRK+TOP+SS.png"
+                  },
+                  "featuredAttributes": [
+                    "SUSTAINABLE_MATERIALS"
+                  ],
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/strike-dri-fit-short-sleeve-football-top-xcC8rISu/IF1462-010",
+                    "path": "/vn/t/strike-dri-fit-short-sleeve-football-top-xcC8rISu/IF1462-010"
+                  },
+                  "isNewUntil": null,
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": "SUSTAINABLE_MATERIALS",
+                  "badgeLabel": "Recycled Materials"
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "GIs7hsrX",
+                  "productCode": "IF2230-113",
+                  "productType": "APPAREL",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "01b379f3-792d-4b45-906a-03ec8b204a84",
+                  "internalPid": "1015833259",
+                  "merchProductId": "89a35260-30b1-5b7e-8e0e-eb8f183fd4af",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Nike Life",
+                    "subTitle": "Men's Short-Sleeve Vintage Sport Top"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "White",
+                      "hex": "F0F4FF"
+                    },
+                    "colorDescription": "Coconut Milk/University Red/Black"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 2299000,
+                    "employeePrice": 2299000,
+                    "initialPrice": 2299000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/d5340ab8-43b9-42ea-ba8b-71f0b96923d5/AS+M+NL+SS+VINTAGE+SPORT+TOP.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/7a43aa15-261c-4da7-bad1-b20470965c9d/AS+M+NL+SS+VINTAGE+SPORT+TOP.png"
+                  },
+                  "featuredAttributes": null,
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/life-short-sleeve-vintage-sport-top-GIs7hsrX/IF2230-113",
+                    "path": "/vn/t/life-short-sleeve-vintage-sport-top-GIs7hsrX/IF2230-113"
+                  },
+                  "isNewUntil": null,
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": null,
+                  "badgeLabel": null
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "rljCKuOH",
+                  "productCode": "IB0682-282",
+                  "productType": "APPAREL",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "8ec1b2f8-f066-4347-8b33-5385c287a9e8",
+                  "internalPid": "1015828237",
+                  "merchProductId": "691f7fbf-0a09-54e3-bca3-a230cdd919a6",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Nike Velocity",
+                    "subTitle": "Men's Dri-FIT Golf Shorts"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "Brown",
+                      "hex": "6C5627"
+                    },
+                    "colorDescription": "Limestone/Black/Limestone"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 1579000,
+                    "employeePrice": 1579000,
+                    "initialPrice": 1579000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/30f07221-3fe9-4edb-a020-6c6cd8fd394c/AS+M+NK+DF+VLCTY+SHORT+AT+KNEE.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/8d0441a8-3b91-431a-828a-b8e50145bf29/AS+M+NK+DF+VLCTY+SHORT+AT+KNEE.png"
+                  },
+                  "featuredAttributes": [
+                    "SUSTAINABLE_MATERIALS"
+                  ],
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/velocity-dri-fit-golf-shorts-rljCKuOH/IB0682-282",
+                    "path": "/vn/t/velocity-dri-fit-golf-shorts-rljCKuOH/IB0682-282"
+                  },
+                  "isNewUntil": null,
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": "SUSTAINABLE_MATERIALS",
+                  "badgeLabel": "Recycled Materials"
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "J1DjLBiJ",
+                  "productCode": "IF2922-010",
+                  "productType": "APPAREL",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "78118a88-b2c1-4e07-a3bb-6bba18aa28a5",
+                  "internalPid": "1015836630",
+                  "merchProductId": "c882e41d-338f-5801-80f3-d8fe4cd29e55",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Jordan Sport",
+                    "subTitle": "Men's Golf Jacquard Polo"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "Black",
+                      "hex": "27292B"
+                    },
+                    "colorDescription": "Black/Black"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 3219000,
+                    "employeePrice": 3219000,
+                    "initialPrice": 3219000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/cbfd6748-642b-4aad-a940-28373824623e/M+J+SP+GOLF+AOJ+POLO.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/c362cda2-6b2d-4d26-bc7f-e3f6f217133b/M+J+SP+GOLF+AOJ+POLO.png"
+                  },
+                  "featuredAttributes": [
+                    "SUSTAINABLE_MATERIALS"
+                  ],
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/jordan-sport-golf-jacquard-polo-J1DjLBiJ/IF2922-010",
+                    "path": "/vn/t/jordan-sport-golf-jacquard-polo-J1DjLBiJ/IF2922-010"
+                  },
+                  "isNewUntil": null,
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": "SUSTAINABLE_MATERIALS",
+                  "badgeLabel": "Recycled Materials"
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "3HXfwcL5",
+                  "productCode": "IB0648-010",
+                  "productType": "APPAREL",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "412603c2-42c9-4da9-abd5-4cabb74fbfb4",
+                  "internalPid": "1015827866",
+                  "merchProductId": "bb0b687c-8ce7-5a78-a27f-833217d92dd9",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Nike Par",
+                    "subTitle": "Men's Dri-FIT Golf Trousers"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "Black",
+                      "hex": "27292B"
+                    },
+                    "colorDescription": "Black/Black/Black"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 2859000,
+                    "employeePrice": 2859000,
+                    "initialPrice": 2859000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/295f57a0-968e-4214-a95b-c9798717e877/AS+M+NK+DF+PAR+PANT.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/b20a50ef-5265-4de9-8480-867358225213/AS+M+NK+DF+PAR+PANT.png"
+                  },
+                  "featuredAttributes": [
+                    "SUSTAINABLE_MATERIALS"
+                  ],
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/par-dri-fit-golf-trousers-3HXfwcL5/IB0648-010",
+                    "path": "/vn/t/par-dri-fit-golf-trousers-3HXfwcL5/IB0648-010"
+                  },
+                  "isNewUntil": null,
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": "SUSTAINABLE_MATERIALS",
+                  "badgeLabel": "Recycled Materials"
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "xcC8rISu",
+                  "productCode": "IF1462-410",
+                  "productType": "APPAREL",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "42f1f69d-8818-4772-a17c-7785e604ebe1",
+                  "internalPid": "1015826841",
+                  "merchProductId": "779abe09-57bd-561b-9481-9bc6c1b1e69a",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Nike Strike",
+                    "subTitle": "Men's Dri-FIT Short-Sleeve Football Shirt"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "Blue",
+                      "hex": "1F4090"
+                    },
+                    "colorDescription": "Midnight Navy/Vivid Sky/Vivid Sky/Vivid Sky"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 1019000,
+                    "employeePrice": 1019000,
+                    "initialPrice": 1019000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/4f804ff4-fa8e-47c4-a691-28f3826ff4f6/AS+M+NK+DF+STRK+TOP+SS.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/0daea44c-543b-45a0-94d7-a0fc71d07a94/AS+M+NK+DF+STRK+TOP+SS.png"
+                  },
+                  "featuredAttributes": [
+                    "SUSTAINABLE_MATERIALS"
+                  ],
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/strike-dri-fit-short-sleeve-football-top-xcC8rISu/IF1462-410",
+                    "path": "/vn/t/strike-dri-fit-short-sleeve-football-top-xcC8rISu/IF1462-410"
+                  },
+                  "isNewUntil": null,
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": "SUSTAINABLE_MATERIALS",
+                  "badgeLabel": "Recycled Materials"
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "Peg6YU0o",
+                  "productCode": "II7267-010",
+                  "productType": "APPAREL",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "11769727-04c8-42ba-9a4f-9a338c71096b",
+                  "internalPid": "1015836359",
+                  "merchProductId": "f5824c27-28da-571d-8391-dc04a83d22c2",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Jordan Sport",
+                    "subTitle": "Men's Golf Button-Down"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "Black",
+                      "hex": "27292B"
+                    },
+                    "colorDescription": "Black"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 3669000,
+                    "employeePrice": 3669000,
+                    "initialPrice": 3669000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/baa82e5d-5355-4b88-b9df-59b72e39f57c/M+J+SP+GOLF+KNIT+BTN+DN.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/61e9a867-3377-407e-9a98-3e1bbd758428/M+J+SP+GOLF+KNIT+BTN+DN.png"
+                  },
+                  "featuredAttributes": null,
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/jordan-sport-golf-button-down-Peg6YU0o/II7267-010",
+                    "path": "/vn/t/jordan-sport-golf-button-down-Peg6YU0o/II7267-010"
+                  },
+                  "isNewUntil": null,
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": null,
+                  "badgeLabel": null
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "XZrBu9sg",
+                  "productCode": "IF2931-010",
+                  "productType": "APPAREL",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "a1b396ca-5be0-447f-9de2-776a2abe8c65",
+                  "internalPid": "1015836494",
+                  "merchProductId": "7121330d-63b6-568a-8981-0fb86c22977f",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Jordan Sport",
+                    "subTitle": "Men's Dri-FIT Printed Golf Polo"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "Black",
+                      "hex": "27292B"
+                    },
+                    "colorDescription": "Black/Off-Noir/Off-Noir"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 2299000,
+                    "employeePrice": 2299000,
+                    "initialPrice": 2299000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/2b47c980-9f36-4728-82c3-1c0ebb91f137/AS+M+J+DF+GOLF+AOP+POLO.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/76c6a1fc-c5f7-4f0c-bc76-aab67eadfbf6/AS+M+J+DF+GOLF+AOP+POLO.png"
+                  },
+                  "featuredAttributes": null,
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/jordan-sport-dri-fit-printed-golf-polo-XZrBu9sg/IF2931-010",
+                    "path": "/vn/t/jordan-sport-dri-fit-printed-golf-polo-XZrBu9sg/IF2931-010"
+                  },
+                  "isNewUntil": null,
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": null,
+                  "badgeLabel": null
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "X1m0FM",
+                  "productCode": "DV9858-084",
+                  "productType": "APPAREL",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "41899d9d-b960-4d4e-b08a-b9f16bd7cb15",
+                  "internalPid": "1014298477",
+                  "merchProductId": "3552168e-ec1c-558f-9bd7-517ce014e2ec",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Nike Dri-FIT Form",
+                    "subTitle": "Men's 18cm (approx.) Unlined Versatile Shorts"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "Grey",
+                      "hex": "808080"
+                    },
+                    "colorDescription": "Smoke Grey/Black"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 1019000,
+                    "employeePrice": 1019000,
+                    "initialPrice": 1019000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/ef553e83-3a18-41ac-89c6-b46ac271b7aa/AS+M+NK+DF+FORM+7IN+UL+SHORT.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/0758f4ec-c149-4624-b743-6ec685a38ce9/AS+M+NK+DF+FORM+7IN+UL+SHORT.png"
+                  },
+                  "featuredAttributes": [
+                    "SUSTAINABLE_MATERIALS"
+                  ],
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/dri-fit-form-18cm-unlined-versatile-shorts-X1m0FM/DV9858-084",
+                    "path": "/vn/t/dri-fit-form-18cm-unlined-versatile-shorts-X1m0FM/DV9858-084"
+                  },
+                  "isNewUntil": null,
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": "SUSTAINABLE_MATERIALS",
+                  "badgeLabel": "Recycled Materials"
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "mrjeDVnv",
+                  "productCode": "IF1930-100",
+                  "productType": "APPAREL",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "65c6cb31-f427-4a49-8504-eb9babe7294c",
+                  "internalPid": "1015870454",
+                  "merchProductId": "7b5a3ae3-b9e6-585c-a11a-8f2b7cf3852a",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "NikeCourt Slam",
+                    "subTitle": "Men's Tennis Sleeveless Jumper"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "White",
+                      "hex": "F0F4FF"
+                    },
+                    "colorDescription": "White"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 2759000,
+                    "employeePrice": 2759000,
+                    "initialPrice": 2759000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/4c13bef5-6737-4362-9c73-b87444ccc4f2/AS+M+NKCT+SLAM+SWEATER+VEST+LN.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/ae5f5d3b-32f4-478d-877c-92777fad8e51/AS+M+NKCT+SLAM+SWEATER+VEST+LN.png"
+                  },
+                  "featuredAttributes": [
+                    "SUSTAINABLE_MATERIALS",
+                    "JUST_IN"
+                  ],
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/nikecourt-slam-tennis-sleeveless-jumper-mrjeDVnv/IF1930-100",
+                    "path": "/vn/t/nikecourt-slam-tennis-sleeveless-jumper-mrjeDVnv/IF1930-100"
+                  },
+                  "isNewUntil": "2026-07-02T16:00:00.000Z",
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": "JUST_IN",
+                  "badgeLabel": "Just In"
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "X1m0FM",
+                  "productCode": "DV9858-008",
+                  "productType": "APPAREL",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "0b28955f-ba46-4831-be4a-991fb61b9e22",
+                  "internalPid": "1015866307",
+                  "merchProductId": "42557582-1a44-5101-8e64-3a8961e409db",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Nike Dri-FIT Form",
+                    "subTitle": "Men's 18cm (approx.) Unlined Versatile Shorts"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "Green",
+                      "hex": "007A44"
+                    },
+                    "colorDescription": "Steam/Black"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 1019000,
+                    "employeePrice": 1019000,
+                    "initialPrice": 1019000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/bfe06c5e-ebc5-429a-91bb-1b90f1f06176/AS+M+NK+DF+FORM+7IN+UL+SHORT.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/cc3d15c5-968a-4ab1-bb37-4f2407508b0e/AS+M+NK+DF+FORM+7IN+UL+SHORT.png"
+                  },
+                  "featuredAttributes": [
+                    "SUSTAINABLE_MATERIALS"
+                  ],
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/dri-fit-form-18cm-unlined-versatile-shorts-X1m0FM/DV9858-008",
+                    "path": "/vn/t/dri-fit-form-18cm-unlined-versatile-shorts-X1m0FM/DV9858-008"
+                  },
+                  "isNewUntil": null,
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": "SUSTAINABLE_MATERIALS",
+                  "badgeLabel": "Recycled Materials"
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "fIc0CNc9",
+                  "productCode": "IH3202-010",
+                  "productType": "APPAREL",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "34c29bb1-63b6-4253-a62b-9f8d36622db3",
+                  "internalPid": "1015843379",
+                  "merchProductId": "ec4130ef-8074-5b08-8841-5c3c2df0f896",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Nike Golf Club",
+                    "subTitle": "Women's Dri-FIT UV Short-Sleeve Golf Polo"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "Black",
+                      "hex": "27292B"
+                    },
+                    "colorDescription": "Black/Sail"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 1939000,
+                    "employeePrice": 1939000,
+                    "initialPrice": 1939000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/329faae7-3f5e-4527-a035-cf93438c3a00/AS+W+NK+DF+UV+NGC+SS+POLO.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/1efa963e-618f-456a-abad-dfb8bb624127/AS+W+NK+DF+UV+NGC+SS+POLO.png"
+                  },
+                  "featuredAttributes": [
+                    "SUSTAINABLE_MATERIALS"
+                  ],
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/golf-club-dri-fit-uv-short-sleeve-golf-polo-fIc0CNc9/IH3202-010",
+                    "path": "/vn/t/golf-club-dri-fit-uv-short-sleeve-golf-polo-fIc0CNc9/IH3202-010"
+                  },
+                  "isNewUntil": null,
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": "SUSTAINABLE_MATERIALS",
+                  "badgeLabel": "Recycled Materials"
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "rH7pcMzx",
+                  "productCode": "IH0516-010",
+                  "productType": "APPAREL",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "a9c30e05-10eb-47eb-a1a6-5bb95bbc7efc",
+                  "internalPid": "1015843107",
+                  "merchProductId": "964d6a42-14b3-5339-950e-12b0a49f3c9b",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Nike Golf Club",
+                    "subTitle": "Women's Dri-FIT Flouncy Golf Skirt"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "Black",
+                      "hex": "27292B"
+                    },
+                    "colorDescription": "Black/Sail"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 1939000,
+                    "employeePrice": 1939000,
+                    "initialPrice": 1939000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/5b38ade4-c834-486e-bec9-adf92867b337/AS+W+NK+DF+NGC+SKIRT+FLOUNCY.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/4bcfcebc-327d-4665-ba39-44cf159d1bd8/AS+W+NK+DF+NGC+SKIRT+FLOUNCY.png"
+                  },
+                  "featuredAttributes": [
+                    "SUSTAINABLE_MATERIALS"
+                  ],
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/golf-club-dri-fit-flouncy-golf-skirt-rH7pcMzx/IH0516-010",
+                    "path": "/vn/t/golf-club-dri-fit-flouncy-golf-skirt-rH7pcMzx/IH0516-010"
+                  },
+                  "isNewUntil": null,
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": "SUSTAINABLE_MATERIALS",
+                  "badgeLabel": "Recycled Materials"
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "gNo6pHIK",
+                  "productCode": "IB0677-282",
+                  "productType": "APPAREL",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "d5a331dd-435d-4199-af50-7736d587ce94",
+                  "internalPid": "1015827970",
+                  "merchProductId": "770365d0-bca1-52a0-89cf-44e20a668a28",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Nike Par",
+                    "subTitle": "Men's Dri-FIT Golf Shorts"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "Brown",
+                      "hex": "6C5627"
+                    },
+                    "colorDescription": "Limestone/Black/Limestone"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 2039000,
+                    "employeePrice": 2039000,
+                    "initialPrice": 2039000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/4546dbae-6af5-46df-969a-72035218e74a/AS+M+NK+DF+PAR+SHRT+AT+KNEE.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/012027a3-b06f-400e-b05d-f42c7be8c2f9/AS+M+NK+DF+PAR+SHRT+AT+KNEE.png"
+                  },
+                  "featuredAttributes": [
+                    "SUSTAINABLE_MATERIALS"
+                  ],
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/par-dri-fit-golf-shorts-gNo6pHIK/IB0677-282",
+                    "path": "/vn/t/par-dri-fit-golf-shorts-gNo6pHIK/IB0677-282"
+                  },
+                  "isNewUntil": null,
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": "SUSTAINABLE_MATERIALS",
+                  "badgeLabel": "Recycled Materials"
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "KDmqeCwB",
+                  "productCode": "II0777-486",
+                  "productType": "APPAREL",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "cd7b5f21-cba8-4b5c-9988-341152cf1007",
+                  "internalPid": "1015888341",
+                  "merchProductId": "1b531408-5426-56de-ba21-abde401e6aae",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Nike Tartan",
+                    "subTitle": "Men's Loose Golf Cardigan"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "Blue",
+                      "hex": "1F4090"
+                    },
+                    "colorDescription": "Work Blue"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 3219000,
+                    "employeePrice": 3219000,
+                    "initialPrice": 3219000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/4ccc3ba8-13e2-4b63-902d-c2729558637d/AS+M+NK+TARTAN+CARDIGAN+LOOSE.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/a4fe0e2f-081c-445f-ae4e-d4ea7ad088a0/AS+M+NK+TARTAN+CARDIGAN+LOOSE.png"
+                  },
+                  "featuredAttributes": [
+                    "SUSTAINABLE_MATERIALS",
+                    "JUST_IN"
+                  ],
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/tartan-loose-golf-cardigan-KDmqeCwB/II0777-486",
+                    "path": "/vn/t/tartan-loose-golf-cardigan-KDmqeCwB/II0777-486"
+                  },
+                  "isNewUntil": "2026-06-29T16:00:00.000Z",
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": "JUST_IN",
+                  "badgeLabel": "Just In"
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "xR99gtLb",
+                  "productCode": "II7268-699",
+                  "productType": "APPAREL",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "f43363d1-497b-48f7-a5f0-6789ea2903c8",
+                  "internalPid": "1015876145",
+                  "merchProductId": "8f356d9a-061f-51d8-b554-da651bd774c6",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Jordan Sport",
+                    "subTitle": "Men's Golf Button-Down"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "Pink",
+                      "hex": "FF00FF"
+                    },
+                    "colorDescription": "Elemental Pink"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 3669000,
+                    "employeePrice": 3669000,
+                    "initialPrice": 3669000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/50ad1857-66a4-41a5-a3db-58f0600922ba/AS+M+J+SP+GOLF+KNIT+BTN+DN.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/061bf900-9568-44e2-b26a-c6ed73165092/AS+M+J+SP+GOLF+KNIT+BTN+DN.png"
+                  },
+                  "featuredAttributes": null,
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/jordan-sport-golf-button-down-xR99gtLb/II7268-699",
+                    "path": "/vn/t/jordan-sport-golf-button-down-xR99gtLb/II7268-699"
+                  },
+                  "isNewUntil": "2026-05-19T16:00:00.000Z",
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": null,
+                  "badgeLabel": null
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "JX2s9M",
+                  "productCode": "HJ3792-493",
+                  "productType": "APPAREL",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "0373f905-47f2-4a9a-9bd7-4b80104276d5",
+                  "internalPid": "1015826887",
+                  "merchProductId": "28def017-50a8-570e-b711-bfe15420976f",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Nike Academy",
+                    "subTitle": "Men's Dri-FIT Short-Sleeve Football Top"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "Blue",
+                      "hex": "1F4090"
+                    },
+                    "colorDescription": "Blue Void/Black/White/Pinksicle"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 659000,
+                    "employeePrice": 659000,
+                    "initialPrice": 659000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/c95c23c7-f7d6-4e5f-99d4-e8ec19982155/AS+M+NK+DF+ACD25+SS+TOP+BR.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/427e9d83-6cfd-4a79-a47d-188310fc1b71/AS+M+NK+DF+ACD25+SS+TOP+BR.png"
+                  },
+                  "featuredAttributes": [
+                    "SUSTAINABLE_MATERIALS"
+                  ],
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/academy-dri-fit-short-sleeve-football-top-JX2s9M/HJ3792-493",
+                    "path": "/vn/t/academy-dri-fit-short-sleeve-football-top-JX2s9M/HJ3792-493"
+                  },
+                  "isNewUntil": null,
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": "SUSTAINABLE_MATERIALS",
+                  "badgeLabel": "Recycled Materials"
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "E5pOKKsJ",
+                  "productCode": "HQ8489-010",
+                  "productType": "APPAREL",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "ba98c02d-b301-498b-9264-4a570b43c6a5",
+                  "internalPid": "1015690798",
+                  "merchProductId": "fc1bab2a-cf37-55aa-8bc3-0181a484ab0c",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Jordan Sport",
+                    "subTitle": "Men's Golf Shorts"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "Black",
+                      "hex": "27292B"
+                    },
+                    "colorDescription": "Black/Black"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 2859000,
+                    "employeePrice": 2859000,
+                    "initialPrice": 2859000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/75eaf987-f506-46a2-902b-687f8b71734b/AS+M+J+SP+GOLF+SHORT.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/dc8ba243-dbc1-448a-b093-9ea05c44f125/AS+M+J+SP+GOLF+SHORT.png"
+                  },
+                  "featuredAttributes": [
+                    "SUSTAINABLE_MATERIALS"
+                  ],
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/jordan-sport-golf-shorts-E5pOKKsJ/HQ8489-010",
+                    "path": "/vn/t/jordan-sport-golf-shorts-E5pOKKsJ/HQ8489-010"
+                  },
+                  "isNewUntil": null,
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": "SUSTAINABLE_MATERIALS",
+                  "badgeLabel": "Recycled Materials"
+                }
+              ]
+            },
+            {
+              "cardType": "default",
+              "properties": null,
+              "products": [
+                {
+                  "groupKey": "sgbpqd",
+                  "productCode": "FV5509-641",
+                  "productType": "APPAREL",
+                  "productSubType": "STANDARD",
+                  "globalProductId": "1d2dfa85-6dc9-4ba8-91cb-700a8ad02703",
+                  "internalPid": "1015871790",
+                  "merchProductId": "8618c47e-1c68-52ac-bdd9-5a88400445d7",
+                  "consumerChannelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+                  "copy": {
+                    "title": "Nike Sportswear Chill Knit",
+                    "subTitle": "Women's T-shirt"
+                  },
+                  "displayColors": {
+                    "simpleColor": {
+                      "label": "Pink",
+                      "hex": "FF00FF"
+                    },
+                    "colorDescription": "Peony/Sail"
+                  },
+                  "prices": {
+                    "currency": "VND",
+                    "currentPrice": 919000,
+                    "employeePrice": 919000,
+                    "initialPrice": 919000,
+                    "discountPercentage": 0,
+                    "employeeDiscountPercentage": 0
+                  },
+                  "colorwayImages": {
+                    "portraitURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/cdc0717d-c4bc-4d93-bea7-46014530fab6/AS+W+NSW+NK+CHLL+KNT+MD+CRP.png",
+                    "squarishURL": "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/84247d6f-1412-437b-b7b0-94df07b36684/AS+W+NSW+NK+CHLL+KNT+MD+CRP.png"
+                  },
+                  "featuredAttributes": null,
+                  "pdpUrl": {
+                    "url": "https://www.nike.com/vn/t/sportswear-chill-knit-t-shirt-sgbpqd/FV5509-641",
+                    "path": "/vn/t/sportswear-chill-knit-t-shirt-sgbpqd/FV5509-641"
+                  },
+                  "isNewUntil": null,
+                  "promotions": null,
+                  "customization": null,
+                  "badgeAttribute": null,
+                  "badgeLabel": null
+                }
+              ]
+            }
+          ],
+          "searchTerm": "Dri-FIT%20Victory%20Polo",
+          "selectedFiltersCount": null,
+          "sortBy": "",
+          "title": null,
+          "traceId": "dcb05fd492b5fcdde8b0bf8289a3ed06",
+          "uuids": null,
+          "vcnData": {
+            "cards": [],
+            "format": "medium",
+            "threadKey": ""
+          },
+          "visibleFilterNavGroups": [],
+          "xSearchOptionsHeader": null,
+          "primaryHeading": null
+        },
+        "Config": {
+          "channelId": "d9a5bc42-4b9c-4976-858a-f159cf99c647",
+          "division": "commerce",
+          "domain": "dotcom",
+          "facebookAppId": "1397260880304609",
+          "name": "wall",
+          "platform": "cloud",
+          "version": "1.0.0",
+          "dark": false,
+          "env": "prod",
+          "preview": false,
+          "gqlHash": "4bc133d8e69ba0dd907158346fed7f2e",
+          "flags": {
+            "abTests": true,
+            "cookieSettings": false,
+            "debug": false,
+            "enableMAP": false,
+            "enableMobilePercentOffDisplay": false,
+            "enablePercentOffDisplay": true,
+            "enableImageQualityV2": true,
+            "enablePromoMsg": true,
+            "enableQuickAddToBag": true,
+            "forcePriceDecimals": false,
+            "globalNavUseGeoPrivacy": true,
+            "pulseInsights": false,
+            "recommendations": true,
+            "sendPIDsOnWall": true,
+            "showElevatedFilters": false,
+            "showFindInStore": false,
+            "showGeoMismatch": true,
+            "showJPStrikethrough": false,
+            "showLegacyFilter": false,
+            "showNikeSKIMS": true,
+            "showPromoBanner": true,
+            "showRelatedCategories": true,
+            "showRelatedContent": true,
+            "showSmallVCN": true,
+            "showSEOCopy": false,
+            "showUniteTimers": false,
+            "showVisualCategoryNav": false,
+            "swooshEligibleGeo": false,
+            "useDotcomNav": true,
+            "usePlainSaleMessaging": false,
+            "useServiceCanonicalUrl": true,
+            "useUniteStaging": false,
+            "enableNikeShopModals": true,
+            "wallFavorites": false,
+            "wallImpressions": true,
+            "wallNoResultsCarousel": true,
+            "xSearchOptionsHeader": true
+          },
+          "assetPaths": {},
+          "cacheDuration": {
+            "404": 60,
+            "default": 900,
+            "perf": 900,
+            "wall": 300
+          },
+          "globalConfig": {
+            "cacheTag": "dotcom-shared-config,dotcom-shared-config-vn",
+            "config": {
+              "asyncChatEnabled": false,
+              "useMarketplaceId": false,
+              "isGlobalStoreCountry": true
+            }
+          }
+        },
+        "Console": {
+          "providers": []
+        },
+        "Auth": {
+          "bearer": ""
+        },
+        "Favorites": {
+          "favoritedProducts": [],
+          "timestamp": false,
+          "wishlistIds": []
+        },
+        "Privacy": {
+          "arePerformanceCookiesAllowed": false,
+          "areSocialCookiesAllowed": false,
+          "hasEUCookie": false
+        },
+        "Device": {
+          "deviceWidth": "sm"
+        },
+        "Common": {
+          "channel": "NIKE",
+          "globalNavFixed": false,
+          "globalNavHidden": false,
+          "globalNavPeekabooEnabled": false,
+          "globalNavPeekabooVisible": false,
+          "pageType": "wall"
+        },
+        "StoreLocations": {
+          "filteredByStore": false,
+          "postalCode": "",
+          "selectedStore": {},
+          "storeList": []
+        },
+        "intl": {}
+      }
+    },
+    "__N_SSP": true
+  },
+  "page": "/[country]/w/[[...slug]]",
+  "query": {
+    "q": "Dri-FIT Victory Polo",
+    "country": "vn"
+  },
+  "buildId": "tkROUkeHNAzpWdd67_BMP",
+  "assetPrefix": "//www.nike.com/assets/experience/dotcom-browse/app",
+  "isFallback": false,
+  "isExperimentalCompile": false,
+  "gssp": true,
+  "scriptLoader": []
+}

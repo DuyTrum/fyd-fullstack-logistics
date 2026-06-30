@@ -7,9 +7,16 @@
  */
 
 const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX';
+const hasValidId = GA_MEASUREMENT_ID && GA_MEASUREMENT_ID !== 'G-XXXXXXXXXX';
 
-// Initialize gtag function
-if (typeof window !== 'undefined') {
+// Initialize gtag function dynamically to avoid network errors on local/offline development
+if (typeof window !== 'undefined' && hasValidId) {
+    // Inject the GA script tag dynamically
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+    document.head.appendChild(script);
+
     window.dataLayer = window.dataLayer || [];
     window.gtag = function gtag() {
         window.dataLayer.push(arguments);

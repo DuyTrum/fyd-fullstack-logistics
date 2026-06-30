@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useCart } from "@shared/context/CartContext.jsx";
-import { orderAPI, formatVND, formatDate, fetchCategories } from "@shared/utils/api.js";
+import { orderAPI, formatVND, formatDate, fetchCategories, shippingAPI } from "@shared/utils/api.js";
 import { getCustomer, logout as customerLogout } from "@shared/utils/customerSession.js";
 import ShopHeader from "../components/ShopHeader.jsx";
 import ShopFooter from "../components/ShopFooter.jsx";
@@ -31,6 +31,8 @@ export default function TrackOrder() {
     const [error, setError] = useState("");
     const [categories, setCategories] = useState([]);
     const [customer, setCustomer] = useState(null);
+    const [trackingLogs, setTrackingLogs] = useState([]);
+    const [loadingTracking, setLoadingTracking] = useState(false);
 
     // Cart Context
     const {
@@ -57,6 +59,23 @@ export default function TrackOrder() {
         loadInitialData();
     }, []);
 
+    const loadTrackingLogs = async (orderId) => {
+        setLoadingTracking(true);
+        try {
+            const res = await shippingAPI.getTracking(orderId);
+            if (res && res.order && res.order.logs) {
+                setTrackingLogs(res.order.logs);
+            } else {
+                setTrackingLogs([]);
+            }
+        } catch (err) {
+            console.error("Failed to load tracking logs:", err);
+            setTrackingLogs([]);
+        } finally {
+            setLoadingTracking(false);
+        }
+    };
+
     const handleTrack = async (e) => {
         e.preventDefault();
 
@@ -68,6 +87,7 @@ export default function TrackOrder() {
         setLoading(true);
         setError("");
         setOrder(null);
+        setTrackingLogs([]);
 
         try {
             const result = await orderAPI.track(orderCode.trim(), phone.trim());
@@ -76,6 +96,9 @@ export default function TrackOrder() {
                 setError(result.error);
             } else {
                 setOrder(result);
+                if (result.trackingNumber) {
+                    loadTrackingLogs(result.id);
+                }
             }
         } catch (err) {
             setError("Không thể kết nối đến máy chủ. Vui lòng thử lại.");
@@ -83,6 +106,45 @@ export default function TrackOrder() {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        const queryParams = new URLSearchParams(window.location.search);
+        const codeParam = queryParams.get("orderCode");
+        const phoneParam = queryParams.get("phone");
+        if (codeParam && phoneParam) {
+            setOrderCode(codeParam.toUpperCase());
+            setPhone(phoneParam.replace(/\D/g, ''));
+            
+            setLoading(true);
+            setError("");
+            setOrder(null);
+            setTrackingLogs([]);
+
+            orderAPI.track(codeParam.trim(), phoneParam.trim())
+                .then(result => {
+                    if (result.error) {
+                        setError(result.error);
+                    } else {
+                        setOrder(result);
+                        if (result.trackingNumber) {
+                            shippingAPI.getTracking(result.id)
+                                .then(res => {
+                                    if (res && res.order && res.order.logs) {
+                                        setTrackingLogs(res.order.logs);
+                                    }
+                                })
+                                .catch(err => console.error("Error fetching logs:", err));
+                        }
+                    }
+                })
+                .catch(err => {
+                    setError("Không thể kết nối đến máy chủ. Vui lòng thử lại.");
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        }
+    }, []);
 
     const getStatusIndex = (status) => {
         if (status === "CANCELLED") return -1;
@@ -240,6 +302,84 @@ export default function TrackOrder() {
                                     {order.deliveredAt && <p>Giao hàng: {formatDate(order.deliveredAt)}</p>}
                                 </div>
                             </div>
+
+                            {/* GHTK Shipping Timeline */}
+                            {order.trackingNumber && (
+                                <div className="shipping-timeline-section" style={{
+                                    marginTop: '25px',
+                                    background: '#f8fafc',
+                                    border: '1px solid #e2e8f0',
+                                    borderRadius: '12px',
+                                    padding: '20px',
+                                }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', borderBottom: '1px solid #e2e8f0', paddingBottom: '12px' }}>
+                                        <h4 style={{ margin: 0, fontSize: '16px', fontWeight: 700, color: '#1e293b', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                            <span>🚚</span> Hành trình bưu tá GHTK
+                                        </h4>
+                                        <div style={{ fontSize: '13px' }}>
+                                            <span style={{ color: '#64748b' }}>Mã vận đơn: </span>
+                                            <strong style={{ color: '#2563eb', fontFamily: 'monospace' }}>{order.trackingNumber}</strong>
+                                        </div>
+                                    </div>
+
+                                    {loadingTracking ? (
+                                        <div style={{ textAlign: 'center', padding: '20px 0', color: '#64748b', fontSize: '14px' }}>
+                                            Đang tải dữ liệu hành trình...
+                                        </div>
+                                    ) : trackingLogs.length > 0 ? (
+                                        <div className="ghtk-client-timeline" style={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            gap: '20px',
+                                            position: 'relative',
+                                            paddingLeft: '20px',
+                                            borderLeft: '2px dashed #cbd5e1',
+                                            margin: '10px 0 10px 10px'
+                                        }}>
+                                            {trackingLogs.map((log, index) => {
+                                                const isLatest = index === 0;
+                                                return (
+                                                    <div key={index} style={{ position: 'relative' }}>
+                                                        {/* Node indicator */}
+                                                        <div style={{
+                                                            position: 'absolute',
+                                                            left: -26,
+                                                            top: 4,
+                                                            width: 10,
+                                                            height: 10,
+                                                            borderRadius: '50%',
+                                                            background: isLatest ? '#10b981' : '#94a3b8',
+                                                            border: isLatest ? '3px solid #fff' : 'none',
+                                                            boxShadow: isLatest ? '0 0 0 3px #10b981' : 'none',
+                                                            transition: 'all 0.3s ease'
+                                                        }} />
+                                                        <div style={{
+                                                            fontSize: '12px',
+                                                            color: isLatest ? '#10b981' : '#64748b',
+                                                            fontWeight: 600,
+                                                            marginBottom: '2px'
+                                                        }}>
+                                                            {log.time}
+                                                        </div>
+                                                        <div style={{
+                                                            fontSize: '14px',
+                                                            color: isLatest ? '#0f766e' : '#334155',
+                                                            fontWeight: isLatest ? 600 : 400,
+                                                            lineHeight: '1.5'
+                                                        }}>
+                                                            {log.status}
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    ) : (
+                                        <div style={{ textAlign: 'center', padding: '20px 0', color: '#64748b', fontSize: '14px' }}>
+                                            Chưa có thông tin cập nhật hành trình từ bưu tá.
+                                        </div>
+                                    )}
+                                </div>
+                            )}
 
                             {/* Order Items */}
                             {order.items && order.items.length > 0 && (

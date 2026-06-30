@@ -11,6 +11,8 @@ import "../styles/admin-forms.css";
 
 const PLACEHOLDER_IMG = "https://placehold.co/400x400/f5f5f5/999?text=No+Image";
 
+const FIGMA_FILE_URL = import.meta.env.VITE_FIGMA_FILE_URL || "https://www.figma.com/file/fyd-logistics-design-mockup";
+
 // SVG Icons
 const CloseIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -298,7 +300,7 @@ export default function Products() {
     try {
       setLoading(true);
       const [prodData, catData, brandData, colorData, sizeData] = await Promise.all([
-        productAPI.getAll(),
+        productAPI.getAll({ size: 1000 }),
         categoryAPI.getFlat().catch(() => []),
         brandAPI.getAll().catch(() => []),
         colorAPI.getAll().catch(() => []),
@@ -482,6 +484,23 @@ export default function Products() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
           />
+          <a
+            href={`${FIGMA_FILE_URL}?node-id=products-page`}
+            target="_blank"
+            rel="noreferrer"
+            className="btnGhost"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#ff7262', textDecoration: 'none' }}
+          >
+            <svg width="14" height="14" viewBox="0 0 38 57" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ verticalAlign: 'middle' }}>
+              <path d="M19 0C8.5 0 0 8.5 0 19C0 24.2 2.1 28.9 5.6 32.4C2.1 35.9 0 40.6 0 45.8C0 56.3 8.5 64.8 19 64.8C24.2 64.8 28.9 62.7 32.4 59.2C35.9 62.7 40.6 64.8 45.8 64.8C56.3 64.8 64.8 56.3 64.8 45.8C64.8 40.6 62.7 35.9 59.2 32.4C62.7 28.9 64.8 24.2 64.8 19C64.8 8.5 56.3 0 45.8 0L19 0Z" fill="none"/>
+              <path d="M9.5 47.5C9.5 42.25 13.75 38 19 38C24.25 38 28.5 42.25 28.5 47.5C28.5 52.75 24.25 57 19 57C13.75 57 9.5 52.75 9.5 52.75Z" fill="#0ACF83"/>
+              <path d="M9.5 19C9.5 13.75 13.75 9.5 19 9.5L28.5 9.5L28.5 28.5L19 28.5C13.75 28.5 9.5 24.25 9.5 19Z" fill="#A259FF"/>
+              <path d="M9.5 28.5C9.5 28.5 9.5 28.5 9.5 28.5C9.5 33.75 13.75 38 19 38L28.5 38L28.5 19L19 19C13.75 19 9.5 23.25 9.5 28.5Z" fill="#F24E1E"/>
+              <path d="M28.5 9.5C28.5 4.25 32.75 0 38 0C43.25 0 47.5 4.25 47.5 9.5C47.5 14.75 43.25 19 38 19L28.5 19L28.5 9.5Z" fill="#FF7262"/>
+              <path d="M28.5 38C28.5 38 28.5 38 28.5 38C28.5 32.75 32.75 28.5 38 28.5C43.25 28.5 47.5 32.75 47.5 38C47.5 43.25 43.25 47.5 38 47.5C32.75 47.5 28.5 43.25 28.5 38Z" fill="#1ABCFE"/>
+            </svg>
+            <span>Figma Design</span>
+          </a>
           <button className="btnGhost" type="button" onClick={() => setImportOpen(true)}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '6px' }}>
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />

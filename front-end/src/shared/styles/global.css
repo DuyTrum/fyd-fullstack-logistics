@@ -118,3 +118,68 @@ body.light {
     radial-gradient(700px 550px at 85% 0%, rgba(59, 130, 246, 0.16), transparent 50%),
     var(--bg);
 }
+
+/* ==========================================================================
+   Global Custom Scrollbars (Modern Enterprise SaaS Standard)
+   ========================================================================== */
+
+/* Firefox standard scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.14) transparent;
+}
+
+body.light * {
+  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+}
+
+/* Webkit browser scrollbars (Chrome, Safari, Edge, Opera) */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--accent); /* Primary Accent color (e.g. mint/cyan) */
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: var(--accent2); /* Secondary Accent color (blue) */
+}
+
+/* Light Theme Scrollbar Adjustments */
+body.light ::-webkit-scrollbar-thumb {
+  background: rgba(15, 23, 42, 0.15);
+}
+
+body.light ::-webkit-scrollbar-thumb:hover {
+  background-color: var(--accent);
+}
+
+body.light ::-webkit-scrollbar-thumb:active {
+  background-color: var(--accent2);
+}
+
+/* Smooth Scrolling Behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide horizontal scrollbar unless content actually overflows */
+.overflow-x-auto,
+.table-responsive {
+  overflow-x: auto;
+  overflow-y: hidden;
+}

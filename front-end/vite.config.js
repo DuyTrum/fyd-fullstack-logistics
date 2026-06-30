@@ -11,7 +11,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
       devOptions: {
-        enabled: true
+        enabled: false
       },
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       manifest: {
@@ -44,8 +44,9 @@ export default defineConfig({
     })
   ],
   server: {
-    https: false,
+    host: '0.0.0.0',
     port: 5175,
+    strictPort: true,
   },
   resolve: {
     alias: {

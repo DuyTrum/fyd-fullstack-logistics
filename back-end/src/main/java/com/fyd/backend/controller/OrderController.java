@@ -192,8 +192,12 @@ public class OrderController {
         // Normalize phone number (remove spaces, dashes)
         String normalizedPhone = phone.replaceAll("[\\s\\-]", "");
         
-        return orderRepository.findByOrderCode(orderCode)
-            .map(order -> {
+        java.util.Optional<Order> orderOpt = orderRepository.findByOrderCode(orderCode);
+        if (orderOpt.isEmpty()) {
+            orderOpt = orderRepository.findByTrackingNumber(orderCode);
+        }
+
+        return orderOpt.map(order -> {
                 // Verify phone matches the order
                 String orderPhone = order.getShippingPhone();
                 if (orderPhone != null) {
@@ -207,7 +211,9 @@ public class OrderController {
                 
                 // Return limited order info for tracking
                 Map<String, Object> trackingInfo = new HashMap<>();
+                trackingInfo.put("id", order.getId());
                 trackingInfo.put("orderCode", order.getOrderCode());
+                trackingInfo.put("trackingNumber", order.getTrackingNumber());
                 trackingInfo.put("status", order.getStatus());
                 trackingInfo.put("paymentStatus", order.getPaymentStatus());
                 trackingInfo.put("paymentMethod", order.getPaymentMethod());
@@ -402,13 +408,16 @@ public class OrderController {
             BigDecimal promoDiscount = BigDecimal.ZERO;
             if (promoCode != null && !promoCode.isEmpty()) {
                 var promoOpt = promotionRepository.findByCodeIgnoreCase(promoCode);
-                if (promoOpt.isPresent() && promoOpt.get().isValid()) {
-                    promoDiscount = promoOpt.get().calculateDiscount(subtotal);
-                    totalDiscount = totalDiscount.add(promoDiscount);
-                    // Update usage count
+                if (promoOpt.isPresent()) {
                     var promo = promoOpt.get();
-                    promo.setUsedCount(promo.getUsedCount() + 1);
-                    promotionRepository.save(promo);
+                    long realCount = orderRepository.countByPromotionCodeIgnoreCase(promo.getCode());
+                    promo.setUsedCount((int) realCount);
+                    if (promo.isValid()) {
+                        promoDiscount = promo.calculateDiscount(subtotal);
+                        totalDiscount = totalDiscount.add(promoDiscount);
+                        promo.setUsedCount((int) realCount + 1);
+                        promotionRepository.save(promo);
+                    }
                 }
             }
 

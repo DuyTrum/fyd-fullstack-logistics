@@ -12,10 +12,16 @@ import com.fyd.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import io.netty.channel.ChannelOption;
+import io.netty.handler.timeout.ReadTimeoutHandler;
+import io.netty.handler.timeout.WriteTimeoutHandler;
+import reactor.netty.http.client.HttpClient;
 
 import java.math.BigDecimal;
+import java.util.concurrent.TimeUnit;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
@@ -53,7 +59,18 @@ public class AiService {
     private final WebClient webClient;
 
     public AiService() {
+        // Configure HttpClient with timeouts
+        HttpClient httpClient = HttpClient.create()
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000)
+                .option(ChannelOption.SO_KEEPALIVE, true)
+                .responseTimeout(java.time.Duration.ofSeconds(30))
+                .doOnConnected(conn ->
+                    conn.addHandlerLast(new ReadTimeoutHandler(30, TimeUnit.SECONDS))
+                        .addHandlerLast(new WriteTimeoutHandler(30, TimeUnit.SECONDS))
+                );
+
         this.webClient = WebClient.builder()
+                .clientConnector(new ReactorClientHttpConnector(httpClient))
                 .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(16 * 1024 * 1024))
                 .build();
     }
@@ -634,6 +651,17 @@ public class AiService {
             e.printStackTrace();
             String errorMsg = e.getMessage();
             
+            // Handle DNS resolution error
+            if (errorMsg != null && (errorMsg.contains("Failed to resolve") || errorMsg.contains("UnknownHostException"))) {
+                System.err.println("⚠️ DNS Resolution Error for api.groq.com - Check network connection");
+                return AiChatResponse.error("Lỗi kết nối mạng: Không thể kết nối đến API Groq. Kiểm tra kết nối internet.");
+            }
+            
+            // Handle timeout error
+            if (errorMsg != null && (errorMsg.contains("timeout") || errorMsg.contains("Timeout"))) {
+                return AiChatResponse.error("Yêu cầu tới AI hết thời gian. Vui lòng thử lại.");
+            }
+            
             // Handle 429 rate limit error
             if (errorMsg != null && errorMsg.contains("429")) {
                 return AiChatResponse.error("AI đang bận, vui lòng đợi 1-2 phút rồi thử lại.");
@@ -942,9 +970,106 @@ public class AiService {
                 Cuối cùng, viết 2-3 câu tóm tắt chiến lược Flash Sale tổng thể.
                 """.formatted(dataContext.toString(), now.getMonthValue());
             
-            return callGroqAPI(prompt);
+            AiChatResponse aiResponse = callGroqAPI(prompt);
+            if (aiResponse.isSuccess()) {
+                return aiResponse;
+            }
+            return generateLocalFlashSaleSuggestions(topProducts, highStockProducts);
         } catch (Exception e) {
-            return AiChatResponse.error("Lỗi khi phân tích đề xuất Flash Sale: " + e.getMessage());
+            System.err.println("Flash Sale AI suggestion failed, falling back to local calculation: " + e.getMessage());
+            try {
+                List<Object[]> topProducts = orderItemRepository.getTopProductsByRevenueFrom(LocalDateTime.now().minusDays(7));
+                List<Product> allProducts = productRepository.findAll();
+                List<Product> highStockProducts = allProducts.stream()
+                    .filter(p -> p.getVariants() != null && !p.getVariants().isEmpty())
+                    .sorted((a, b) -> {
+                        int stockA = a.getVariants().stream().mapToInt(v -> v.getStockQuantity() != null ? v.getStockQuantity() : 0).sum();
+                        int stockB = b.getVariants().stream().mapToInt(v -> v.getStockQuantity() != null ? v.getStockQuantity() : 0).sum();
+                        return stockB - stockA;
+                    })
+                    .limit(10)
+                    .collect(Collectors.toList());
+                return generateLocalFlashSaleSuggestions(topProducts, highStockProducts);
+            } catch (Exception ex) {
+                return AiChatResponse.error("Lỗi khi phân tích đề xuất Flash Sale: " + e.getMessage());
+            }
         }
+    }
+
+    private AiChatResponse generateLocalFlashSaleSuggestions(List<Object[]> topProducts, List<Product> highStockProducts) {
+        StringBuilder reply = new StringBuilder();
+        reply.append("### 🤖 Đề xuất sản phẩm Flash Sale từ hệ thống (Chế độ Ngoại tuyến)\n\n");
+        reply.append("Dưới đây là các sản phẩm được đề xuất cho chiến dịch Flash Sale tiếp theo dựa trên phân tích dữ liệu kho hàng và doanh số bán hàng trong tuần qua:\n\n");
+        
+        int count = 0;
+        List<Product> listToPropose = new ArrayList<>();
+        Map<Long, String> reasons = new HashMap<>();
+        Map<Long, Integer> discounts = new HashMap<>();
+        
+        // 1. First propose top 3 high stock products to clear inventory
+        for (Product p : highStockProducts) {
+            int totalStock = p.getVariants() != null 
+                ? p.getVariants().stream().mapToInt(v -> v.getStockQuantity() != null ? v.getStockQuantity() : 0).sum() 
+                : 0;
+            if (totalStock > 20 && count < 3) {
+                listToPropose.add(p);
+                reasons.put(p.getId(), "Sản phẩm hiện đang có lượng tồn kho cao (" + totalStock + " chiếc). Đề xuất chạy Flash Sale giảm giá mạnh để giải phóng vốn và tối ưu hóa diện tích kho hàng trước khi nhập mùa mới.");
+                discounts.put(p.getId(), 30); // 30% discount
+                count++;
+            }
+        }
+        
+        // 2. Next propose top 2 selling products to attract traffic
+        int topCount = 0;
+        for (Object[] row : topProducts) {
+            Long pid = ((Number) row[0]).longValue();
+            String name = (String) row[1];
+            Long sales = ((Number) row[2]).longValue();
+            
+            // Avoid duplicate
+            if (listToPropose.stream().noneMatch(p -> p.getId().equals(pid)) && topCount < 2) {
+                Optional<Product> pOpt = productRepository.findById(pid);
+                if (pOpt.isPresent()) {
+                    Product p = pOpt.get();
+                    listToPropose.add(p);
+                    reasons.put(p.getId(), "Sản phẩm đang thuộc nhóm bán chạy nhất tuần qua (" + sales + " đơn hàng). Khuyến nghị giảm giá nhẹ 15% để làm sản phẩm phễu thu hút lưu lượng lớn khách hàng truy cập cho đợt Flash Sale.");
+                    discounts.put(p.getId(), 15); // 15% discount
+                    topCount++;
+                }
+            }
+        }
+        
+        // If we still need more products to meet at least 3 suggestions, grab some from highStock
+        if (listToPropose.size() < 3) {
+            for (Product p : highStockProducts) {
+                if (listToPropose.stream().noneMatch(existing -> existing.getId().equals(p.getId())) && listToPropose.size() < 4) {
+                    listToPropose.add(p);
+                    reasons.put(p.getId(), "Sản phẩm tồn kho chậm cần được đưa vào chương trình Flash Sale để kích thích nhu cầu mua sắm.");
+                    discounts.put(p.getId(), 20);
+                }
+            }
+        }
+        
+        NumberFormat vndFormat = NumberFormat.getInstance(new Locale("vi", "VN"));
+        
+        for (Product p : listToPropose) {
+            double basePrice = p.getBasePrice().doubleValue();
+            int discountPercent = discounts.getOrDefault(p.getId(), 20);
+            double flashPrice = basePrice * (1.0 - (discountPercent / 100.0));
+            // Round to nearest thousands
+            flashPrice = Math.round(flashPrice / 1000.0) * 1000.0;
+            
+            reply.append(String.format("📦 **%s** (ID: %d)\n", p.getName(), p.getId()));
+            reply.append(String.format("- Giá gốc: %sđ → Giá Flash Sale đề xuất: %sđ (giảm %d%%)\n",
+                vndFormat.format(basePrice),
+                vndFormat.format(flashPrice),
+                discountPercent));
+            reply.append(String.format("- Lý do: %s\n\n", reasons.get(p.getId())));
+        }
+        
+        reply.append("### 📈 Chiến lược Flash Sale tổng thể:\n");
+        reply.append("Chiến dịch kết hợp xả kho các sản phẩm tồn kho cao cùng với các sản phẩm đang bán chạy nhất làm điểm nhấn (anchor products) để thu hút lượng lớn khách hàng truy cập. Đề xuất thiết lập khung giờ vàng (ví dụ 12:00 - 13:00) để tạo hiệu ứng khan hiếm tối đa, dự kiến giúp đẩy doanh số tăng 30% và giải phóng 15% lượng tồn kho chậm.");
+        
+        return AiChatResponse.success(reply.toString());
     }
 }

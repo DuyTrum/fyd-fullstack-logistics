@@ -15,12 +15,10 @@
    CARD COMPONENT (Page Wrapper)
    ===================================================== */
 .card {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--admin-surface);
+    border: 1px solid var(--admin-border);
     border-radius: var(--admin-radius-lg);
     padding: 24px;
-    backdrop-filter: blur(var(--admin-blur));
-    -webkit-backdrop-filter: blur(var(--admin-blur));
 }
 
 /* =====================================================
@@ -255,9 +253,7 @@
 .drawerBackdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 1000;
     animation: fadeIn 0.3s ease-out;
 }
@@ -269,10 +265,8 @@
     height: 100vh;
     width: 500px;
     max-width: 95vw;
-    background: rgba(20, 20, 25, 0.95);
-    border-left: 1px solid var(--glass-border);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: var(--admin-surface);
+    border-left: 1px solid var(--admin-border);
     padding: 0;
     /* Let inner content handle padding */
     overflow-y: auto;
@@ -292,12 +286,20 @@
 }
 
 .drawer::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: var(--admin-radius-full);
 }
 
 .drawer::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.2);
+}
+
+body.light .drawer::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+body.light .drawer::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.25);
 }
 
 @keyframes slideIn {

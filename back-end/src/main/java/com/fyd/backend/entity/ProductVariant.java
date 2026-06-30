@@ -35,9 +35,6 @@ public class ProductVariant {
     @Column(name = "stock")
     private Integer stockQuantity = 0;
 
-    @Column(name = "reserved_stock")
-    private Integer reservedStock = 0;
-
     @Column(length = 20)
     private String status = "ACTIVE";
 
@@ -62,8 +59,6 @@ public class ProductVariant {
     public void setPriceAdjustment(BigDecimal priceAdjustment) { this.priceAdjustment = priceAdjustment; }
     public Integer getStockQuantity() { return stockQuantity; }
     public void setStockQuantity(Integer stockQuantity) { this.stockQuantity = stockQuantity; }
-    public Integer getReservedStock() { return reservedStock; }
-    public void setReservedStock(Integer reservedStock) { this.reservedStock = reservedStock; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
     public LocalDateTime getCreatedAt() { return createdAt; }

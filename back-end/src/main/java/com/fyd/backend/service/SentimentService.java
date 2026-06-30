@@ -228,7 +228,16 @@ public class SentimentService {
                 }
             }
         } catch (Exception e) {
-            throw new RuntimeException("API call failed: " + e.getMessage(), e);
+            String errorMsg = e.getMessage();
+            System.err.println("Sentiment API Error: " + errorMsg);
+            
+            // Handle DNS resolution error
+            if (errorMsg != null && (errorMsg.contains("Failed to resolve") || errorMsg.contains("UnknownHostException"))) {
+                System.err.println("⚠️ DNS Resolution Error for api.groq.com");
+                throw new RuntimeException("Lỗi kết nối mạng: Không thể kết nối đến API Groq", e);
+            }
+            
+            throw new RuntimeException("API call failed: " + errorMsg, e);
         }
         
         return null;

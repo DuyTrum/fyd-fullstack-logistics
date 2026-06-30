@@ -14,7 +14,7 @@ export { default as AI } from './pages/AI.jsx';
 export { default as Revenue } from './pages/Revenue.jsx';
 export { default as Inventory } from './pages/Inventory.jsx';
 export { default as Promotions } from './pages/Promotions.jsx';
-export { default as GiftCards } from './pages/GiftCards.jsx';
+
 export { default as Tiers } from './pages/Tiers.jsx';
 export { default as Profile } from './pages/Profile.jsx';
 export { default as LuckySpin } from './pages/LuckySpin.jsx';
@@ -26,6 +26,8 @@ export { default as Categories } from './pages/Categories.jsx';
 export { default as ColorsAndSizes } from './pages/ColorsAndSizes.jsx';
 export { default as Reviews } from './pages/Reviews.jsx';
 export { default as ActivityLogs } from './pages/ActivityLogs.jsx';
-export { default as EventVouchers } from './pages/EventVouchers.jsx';
+
 export { default as FlashSaleAdmin } from './pages/FlashSale.jsx';
+export { default as DevPortal } from './pages/DevPortal.jsx';
+export * from './components/adminFormComponents.jsx';
 

@@ -1,0 +1,416 @@
+/* DevPortal.css - Premium Developer Portal Styling */
+
+.dev-portal-page {
+  font-family: var(--admin-font);
+  color: var(--admin-text);
+}
+
+/* Header styling */
+.dev-portal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  padding: 24px;
+}
+
+.portal-badge {
+  display: inline-block;
+  background: rgba(37, 99, 235, 0.15);
+  color: #3b82f6;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: var(--admin-radius-sm);
+  margin-bottom: 8px;
+}
+
+.portal-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--admin-text);
+  margin: 0 0 6px 0;
+  background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.portal-subtitle {
+  font-size: 13px;
+  color: var(--admin-text-muted);
+  margin: 0;
+}
+
+/* Tab Switcher */
+.dev-tabs-container {
+  display: flex;
+  gap: 8px;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  padding: 6px;
+  border-radius: var(--admin-radius-lg);
+  margin-bottom: 8px;
+}
+
+.dev-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  color: var(--admin-text-muted);
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: var(--admin-radius-md);
+  cursor: pointer;
+  transition: all var(--admin-transition);
+}
+
+.dev-tab-btn:hover {
+  color: var(--admin-text);
+  background: var(--admin-surface-elevated);
+}
+
+.dev-tab-btn.active {
+  color: #ffffff;
+  background: var(--admin-accent);
+}
+
+/* Component Library Grid Layout */
+.library-grid {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* Sidebar List */
+.components-sidebar {
+  padding: 16px;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+}
+
+.sidebar-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--admin-text-muted-2);
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+  padding-left: 8px;
+}
+
+.component-list-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.component-link-item {
+  background: transparent;
+  border: none;
+  color: var(--admin-text-muted);
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: var(--admin-radius-md);
+  cursor: pointer;
+  transition: all var(--admin-transition);
+}
+
+.component-link-item:hover {
+  color: var(--admin-text);
+  background: var(--admin-surface-elevated);
+}
+
+.component-link-item.active {
+  color: var(--admin-text);
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 3px solid var(--admin-accent);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* Component Workspace */
+.component-workspace {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.workspace-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+  border-bottom: 1px solid var(--admin-border);
+  padding-bottom: 16px;
+}
+
+.workspace-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+}
+
+.workspace-desc {
+  font-size: 13px;
+  color: var(--admin-text-muted);
+  margin: 0;
+}
+
+.figma-inspector-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(242, 78, 30, 0.1);
+  color: #ff7262;
+  border: 1px solid rgba(242, 78, 30, 0.2);
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: var(--admin-radius-md);
+  text-decoration: none;
+  transition: all var(--admin-transition);
+}
+
+.figma-inspector-btn:hover {
+  background: rgba(242, 78, 30, 0.18);
+  border-color: rgba(242, 78, 30, 0.3);
+  transform: translateY(-1px);
+}
+
+.figma-inspector-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Common Box Tag */
+.box-tag {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--admin-text-muted-2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+/* Component Preview Area */
+.component-preview-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-render-area {
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-lg);
+  padding: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 120px;
+}
+
+.dev-component-preview-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}
+
+.dev-component-preview-layout-vertical {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 450px;
+}
+
+/* Component Code Block */
+.component-code-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.box-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.copy-code-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--admin-border);
+  color: var(--admin-text-muted);
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: var(--admin-radius-sm);
+  cursor: pointer;
+  transition: all var(--admin-transition);
+}
+
+.copy-code-btn:hover {
+  color: var(--admin-text);
+  background: var(--admin-surface-elevated);
+}
+
+.code-renderer {
+  margin: 0;
+  background: #0d0e11;
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-lg);
+  padding: 16px;
+  overflow-x: auto;
+}
+
+.code-renderer code {
+  font-family: var(--admin-font-mono);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #e2e8f0;
+}
+
+/* Component Props API Table */
+.component-props-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.props-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-lg);
+}
+
+.props-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13px;
+}
+
+.props-table th, 
+.props-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.props-table tr:last-child td {
+  border-bottom: none;
+}
+
+.props-table th {
+  background: rgba(255, 255, 255, 0.02);
+  font-weight: 600;
+  color: var(--admin-text-muted);
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+
+.prop-name {
+  font-family: var(--admin-font-mono);
+  font-weight: 600;
+  color: #3b82f6;
+}
+
+.prop-type {
+  font-family: var(--admin-font-mono);
+  color: #a78bfa;
+}
+
+.prop-default code {
+  font-family: var(--admin-font-mono);
+  background: rgba(255,255,255,0.08);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.prop-desc {
+  color: var(--admin-text-muted);
+}
+
+/* Prototype Workspace */
+.prototype-workspace {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.prototype-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.prototype-meta h2 {
+  font-size: 20px;
+  margin: 0 0 6px 0;
+}
+
+.prototype-meta p {
+  font-size: 13px;
+  color: var(--admin-text-muted);
+  margin: 0;
+}
+
+.iframe-container {
+  position: relative;
+  width: 100%;
+  background: #18181b;
+  border-radius: var(--admin-radius-lg);
+  overflow: hidden;
+}
+
+/* Compare Workspace */
+.compare-workspace {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.compare-meta h2 {
+  font-size: 20px;
+  margin: 0 0 6px 0;
+}
+
+.compare-meta p {
+  font-size: 13px;
+  color: var(--admin-text-muted);
+  margin: 0;
+}
+
+.compare-slider-container {
+  box-shadow: var(--admin-shadow-lg);
+}
+
+/* Touch Device adjustments */
+@media(max-width: 768px) {
+  .library-grid {
+    grid-template-columns: 1fr;
+  }
+  .dev-portal-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

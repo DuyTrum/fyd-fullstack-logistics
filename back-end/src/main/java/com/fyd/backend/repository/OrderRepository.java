@@ -16,6 +16,8 @@ import java.util.Optional;
 public interface OrderRepository extends JpaRepository<Order, Long> {
     Optional<Order> findByOrderCode(String orderCode);
     
+    Optional<Order> findByTrackingNumber(String trackingNumber);
+    
     List<Order> findByStatus(String status);
     
     List<Order> findByCustomerId(Long customerId);
@@ -65,4 +67,18 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
            "JOIN oi.order o WHERE o.customer.id = :customerId " +
            "AND oi.product.id = :productId AND (o.status = 'DELIVERED' OR o.status = 'COMPLETED')")
     boolean existsByCustomerIdAndProductId(@Param("customerId") Long customerId, @Param("productId") Long productId);
+
+    @Query(value = "SELECT DAYOFWEEK(o.created_at) as dow, HOUR(o.created_at) as hr, COUNT(o.id) as order_count " +
+           "FROM orders o WHERE o.status = 'DELIVERED' OR o.status = 'COMPLETED' " +
+           "GROUP BY dow, hr ORDER BY order_count DESC LIMIT 1", nativeQuery = true)
+    List<Object[]> getPeakSalesPeriod();
+
+    @Query("SELECT c.tier.name, AVG(o.totalAmount), COUNT(o.id) " +
+           "FROM Order o JOIN o.customer c " +
+           "WHERE o.status = 'DELIVERED' OR o.status = 'COMPLETED' " +
+           "GROUP BY c.tier.name")
+    List<Object[]> getSpendingByTier();
+
+    long countByPromotionCodeIgnoreCase(String promotionCode);
 }
+

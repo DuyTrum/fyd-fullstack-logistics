@@ -10,74 +10,74 @@
    ===================================================== */
 :root {
   /* Background Colors */
-  --admin-bg: #0a0a0f;
-  --admin-bg-gradient: linear-gradient(135deg, #0a0a0f 0%, #12121a 50%, #0f0f18 100%);
-  --admin-surface: #12121a;
-  --admin-surface-elevated: #1a1a24;
-  --admin-surface-glass: rgba(255, 255, 255, 0.02);
+  --admin-bg: #09090b;
+  --admin-bg-gradient: #09090b;
+  --admin-surface: #18181b;
+  --admin-surface-elevated: #27272a;
+  --admin-surface-glass: #18181b;
 
   /* Border Colors */
-  --admin-border: rgba(255, 255, 255, 0.06);
-  --admin-border-hover: rgba(255, 255, 255, 0.12);
-  --admin-border-glow: rgba(96, 165, 250, 0.3);
+  --admin-border: #27272a;
+  --admin-border-hover: #3f3f46;
+  --admin-border-glow: #3f3f46;
 
   /* Text Colors */
-  --admin-text: #f1f5f9;
-  --admin-text-muted: #94a3b8;
-  --admin-text-muted-2: #64748b;
+  --admin-text: #fafafa;
+  --admin-text-muted: #a1a1aa;
+  --admin-text-muted-2: #71717a;
 
   /* Accent Colors */
-  --admin-accent: #60a5fa;
-  --admin-accent-rgb: 96, 165, 250;
-  --admin-accent-2: #a78bfa;
-  --admin-accent-2-rgb: 167, 139, 250;
-  --admin-accent-gradient: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+  --admin-accent: #2563eb;
+  --admin-accent-rgb: 37, 99, 235;
+  --admin-accent-2: #7c3aed;
+  --admin-accent-2-rgb: 124, 58, 237;
+  --admin-accent-gradient: #2563eb;
 
   /* Status Colors */
-  --admin-success: #34d399;
-  --admin-success-bg: rgba(52, 211, 153, 0.1);
-  --admin-warning: #fbbf24;
-  --admin-warning-bg: rgba(251, 191, 36, 0.1);
-  --admin-error: #f87171;
-  --admin-error-bg: rgba(248, 113, 113, 0.1);
-  --admin-info: #60a5fa;
-  --admin-info-bg: rgba(96, 165, 250, 0.1);
+  --admin-success: #10b981;
+  --admin-success-bg: rgba(16, 185, 129, 0.1);
+  --admin-warning: #f59e0b;
+  --admin-warning-bg: rgba(245, 158, 11, 0.1);
+  --admin-error: #ef4444;
+  --admin-error-bg: rgba(239, 68, 68, 0.1);
+  --admin-info: #3b82f6;
+  --admin-info-bg: rgba(59, 130, 246, 0.1);
 
   /* Typography */
   --admin-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --admin-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
   /* Effects */
-  --admin-blur: 20px;
-  --admin-blur-heavy: 40px;
-  --admin-transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
-  --admin-transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --admin-blur: 0px;
+  --admin-blur-heavy: 0px;
+  --admin-transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --admin-transition-slow: 200ms cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Shadows */
-  --admin-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --admin-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
-  --admin-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --admin-shadow-glow: 0 0 20px rgba(96, 165, 250, 0.15);
-  --admin-shadow-glow-accent: 0 0 30px rgba(96, 165, 250, 0.25);
+  --admin-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --admin-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --admin-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --admin-shadow-glow: none;
+  --admin-shadow-glow-accent: none;
 
   /* Border Radius */
-  --admin-radius-sm: 8px;
-  --admin-radius-md: 12px;
-  --admin-radius-lg: 16px;
-  --admin-radius-xl: 20px;
+  --admin-radius-sm: 4px;
+  --admin-radius-md: 6px;
+  --admin-radius-lg: 8px;
+  --admin-radius-xl: 10px;
   --admin-radius-full: 9999px;
 
   /* Glassmorphism Presets */
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-hover: rgba(255, 255, 255, 0.06);
+  --glass-bg: #18181b;
+  --glass-border: #27272a;
+  --glass-hover: #27272a;
 
   /* Dropdown Styles */
-  --dd-bg: rgba(18, 18, 26, 0.95);
-  --dd-border: rgba(255, 255, 255, 0.08);
-  --dd-blur: 20px;
-  --dd-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --item-hover: rgba(255, 255, 255, 0.05);
+  --dd-bg: #18181b;
+  --dd-border: #27272a;
+  --dd-blur: 0px;
+  --dd-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --item-hover: #27272a;
 
   /* Legacy Compatibility */
   --border: var(--admin-border);
@@ -93,32 +93,32 @@
 
 /* Light Theme Overrides */
 body.light {
-  --admin-bg: #f8fafc;
-  --admin-bg-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #eef2ff 100%);
+  --admin-bg: #fafafa;
+  --admin-bg-gradient: #fafafa;
   --admin-surface: #ffffff;
-  --admin-surface-elevated: #f1f5f9;
-  --admin-surface-glass: rgba(15, 23, 42, 0.03);
+  --admin-surface-elevated: #f4f4f5;
+  --admin-surface-glass: #ffffff;
 
-  --admin-border: rgba(15, 23, 42, 0.08);
-  --admin-border-hover: rgba(15, 23, 42, 0.15);
-  --admin-border-glow: rgba(59, 130, 246, 0.2);
+  --admin-border: #e4e4e7;
+  --admin-border-hover: #d4d4d8;
+  --admin-border-glow: #d4d4d8;
 
-  --admin-text: #0f172a;
-  --admin-text-muted: #64748b;
-  --admin-text-muted-2: #94a3b8;
+  --admin-text: #09090b;
+  --admin-text-muted: #71717a;
+  --admin-text-muted-2: #a1a1aa;
 
-  --admin-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
-  --admin-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-  --admin-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --admin-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --admin-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --admin-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 
-  --glass-bg: rgba(255, 255, 255, 0.8);
-  --glass-border: rgba(15, 23, 42, 0.1);
-  --glass-hover: rgba(255, 255, 255, 0.95);
+  --glass-bg: #ffffff;
+  --glass-border: #e4e4e7;
+  --glass-hover: #f4f4f5;
 
   --dd-bg: #ffffff;
-  --dd-border: rgba(15, 23, 42, 0.08);
-  --dd-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
-  --item-hover: #f1f5f9;
+  --dd-border: #e4e4e7;
+  --dd-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --item-hover: #f4f4f5;
 }
 
 /* =====================================================
@@ -126,7 +126,7 @@ body.light {
    ===================================================== */
 .admin-container {
   font-family: var(--admin-font);
-  background: var(--admin-bg-gradient);
+  background: var(--admin-bg);
   min-height: 100vh;
   color: var(--admin-text);
   -webkit-font-smoothing: antialiased;
@@ -134,22 +134,20 @@ body.light {
 }
 
 /* =====================================================
-   GLASSMORPHIC CARD
+   SAAS CARD
    ===================================================== */
 .admin-card {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
   border-radius: var(--admin-radius-lg);
   padding: 24px;
-  backdrop-filter: blur(var(--admin-blur));
-  -webkit-backdrop-filter: blur(var(--admin-blur));
   transition: all var(--admin-transition);
 }
 
 .admin-card:hover {
   border-color: var(--admin-border-hover);
-  background: var(--glass-hover);
-  box-shadow: var(--admin-shadow-md);
+  background: var(--admin-surface);
+  box-shadow: var(--admin-shadow-sm);
 }
 
 /* =====================================================
@@ -182,11 +180,10 @@ body.light {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 12px 24px;
+  padding: 8px 16px;
   font-family: var(--admin-font);
   font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  font-weight: 500;
   border-radius: var(--admin-radius-md);
   cursor: pointer;
   transition: all var(--admin-transition);
@@ -195,31 +192,29 @@ body.light {
 }
 
 .admin-btn-primary {
-  background: var(--admin-accent-gradient);
-  color: #0a0a0f;
-  border: none;
-  box-shadow: 0 4px 16px rgba(var(--admin-accent-rgb), 0.3);
+  background: var(--admin-accent);
+  color: #ffffff;
+  border: 1px solid var(--admin-accent);
 }
 
 .admin-btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(var(--admin-accent-rgb), 0.4);
+  background: #1d4ed8;
+  border-color: #1d4ed8;
 }
 
 .admin-btn-primary:active {
-  transform: translateY(0);
+  transform: scale(0.98);
 }
 
 .admin-btn-outline {
-  background: transparent;
+  background: var(--admin-surface);
   border: 1px solid var(--admin-border);
   color: var(--admin-text);
 }
 
 .admin-btn-outline:hover {
-  border-color: var(--admin-accent);
-  background: rgba(var(--admin-accent-rgb), 0.1);
-  color: var(--admin-accent);
+  border-color: var(--admin-border-hover);
+  background: var(--admin-surface-elevated);
 }
 
 .admin-btn-ghost {
@@ -230,7 +225,7 @@ body.light {
 
 .admin-btn-ghost:hover {
   color: var(--admin-text);
-  background: var(--glass-hover);
+  background: var(--admin-surface-elevated);
 }
 
 /* =====================================================
@@ -238,8 +233,8 @@ body.light {
    ===================================================== */
 .admin-input {
   width: 100%;
-  padding: 14px 16px;
-  background: var(--glass-bg);
+  padding: 8px 12px;
+  background: var(--admin-surface);
   border: 1px solid var(--admin-border);
   border-radius: var(--admin-radius-md);
   color: var(--admin-text);
@@ -352,11 +347,23 @@ body.light {
 }
 
 /* =====================================================
-   SCROLL BAR STYLING
+   SCROLL BAR STYLING (Modern Minimalist SaaS UI)
    ===================================================== */
+/* Firefox Support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+  scroll-behavior: smooth;
+}
+
+body.light * {
+  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+}
+
+/* Webkit (Chrome, Safari, Edge) Support */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -364,12 +371,21 @@ body.light {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--admin-border);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: var(--admin-radius-full);
+  transition: background var(--admin-transition);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--admin-border-hover);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+body.light ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+body.light ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
 }
 
 /* =====================================================

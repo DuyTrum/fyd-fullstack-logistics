@@ -28,7 +28,19 @@ const API_BASE = `${BASE_URL}/api`;
 
 export const getAssetUrl = (url) => {
   if (!url) return null;
-  if (url.startsWith('http')) return url;
+  if (url.startsWith('http')) {
+    if (!url.includes('localhost') && !url.includes('127.0.0.1') && !url.includes('192.168.') && !url.includes('unsplash.com') && !url.includes('placehold.co') && !url.includes('via.placeholder.com') && !url.includes('nike.com') && !url.includes('shopify.com')) {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+        <rect width="100%" height="100%" fill="#14141c"/>
+        <rect x="8" y="8" width="184" height="184" rx="12" fill="none" stroke="#252535" stroke-width="2"/>
+        <path d="M75 80 L100 65 L125 80 L125 125 L75 125 Z" fill="#1b1b2a" stroke="#4f46e5" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M100 65 L100 55 C100 50 105 50 105 53" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round"/>
+        <text x="50%" y="152" dominant-baseline="middle" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="800" fill="#a0aec0" letter-spacing="1">FYD OFFLINE</text>
+      </svg>`;
+      return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+    }
+    return url;
+  }
   return `${BASE_URL}${url}`;
 };
 
@@ -451,9 +463,12 @@ export const brandAPI = {
 // ============ REVIEWS ============
 export const reviewAPI = {
   // Shop: Get approved reviews for a product
-  getProductReviews: (productId, customerId = null) => {
-    const query = customerId ? `?customerId=${customerId}` : '';
-    return fetchAPI(`/reviews/product/${productId}${query}`);
+  getProductReviews: (productId, params = {}) => {
+    const cleanParams = Object.fromEntries(
+      Object.entries(params).filter(([_, v]) => v !== undefined && v !== null && v !== '')
+    );
+    const query = new URLSearchParams(cleanParams).toString();
+    return fetchAPI(`/reviews/product/${productId}${query ? `?${query}` : ''}`);
   },
 
   // Shop: Create a new review
@@ -495,7 +510,34 @@ export const reviewAPI = {
       method: 'POST',
       body: JSON.stringify({ ids }),
     }),
+
+  // Admin: Bulk reject reviews
+  bulkReject: (ids) =>
+    fetchAPI('/reviews/bulk-reject', {
+      method: 'POST',
+      body: JSON.stringify({ ids }),
+    }),
+
+  // Shop: Vote review as helpful
+  voteHelpful: (id) =>
+    fetchAPI(`/reviews/${id}/helpful`, {
+      method: 'POST'
+    }),
+
+  // Shop: Unvote review as helpful
+  unvoteHelpful: (id) =>
+    fetchAPI(`/reviews/${id}/helpful`, {
+      method: 'DELETE'
+    }),
+
+
+  // Admin: Seed sample reviews
+  seed: () =>
+    fetchAPI('/reviews/seed', {
+      method: 'POST'
+    }),
 };
+
 
 // ============ SHOP API HELPERS ============
 export async function fetchProducts() {
@@ -707,7 +749,6 @@ export const featuredAPI = {
 export const promotionAPI = {
   getAll: () => fetchAPI('/promotions'),
   getActive: () => fetchAPI('/promotions/list/active'),
-  getFlashSales: () => fetchAPI('/promotions/list/flash-sale'),
   getById: (id) => fetchAPI(`/promotions/${id}`),
   create: (data) =>
     fetchAPI('/promotions', {
@@ -920,9 +961,10 @@ export const nightMarketAPI = {
     return fetchAPI(`/night-market/status${query ? `?${query}` : ''}`);
   },
 
-  getOffers: (params = {}) => {
-    const query = new URLSearchParams(params).toString();
-    return fetchAPI(`/night-market/offers${query ? `?${query}` : ''}`);
+  getOffers: (token) => {
+    return fetchAPI('/night-market/offers', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
   },
 
   revealOffer: (id, token) =>
@@ -930,6 +972,33 @@ export const nightMarketAPI = {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${token}` }
     }),
+};
+
+// ============ AI MANAGEMENT API ============
+export const aiMgmtAPI = {
+  getMetrics: () => fetchAPI('/ai-mgmt/metrics'),
+  getLogs: (params = {}) => {
+    const query = new URLSearchParams(params).toString();
+    return fetchAPI(`/ai-mgmt/logs?${query}`);
+  },
+  getConfig: () => fetchAPI('/ai-mgmt/config'),
+  updateConfig: (data) =>
+    fetchAPI('/ai-mgmt/config', {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    }),
+  generate: (data) =>
+    fetchAPI('/ai-mgmt/generate', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
+  assistant: (message) =>
+    fetchAPI('/ai-mgmt/assistant', {
+      method: 'POST',
+      body: JSON.stringify({ message }),
+    }),
+  getRecommendations: (type = 'BEST_SELLING') =>
+    fetchAPI(`/ai-mgmt/recommendations?type=${type}`),
 };
 
 export default {
@@ -944,6 +1013,7 @@ export default {
   size: sizeAPI,
   brand: brandAPI,
   ai: aiAPI,
+  aiMgmt: aiMgmtAPI,
   notification: notificationAPI,
   promotion: promotionAPI,
   points: pointsAPI,

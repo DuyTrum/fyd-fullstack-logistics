@@ -35,6 +35,7 @@ public class OrderDTO {
     private boolean pointsRefunded;
     private List<OrderItemDTO> items;
 
+
     public static OrderDTO fromEntity(Order o) {
         OrderDTO dto = new OrderDTO();
         dto.setId(o.getId());

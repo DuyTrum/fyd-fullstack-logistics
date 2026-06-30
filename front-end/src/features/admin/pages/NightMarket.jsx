@@ -77,7 +77,12 @@ export default function NightMarketAdmin() {
         e.preventDefault();
         setSaving(true);
         try {
-            const response = await nightMarketAdminAPI.updateConfig(config);
+            const payload = {
+                ...config,
+                startTime: config.startTime ? config.startTime.replace(' ', 'T').slice(0, 16) + ':00' : null,
+                endTime: config.endTime ? config.endTime.replace(' ', 'T').slice(0, 16) + ':00' : null
+            };
+            const response = await nightMarketAdminAPI.updateConfig(payload);
             const msg = response.syncedCount > 0 
                 ? t("night_market.msg_update_success") + ` (${response.syncedCount} ${t("night_market.offers_updated")})`
                 : t("night_market.msg_update_success");
@@ -182,13 +187,20 @@ export default function NightMarketAdmin() {
                             <div className="nm-form-field">
                                 <label>{t("night_market.label_status")}</label>
                                 <div className="nm-status-toggle">
-                                    <button 
-                                        type="button" 
+                                    <div 
+                                        role="button"
+                                        tabIndex={0}
                                         className={`nm-toggle-btn ${config.isActive ? 'active' : ''}`}
                                         onClick={() => setConfig({ ...config, isActive: !config.isActive })}
+                                        onKeyDown={(e) => {
+                                            if (e.key === ' ' || e.key === 'Enter') {
+                                                e.preventDefault();
+                                                setConfig({ ...config, isActive: !config.isActive });
+                                            }
+                                        }}
                                     >
-                                        <div className="toggle-slider"></div>
-                                    </button>
+                                        <div className="nm-toggle-slider"></div>
+                                    </div>
                                     <span className={`nm-status-badge ${statusObj.className}`}>
                                         {statusObj.label}
                                     </span>

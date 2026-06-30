@@ -13,9 +13,9 @@ const NightMarketCard = ({ offer, onReveal }) => {
     const navigate = useNavigate();
 
     const getRarity = (discount) => {
-        if (discount >= 50) return { name: 'Legendary', color: '#fbbf24', glow: '#fbbf2466' };
-        if (discount >= 30) return { name: 'Epic', color: '#a855f7', glow: '#a855f766' };
-        return { name: 'Rare', color: '#3b82f6', glow: '#3b82f666' };
+        if (discount >= 50) return { name: 'Huyền thoại', color: '#fbbf24', glow: '#fbbf2466' };
+        if (discount >= 30) return { name: 'Sử thi', color: '#a855f7', glow: '#a855f766' };
+        return { name: 'Hiếm', color: '#3b82f6', glow: '#3b82f666' };
     };
 
     const rarity = getRarity(discountPercent);
@@ -62,8 +62,8 @@ const NightMarketCard = ({ offer, onReveal }) => {
                             <LockIcon size={64} color="rgba(255,255,255,0.15)" strokeWidth={1.5} />
                         </div>
 
-                        <h3 className="nm-card-title">Encrypted</h3>
-                        <div className="nm-card-status">Pending_Reveal</div>
+                        <h3 className="nm-card-title">Bí mật</h3>
+                        <div className="nm-card-status">Chờ mở khóa</div>
                     </motion.div>
                 ) : (
                     <motion.div
@@ -77,7 +77,11 @@ const NightMarketCard = ({ offer, onReveal }) => {
                         <div className="nm-tag">{rarity.name}</div>
                         <div className="nm-discount">-{discountPercent}%</div>
 
-                        <div className="nm-img-wrapper">
+                        <div 
+                            className="nm-img-wrapper"
+                            onClick={() => navigate(`/shop/product/${product.id}?offerId=${offer.id}`)}
+                            style={{ cursor: 'pointer', width: '100%' }}
+                        >
                             <img
                                 src={product.thumbnail || (product.images && product.images[0]?.imageUrl) || 'https://via.placeholder.com/300'}
                                 alt={product.name}
@@ -92,7 +96,13 @@ const NightMarketCard = ({ offer, onReveal }) => {
                                     <div className="nm-cat-dot" />
                                     {product.category?.name || 'Vật phẩm giới hạn'}
                                 </div>
-                                <h3 className="nm-product-name line-clamp-2">{product.name}</h3>
+                                <h3 
+                                    className="nm-product-name line-clamp-2"
+                                    onClick={() => navigate(`/shop/product/${product.id}?offerId=${offer.id}`)}
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    {product.name}
+                                </h3>
 
                                 <div className="nm-price-row">
                                     <div>

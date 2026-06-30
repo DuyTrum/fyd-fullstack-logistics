@@ -1,98 +1,114 @@
-/* admin-forms.css - Ultra Premium Glassmorphism Forms (FYD Style) */
+/* admin-forms.css - Minimal Enterprise SaaS Form System (Shopify/Stripe Standard) */
 
 :root {
-    --form-bg: rgba(10, 10, 15, 0.8);
-    --form-border: rgba(255, 255, 255, 0.1);
-    --form-input-bg: rgba(255, 255, 255, 0.04);
-    --form-accent-primary: #00f2ff;
-    /* Cyan */
-    --form-accent-secondary: #ff00f2;
-    /* Magenta */
-    --form-accent-gradient: linear-gradient(135deg, #00f2ff 0%, #ff00f2 100%);
-    --form-shadow-glow: 0 0 15px rgba(0, 242, 255, 0.2);
-    --form-radius-lg: 24px;
-    --form-radius-md: 14px;
+    /* Design Tokens - Dark Theme (Default) */
+    --form-bg: #111827;
+    --form-card-bg: #1f2937;
+    --form-border: rgba(255, 255, 255, 0.08);
+    --form-input-bg: #111827;
+    --form-input-border: rgba(255, 255, 255, 0.12);
+    --form-input-focus-border: #3b82f6; /* Enterprise Slate Blue */
+    --form-input-focus-ring: rgba(59, 130, 246, 0.18);
+    
+    --form-text: rgba(255, 255, 255, 0.9);
+    --form-text-muted: rgba(255, 255, 255, 0.5);
+    
+    --form-accent-primary: #3b82f6;
+    --form-accent-secondary: #60a5fa;
+    --form-accent-gradient: #3b82f6; /* Map legacy gradient variables to solid colors */
+    --form-shadow-glow: none; /* Disable neon glow */
+    
+    --form-radius-lg: 12px;
+    --form-radius-md: 8px;
+    
+    --form-error: #ef4444;
+    --form-success: #10b981;
+}
+
+/* Light Theme Overrides */
+body.light {
+    --form-bg: #f9fafb;
+    --form-card-bg: #ffffff;
+    --form-border: rgba(0, 0, 0, 0.08);
+    --form-input-bg: #ffffff;
+    --form-input-border: rgba(0, 0, 0, 0.12);
+    --form-input-focus-border: #3b82f6;
+    --form-input-focus-ring: rgba(59, 130, 246, 0.10);
+    
+    --form-text: #111827;
+    --form-text-muted: #6b7280;
+    
+    --form-accent-primary: #3b82f6;
+    --form-accent-secondary: #2563eb;
+    --form-accent-gradient: #3b82f6;
 }
 
 /* Premium Form Container */
 .premium-form {
-    padding: 10px;
+    padding: 8px;
     display: flex;
     flex-direction: column;
-    gap: 32px;
-    animation: form-fade-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    gap: 24px;
+    background: transparent;
 }
 
-@keyframes form-fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(30px) scale(0.98);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* Form Groups */
+/* Form Groups (styled as clean enterprise cards) */
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 28px;
-    background: rgba(255, 255, 255, 0.03);
+    gap: 16px;
+    padding: 24px;
+    background: var(--form-card-bg);
     border: 1px solid var(--form-border);
     border-radius: var(--form-radius-lg);
     position: relative;
-    transition: all 0.4s ease;
-    backdrop-filter: blur(10px);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    backdrop-filter: none; /* Avoid glassmorphism blur */
 }
 
 .form-group:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    background: var(--form-card-bg);
+    border-color: rgba(59, 130, 246, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+body.light .form-group:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
 .form-group-title {
-    font-size: 11px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--form-accent-primary);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: none; /* Shopify/Linear uses normal sentence case */
+    letter-spacing: normal;
+    color: var(--form-text);
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 4px;
-    text-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
+    gap: 8px;
+    margin-bottom: 8px;
+    text-shadow: none; /* Avoid glow */
 }
 
 .form-group-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, var(--form-accent-primary), transparent);
-    opacity: 0.3;
+    display: none; /* Remove horizontal lines */
 }
 
 /* Form Layout Helpers */
 .form-row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
 }
 
 .form-row.three-col {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .form-row.four-col {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 @media (max-width: 900px) {
-
     .form-row.three-col,
     .form-row.four-col {
         grid-template-columns: 1fr 1fr;
@@ -100,7 +116,6 @@
 }
 
 @media (max-width: 600px) {
-
     .form-row,
     .form-row.three-col,
     .form-row.four-col {
@@ -112,7 +127,8 @@
 .admin-field {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 6px;
+    min-width: 0;
 }
 
 .admin-field.full {
@@ -120,120 +136,166 @@
 }
 
 .admin-field span {
-    font-size: 11px;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.5);
-    letter-spacing: 0.8px;
-    margin-left: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--form-text);
+    letter-spacing: normal;
+    margin-left: 0;
+}
+
+/* Labels above input fields */
+.admin-field label {
+    margin-bottom: 2px;
 }
 
 .admin-field input,
 .admin-field select,
 .admin-field textarea {
     width: 100%;
-    padding: 15px 20px;
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid var(--form-border);
-    border-radius: var(--form-radius-md);
-    color: #fff !important;
+    min-width: 0;
+    height: 42px; /* Set consistent height of 42px */
+    padding: 8px 12px;
+    background: var(--form-input-bg) !important;
+    border: 1px solid var(--form-input-border) !important;
+    border-radius: var(--form-radius-md) !important;
+    color: var(--form-text) !important;
     font-family: inherit;
     font-size: 14px;
     outline: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: none !important;
 }
 
 /* Explicitly style options to avoid white-on-white issues */
 .admin-field select option {
-    background-color: #12121a;
-    color: #fff;
-    padding: 10px;
+    background-color: var(--form-card-bg);
+    color: var(--form-text);
+    padding: 8px;
 }
 
 .admin-field select {
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.4)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 18px center;
-    background-size: 16px;
-    padding-right: 48px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 12px center !important;
+    background-size: 14px !important;
+    padding-right: 36px !important;
 }
 
 .admin-field input:focus,
 .admin-field select:focus,
 .admin-field textarea:focus {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: var(--form-accent-primary);
-    box-shadow: 0 0 15px rgba(0, 242, 255, 0.15), inset 0 2px 5px rgba(0, 0, 0, 0.1);
+    background: var(--form-input-bg) !important;
+    border-color: var(--form-input-focus-border) !important;
+    box-shadow: 0 0 0 2px var(--form-input-focus-ring) !important;
 }
 
 .admin-field textarea {
+    height: auto !important;
+    min-height: 100px;
     resize: vertical;
-    min-height: 80px;
 }
 
-.admin-field input:disabled {
-    opacity: 0.4;
+.admin-field input:disabled,
+.admin-field select:disabled,
+.admin-field textarea:disabled {
+    opacity: 0.5;
     cursor: not-allowed;
-    filter: grayscale(1);
+    background: var(--form-border) !important;
+}
+
+/* Validation states inside admin-field */
+.admin-field.has-error input,
+.admin-field.has-error select,
+.admin-field.has-error textarea {
+    border-color: var(--form-error) !important;
+}
+.admin-field.has-error input:focus,
+.admin-field.has-error select:focus,
+.admin-field.has-error textarea:focus {
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.15) !important;
+}
+
+.admin-field.has-success input,
+.admin-field.has-success select,
+.admin-field.has-success textarea {
+    border-color: var(--form-success) !important;
+}
+
+.admin-field-helper {
+    font-size: 12px;
+    color: var(--form-text-muted);
+    margin-top: 4px;
+}
+
+.admin-field-error-msg {
+    font-size: 12px;
+    color: var(--form-error);
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 /* Status & Toggles */
 .toggle-group {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: 16px;
 }
 
 .admin-toggle {
     display: flex;
     align-items: center;
-    gap: 18px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.02);
+    justify-content: space-between;
+    padding: 16px;
+    background: var(--form-input-bg);
     border: 1px solid var(--form-border);
     border-radius: var(--form-radius-md);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .admin-toggle:hover {
-    background: rgba(255, 255, 255, 0.06);
-    transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.3);
+    background: var(--form-card-bg);
+    border-color: rgba(59, 130, 246, 0.20);
+    transform: none; /* Remove float translation */
 }
 
 .toggle-slider {
-    width: 48px;
-    height: 26px;
-    background: rgba(255, 255, 255, 0.1);
+    width: 40px;
+    height: 22px;
+    background: rgba(255, 255, 255, 0.15);
     border-radius: 20px;
     position: relative;
-    transition: 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+    transition: background 0.2s;
     flex-shrink: 0;
+}
+
+body.light .toggle-slider {
+    background: rgba(0, 0, 0, 0.1);
 }
 
 .toggle-slider::after {
     content: '';
     position: absolute;
-    top: 4px;
-    left: 4px;
+    top: 2px;
+    left: 2px;
     width: 18px;
     height: 18px;
     background: #fff;
     border-radius: 50%;
-    transition: 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 input:checked+.toggle-slider {
     background: var(--form-accent-primary);
-    box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+    box-shadow: none; /* Disable shadow */
 }
 
 input:checked+.toggle-slider::after {
-    transform: translateX(22px);
-    background: #fff;
+    transform: translateX(18px);
 }
 
 .toggle-label {
@@ -242,87 +304,68 @@ input:checked+.toggle-slider::after {
 }
 
 .toggle-title {
-    font-size: 14px;
-    font-weight: 700;
-    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--form-text);
 }
 
 .toggle-desc {
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--form-text-muted);
     margin-top: 2px;
 }
 
-/* Flash Sale Special Highlight */
+/* Style for Flash Sale Highlight (Clean enterprise standard) */
 .flash-sale-highlight {
-    position: relative;
-    overflow: hidden;
-    border-color: rgba(255, 0, 242, 0.3) !important;
-    background: linear-gradient(135deg, rgba(255, 0, 242, 0.08) 0%, rgba(0, 0, 0, 0) 100%) !important;
-    animation: flash-pulse 2s infinite ease-in-out;
+    border-color: #ef4444 !important;
+    background: rgba(239, 68, 68, 0.03) !important;
+    animation: none; /* Remove pulsing animations */
 }
 
-@keyframes flash-pulse {
-    0% {
-        box-shadow: 0 0 0 rgba(255, 0, 242, 0);
-    }
-
-    50% {
-        box-shadow: 0 0 20px rgba(255, 0, 242, 0.1);
-    }
-
-    100% {
-        box-shadow: 0 0 0 rgba(255, 0, 242, 0);
-    }
+body.light .flash-sale-highlight {
+    background: rgba(239, 68, 68, 0.02) !important;
 }
 
 .flash-sale-highlight::before {
-    content: '⚡';
-    position: absolute;
-    top: -10px;
-    right: -5px;
-    font-size: 40px;
-    opacity: 0.15;
-    filter: drop-shadow(0 0 10px rgba(255, 0, 242, 0.5));
-    transform: rotate(15deg);
+    display: none; /* Remove giant lightning bolt icon */
 }
 
 .flash-sale-highlight input:checked+.toggle-slider {
-    background: var(--form-accent-secondary);
-    box-shadow: 0 0 20px rgba(255, 0, 242, 0.5);
+    background: #ef4444;
+    box-shadow: none;
 }
 
 .flash-sale-highlight .toggle-title {
-    color: #ff00f2;
+    color: #ef4444;
 }
 
-/* Inline Gallery (for Products) */
+/* Inline Gallery */
 .inlineGallery {
-    margin-top: 10px;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.2);
+    margin-top: 8px;
+    padding: 16px;
+    background: var(--form-input-bg);
     border-radius: var(--form-radius-md);
     border: 1px solid var(--form-border);
 }
 
 .image-grid {
     display: flex;
-    gap: 16px;
+    gap: 12px;
     flex-wrap: wrap;
 }
 
 .image-item {
-    width: 90px;
-    height: 90px;
-    border-radius: 12px;
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
     overflow: hidden;
     position: relative;
-    border: 2px solid var(--form-border);
-    transition: all 0.3s ease;
+    border: 1px solid var(--form-border);
+    transition: border-color 0.2s ease;
 }
 
 .image-item:hover {
-    transform: scale(1.05);
+    transform: none; /* Remove float hover scaling */
     border-color: var(--form-accent-primary);
 }
 
@@ -336,120 +379,210 @@ input:checked+.toggle-slider::after {
     position: absolute;
     top: 4px;
     right: 4px;
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
-    background: #ff4b2b;
+    background: #ef4444;
     color: #fff;
     display: grid;
     place-items: center;
     border: none;
     cursor: pointer;
     z-index: 2;
-    font-size: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    font-size: 11px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+    transition: background 0.15s;
+}
+
+.delete-img-btn:hover {
+    background: #dc2626;
 }
 
 .upload-btn {
-    width: 90px;
-    height: 90px;
-    border: 2px dashed rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
+    width: 80px;
+    height: 80px;
+    border: 1px dashed var(--form-input-border);
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.2s ease;
+    background: var(--form-input-bg);
+    color: var(--form-text-muted);
+    font-size: 11px;
+    text-align: center;
 }
 
 .upload-btn:hover {
     border-color: var(--form-accent-primary);
-    background: rgba(0, 242, 255, 0.05);
+    background: rgba(59, 130, 246, 0.05);
     color: var(--form-accent-primary);
 }
 
 .upload-btn svg {
-    width: 24px;
-    height: 24px;
-    margin-bottom: 4px;
+    width: 20px;
+    height: 20px;
+    margin-bottom: 2px;
+    stroke: currentColor;
 }
 
-/* Scrollbar Customization */
-.modalBody::-webkit-scrollbar {
-    width: 6px;
+/* Modals & Sticky Buttons Redesign */
+.modalBackdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: grid;
+    place-items: center;
+    z-index: 999;
 }
 
-.modalBody::-webkit-scrollbar-track {
-    background: transparent;
+body.light .modalBackdrop {
+    background: rgba(0, 0, 0, 0.3);
 }
 
-.modalBody::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+.modal {
+    width: min(720px, 94vw);
+    max-height: 90vh;
+    border-radius: var(--form-radius-lg);
+    border: 1px solid var(--form-border);
+    background: var(--form-bg);
+    padding: 0; /* Clear default padding for standard header/body layout */
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
-.modalBody::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.2);
+body.light .modal {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
 }
 
-/* Modal & Button Overrides for Ultra Premium Feel */
-.modalContent {
-    background: var(--form-bg) !important;
-    backdrop-filter: blur(25px) !important;
-    border: 1px solid var(--form-border) !important;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6) !important;
-    border-radius: var(--form-radius-lg) !important;
+.modalHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--form-border);
+    background: var(--form-bg);
 }
 
-.modalHeader {
-    border-bottom: 1px solid var(--form-border) !important;
-    padding: 24px 32px !important;
+.modalTitle {
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--form-text);
 }
 
-.modalHeader h3 {
-    color: #fff !important;
-    font-weight: 800 !important;
-    letter-spacing: -0.5px;
+.modalBody {
+    padding: 24px;
+    overflow-y: auto;
+    flex: 1;
 }
 
-.modalFooter {
-    border-top: 1px solid var(--form-border) !important;
-    padding: 20px 32px !important;
-    background: rgba(0, 0, 0, 0.2);
+/* Sticky Action Bar inside Modal or general form */
+.modalActions {
+    padding: 16px 24px;
+    border-top: 1px solid var(--form-border);
+    background: var(--form-card-bg);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
 }
 
+/* Premium Buttons overrides */
+.btnPrimary,
+.btnGhost,
+.linkBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    padding: 8px 16px;
+    border-radius: var(--form-radius-md);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+    font-family: inherit;
+}
+
+.btnPrimary {
+    background: var(--form-accent-primary) !important;
+    color: white !important;
+    box-shadow: none !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+}
+
+.btnPrimary:hover:not(:disabled) {
+    background: #2563eb !important;
+    transform: none !important;
+}
+
+.btnPrimary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btnGhost {
+    background: var(--form-input-bg) !important;
+    border: 1px solid var(--form-input-border) !important;
+    color: var(--form-text) !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+}
+
+.btnGhost:hover {
+    background: var(--form-border) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+body.light .btnGhost:hover {
+    border-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Legacy overrides cleanups */
 .admin-btn-primary {
-    background: var(--form-accent-gradient) !important;
-    color: #000 !important;
-    font-weight: 800 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 1.5px !important;
-    font-size: 11px !important;
-    padding: 14px 28px !important;
+    background: var(--form-accent-primary) !important;
+    color: white !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    font-size: 13px !important;
+    padding: 8px 16px !important;
+    border-radius: var(--form-radius-md) !important;
     border: none !important;
-    box-shadow: 0 4px 15px rgba(0, 242, 255, 0.4) !important;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    box-shadow: none !important;
+    transition: all 0.15s ease !important;
 }
 
 .admin-btn-primary:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 8px 25px rgba(0, 242, 255, 0.6) !important;
+    transform: none !important;
+    background: #2563eb !important;
+    box-shadow: none !important;
 }
 
 .admin-btn-outline {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid var(--form-border) !important;
-    color: #fff !important;
-    font-weight: 600 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 1px !important;
-    font-size: 11px !important;
-    transition: all 0.2s ease !important;
+    background: transparent !important;
+    border: 1px solid var(--form-input-border) !important;
+    color: var(--form-text) !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    font-size: 13px !important;
+    border-radius: var(--form-radius-md) !important;
+    transition: all 0.15s ease !important;
+    padding: 8px 16px !important;
 }
 
 .admin-btn-outline:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
-    border-color: rgba(255, 255, 255, 0.3) !important;
+    background: var(--form-border) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
 }

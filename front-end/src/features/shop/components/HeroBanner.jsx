@@ -70,12 +70,17 @@ export default function HeroBanner({ products = [], onExploreClick, onProductCli
         <div
           key={index}
           className={`hero-slide ${index === currentSlide ? 'active' : ''} ${slide.dark ? 'dark' : 'light'}`}
-          style={{ backgroundImage: `url(${slide.image})` }}
+          style={{ backgroundImage: `url(${slide.image})`, cursor: 'pointer' }}
+          onClick={(e) => {
+            if (e.target.tagName !== 'BUTTON') {
+              handleCtaClick(slide);
+            }
+          }}
         >
           <div className="hero-content">
             <span className="hero-subtitle">{slide.subtitle}</span>
             <h1 className="hero-title">{slide.title}</h1>
-            <button className="hero-cta" onClick={() => handleCtaClick(slide)}>{slide.cta}</button>
+            <button className="hero-cta" onClick={(e) => { e.stopPropagation(); handleCtaClick(slide); }}>{slide.cta}</button>
           </div>
         </div>
       ))}

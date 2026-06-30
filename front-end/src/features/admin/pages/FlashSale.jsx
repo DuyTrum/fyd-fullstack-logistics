@@ -103,6 +103,73 @@ function CountdownDisplay({ endTime, startTime, status }) {
   return <div className="fs-countdown">{timeLeft}</div>;
 }
 
+function parseAiResponse(text) {
+  if (!text) return { items: [], summary: "" };
+
+  const items = [];
+  const lines = text.split("\n");
+  
+  let currentItem = null;
+  const summaryParts = [];
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line) continue;
+    
+    // Check if line matches product title: 📦 **[Name]** (ID: [id])
+    const titleMatch = line.match(/(?:📦)?\s*\*\*(.*?)\*\*\s*\(ID:\s*(\d+)\)/i);
+    
+    if (titleMatch) {
+      if (currentItem) {
+        items.push(currentItem);
+      }
+      currentItem = {
+        name: titleMatch[1].trim(),
+        id: parseInt(titleMatch[2]),
+        originalPrice: 0,
+        salePrice: 0,
+        discount: 0,
+        reason: ""
+      };
+    } else if (currentItem) {
+      // Look for original price and sale price
+      const priceMatch = line.match(/(?:-\s*)?Giá gốc:\s*([\d.,]+)\s*đ?\s*→\s*Giá Flash Sale đề xuất:\s*([\d.,]+)\s*đ?\s*\(giảm\s*(\d+)\s*%\)/i);
+      const altPriceMatch = line.match(/(?:Original|Giá gốc):\s*([\d.,]+)[\s\S]*?(?:Sale|Giá Flash Sale đề xuất):\s*([\d.,]+)[\s\S]*?(\d+)\s*%/i);
+      const actualPriceMatch = priceMatch || altPriceMatch;
+      
+      if (actualPriceMatch) {
+        const origStr = actualPriceMatch[1].replace(/[.,]/g, "");
+        const saleStr = actualPriceMatch[2].replace(/[.,]/g, "");
+        currentItem.originalPrice = parseInt(origStr) || 0;
+        currentItem.salePrice = parseInt(saleStr) || 0;
+        currentItem.discount = parseInt(actualPriceMatch[3]) || 0;
+      } else if (line.match(/(?:-\s*)?Lý do:\s*(.*)/i)) {
+        currentItem.reason = line.match(/(?:-\s*)?Lý do:\s*(.*)/i)[1].trim();
+      } else if (!line.startsWith("###")) {
+        if (currentItem.reason) {
+          currentItem.reason += " " + line;
+        } else {
+          currentItem.reason = line;
+        }
+      }
+    } else {
+      if (!line.startsWith("###")) {
+        summaryParts.push(line);
+      }
+    }
+  }
+  
+  if (currentItem) {
+    items.push(currentItem);
+  }
+  
+  const cleanSummary = summaryParts
+    .filter(line => !line.includes("Giá gốc") && !line.includes("Lý do") && !line.includes("đ →"))
+    .join("\n\n");
+    
+  return { items, summary: cleanSummary };
+}
+
 export default function FlashSale() {
   const { t } = useTranslation();
   const { showToast } = useToast();
@@ -133,6 +200,11 @@ export default function FlashSale() {
   const [aiLoading, setAiLoading] = useState(false);
   const [aiResult, setAiResult] = useState(null);
   const [aiError, setAiError] = useState("");
+  const [parsedItems, setParsedItems] = useState([]);
+  const [checkedIds, setCheckedIds] = useState(new Set());
+  const [modalCampaignId, setModalCampaignId] = useState("");
+  const [applyLoading, setApplyLoading] = useState(false);
+  const [overallSummary, setOverallSummary] = useState("");
 
   // Load configs
   const loadConfigs = useCallback(async () => {
@@ -182,8 +254,8 @@ export default function FlashSale() {
     setEditingConfigId(config.id);
     setConfigForm({
       name: config.name || "",
-      startTime: config.startTime ? config.startTime.substring(0, 16) : "",
-      endTime: config.endTime ? config.endTime.substring(0, 16) : "",
+      startTime: config.startTime ? config.startTime.replace(' ', 'T').substring(0, 16) : "",
+      endTime: config.endTime ? config.endTime.replace(' ', 'T').substring(0, 16) : "",
       isActive: config.isActive === true,
       discountLabel: config.discountLabel || "FLASH SALE"
     });
@@ -198,8 +270,8 @@ export default function FlashSale() {
     try {
       const payload = {
         name: configForm.name.trim(),
-        startTime: configForm.startTime,
-        endTime: configForm.endTime,
+        startTime: configForm.startTime ? configForm.startTime.replace(' ', 'T').substring(0, 16) + ':00' : null,
+        endTime: configForm.endTime ? configForm.endTime.replace(' ', 'T').substring(0, 16) + ':00' : null,
         isActive: configForm.isActive,
         discountLabel: configForm.discountLabel.trim() || "FLASH SALE"
       };
@@ -305,10 +377,50 @@ export default function FlashSale() {
     setAiLoading(true);
     setAiResult(null);
     setAiError("");
+    setParsedItems([]);
+    setCheckedIds(new Set());
+    setOverallSummary("");
+
+    // Ensure all products are loaded so we can map high-res image URLs
+    let loadedProducts = allProducts;
+    if (allProducts.length === 0) {
+      try {
+        const data = await productAPI.getAll({ size: 200 });
+        loadedProducts = data.products || [];
+        setAllProducts(loadedProducts);
+      } catch (err) {
+        console.error("Failed to load products for AI mapping:", err);
+      }
+    }
+
     try {
       const response = await aiAPI.getFlashSaleSuggestions();
       if (response.success) {
         setAiResult(response.reply);
+        const { items, summary } = parseAiResponse(response.reply);
+        
+        // Match original prices from loadedProducts if not parsed correctly
+        const updatedItems = items.map(item => {
+          const matchedProd = loadedProducts.find(p => p.id === item.id);
+          if (matchedProd) {
+            const originalPrice = matchedProd.basePrice || item.originalPrice;
+            const salePrice = item.salePrice || Math.round(originalPrice * 0.8 / 1000) * 1000;
+            const discount = originalPrice > 0 ? Math.round((1 - salePrice / originalPrice) * 100) : 0;
+            return {
+              ...item,
+              originalPrice,
+              salePrice,
+              discount,
+              imageUrl: matchedProd.images?.[0]?.imageUrl || matchedProd.imageUrl
+            };
+          }
+          return item;
+        });
+
+        setParsedItems(updatedItems);
+        setOverallSummary(summary);
+        setCheckedIds(new Set(updatedItems.map(item => item.id)));
+        setModalCampaignId(selectedId || (configs.length > 0 ? configs[0].id : ""));
       } else {
         setAiError(response.error || "Không thể lấy gợi ý từ AI");
       }
@@ -316,6 +428,90 @@ export default function FlashSale() {
       setAiError("Lỗi kết nối AI: " + (err.message || "Vui lòng thử lại"));
     } finally {
       setAiLoading(false);
+    }
+  };
+
+  const handleToggleCheck = (id) => {
+    setCheckedIds(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  };
+
+  const handleToggleCheckAll = () => {
+    if (checkedIds.size === parsedItems.length) {
+      setCheckedIds(new Set());
+    } else {
+      setCheckedIds(new Set(parsedItems.map(item => item.id)));
+    }
+  };
+
+  const handlePriceChange = (id, value) => {
+    const numeric = Number(value);
+    setParsedItems(prev => prev.map(item => {
+      if (item.id === id) {
+        const salePrice = isNaN(numeric) ? 0 : numeric;
+        const discount = item.originalPrice > 0 ? Math.round((1 - salePrice / item.originalPrice) * 100) : 0;
+        return { ...item, salePrice, discount };
+      }
+      return item;
+    }));
+  };
+
+  const handleApplySuggestions = async () => {
+    const targetCampaignId = Number(modalCampaignId);
+    if (!targetCampaignId) {
+      showToast("Vui lòng chọn hoặc tạo chương trình Flash Sale trước", "error");
+      return;
+    }
+
+    const itemsToAdd = parsedItems.filter(item => checkedIds.has(item.id));
+    if (itemsToAdd.length === 0) {
+      showToast("Vui lòng chọn ít nhất một sản phẩm", "error");
+      return;
+    }
+
+    setApplyLoading(true);
+    let successCount = 0;
+    let failCount = 0;
+    const errorMessages = [];
+
+    for (const item of itemsToAdd) {
+      try {
+        await flashSaleAdminAPI.addItem({
+          configId: targetCampaignId,
+          productId: item.id,
+          salePrice: Number(item.salePrice)
+        });
+        successCount++;
+      } catch (err) {
+        failCount++;
+        const errMsg = err.data?.error || err.message || "Lỗi không xác định";
+        errorMessages.push(`${item.name}: ${errMsg}`);
+      }
+    }
+
+    setApplyLoading(false);
+    if (successCount > 0) {
+      showToast(`Đã thêm thành công ${successCount} sản phẩm vào Flash Sale`);
+      setAiModalOpen(false);
+      
+      // Update selected campaign and reload items
+      if (targetCampaignId === selectedId) {
+        await loadItems(selectedId);
+      } else {
+        setSelectedId(targetCampaignId);
+      }
+      await loadConfigs();
+    }
+
+    if (failCount > 0) {
+      showToast(`Thất bại ${failCount} sản phẩm. Chi tiết: ${errorMessages.join(", ")}`, "error");
     }
   };
 
@@ -693,10 +889,98 @@ export default function FlashSale() {
           {aiResult && (
             <div className="fs-ai-result">
               <div className="fs-ai-badge">✨ Phân tích bởi AI</div>
-              <div className="fs-ai-content">{aiResult}</div>
-              <div className="fs-ai-actions">
-                <button type="button" className="fs-btn-ai" onClick={fetchAiSuggestions}>
-                  🔄 Phân tích lại
+              
+              {overallSummary && (
+                <div className="fs-ai-content" style={{ marginBottom: 20, maxHeight: 180 }}>
+                  {overallSummary}
+                </div>
+              )}
+
+              {/* Campaign Selector */}
+              <div className="fs-ai-campaign-selector">
+                <label>
+                  <span>Thêm vào chương trình Flash Sale:</span>
+                  <select 
+                    value={modalCampaignId} 
+                    onChange={(e) => setModalCampaignId(e.target.value)}
+                  >
+                    <option value="" disabled>-- Chọn chương trình --</option>
+                    {configs.map(c => (
+                      <option key={c.id} value={c.id}>
+                        {c.name} ({c.status === 'RUNNING' ? 'Đang chạy' : c.status === 'UPCOMING' ? 'Sắp diễn ra' : 'Đã kết thúc'})
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+
+              {/* Recommendations Checklist */}
+              {parsedItems.length > 0 ? (
+                <div className="fs-ai-recommendations-list">
+                  <div className="fs-ai-list-header">
+                    <label className="fs-ai-check-all">
+                      <input 
+                        type="checkbox" 
+                        checked={checkedIds.size === parsedItems.length && parsedItems.length > 0}
+                        onChange={handleToggleCheckAll}
+                      />
+                      <span>Chọn tất cả ({parsedItems.length})</span>
+                    </label>
+                  </div>
+                  
+                  <div className="fs-ai-items">
+                    {parsedItems.map(item => {
+                      const isChecked = checkedIds.has(item.id);
+                      const imgUrl = item.imageUrl ? getAssetUrl(item.imageUrl) : PLACEHOLDER_IMG;
+                      return (
+                        <div key={item.id} className={`fs-ai-item-card ${isChecked ? 'selected' : ''}`}>
+                          <div className="fs-ai-item-checkbox">
+                            <input 
+                              type="checkbox"
+                              checked={isChecked}
+                              onChange={() => handleToggleCheck(item.id)}
+                            />
+                          </div>
+                          
+                          <img src={imgUrl} alt={item.name} className="fs-ai-item-img" />
+                          
+                          <div className="fs-ai-item-details">
+                            <div className="fs-ai-item-name">{item.name} (ID: {item.id})</div>
+                            <div className="fs-ai-item-reason">{item.reason}</div>
+                            <div className="fs-ai-item-pricing">
+                              <div className="fs-ai-price-original">Giá gốc: {formatVND(item.originalPrice)}</div>
+                              <div className="fs-ai-price-input-wrapper">
+                                <span>Giá Flash Sale đề xuất:</span>
+                                <input 
+                                  type="number"
+                                  value={item.salePrice}
+                                  onChange={(e) => handlePriceChange(item.id, e.target.value)}
+                                  className="fs-ai-price-input"
+                                />
+                                {item.discount > 0 && (
+                                  <span className="fs-discount-badge">-{item.discount}%</span>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : (
+                <div className="fs-no-products">Không thể phân tích danh sách sản phẩm từ phản hồi của AI</div>
+              )}
+
+              <div className="fs-ai-modal-footer">
+                <button className="btnGhost" type="button" onClick={() => setAiModalOpen(false)}>Hủy</button>
+                <button 
+                  className="fs-btn-ai-apply" 
+                  type="button" 
+                  onClick={handleApplySuggestions}
+                  disabled={applyLoading || checkedIds.size === 0 || !modalCampaignId}
+                >
+                  {applyLoading ? "Đang áp dụng..." : `Áp dụng ${checkedIds.size} đề xuất`}
                 </button>
               </div>
             </div>

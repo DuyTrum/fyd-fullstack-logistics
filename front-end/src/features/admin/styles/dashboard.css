@@ -22,19 +22,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 24px;
-  background: var(--admin-accent-gradient);
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
   border-radius: var(--admin-radius-lg);
   position: relative;
   overflow: hidden;
 }
 
-.compact-header::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-  pointer-events: none;
-}
+/* White glow overlay removed */
 
 .compact-header-left {
   display: flex;
@@ -47,7 +42,7 @@
   font-size: 20px;
   font-weight: 800;
   letter-spacing: -0.5px;
-  color: #0a0a0f;
+  color: var(--admin-text);
   margin: 0;
 }
 
@@ -62,9 +57,9 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   padding: 4px 8px;
-  background: rgba(10, 10, 15, 0.15);
+  background: var(--admin-surface-elevated);
   border-radius: var(--admin-radius-full);
-  color: #0a0a0f;
+  color: var(--admin-text-muted);
 }
 
 .compact-header-actions {
@@ -79,17 +74,17 @@
 }
 
 .compact-header-actions .admin-btn-primary {
-  background: #0a0a0f;
-  color: var(--admin-text);
+  background: var(--admin-accent);
+  color: #ffffff;
 }
 
 .compact-header-actions .admin-btn-outline {
-  border-color: rgba(10, 10, 15, 0.4);
-  color: #0a0a0f;
+  border-color: var(--admin-border);
+  color: var(--admin-text);
 }
 
 .compact-header-actions .admin-btn-outline:hover {
-  background: rgba(10, 10, 15, 0.1);
+  background: var(--admin-surface-elevated);
 }
 
 /* =====================================================
@@ -103,35 +98,14 @@
 
 .heroCard {
   padding: 40px;
-  background: var(--admin-accent-gradient);
-  border-radius: var(--admin-radius-xl);
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-lg);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(var(--admin-accent-rgb), 0.2);
 }
 
-/* Gradient Overlay */
-.heroCard::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.15) 0%, transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(0, 0, 0, 0.1) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-/* Grid Pattern */
-.heroCard::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  pointer-events: none;
-}
+/* Gradients and patterns removed for clean SaaS style */
 
 .heroTop {
   display: flex;
@@ -145,14 +119,14 @@
   font-size: 32px;
   font-weight: 800;
   letter-spacing: -1px;
-  color: #0a0a0f;
+  color: var(--admin-text);
   line-height: 1.1;
 }
 
 .heroDesc {
   margin-top: 12px;
   font-size: 15px;
-  color: rgba(10, 10, 15, 0.7);
+  color: var(--admin-text-muted);
   max-width: 500px;
   line-height: 1.6;
 }
@@ -164,23 +138,22 @@
 }
 
 .heroActions .admin-btn-primary {
-  background: #0a0a0f;
-  color: var(--admin-text);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  background: var(--admin-accent);
+  color: #ffffff;
 }
 
 .heroActions .admin-btn-primary:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  background: #1d4ed8;
 }
 
 .heroActions .admin-btn-outline {
-  border-color: rgba(10, 10, 15, 0.3);
-  color: #0a0a0f;
+  border-color: var(--admin-border);
+  color: var(--admin-text);
 }
 
 .heroActions .admin-btn-outline:hover {
-  background: rgba(10, 10, 15, 0.1);
-  border-color: #0a0a0f;
+  background: var(--admin-surface-elevated);
+  border-color: var(--admin-border-hover);
 }
 
 .heroBadges {
@@ -195,10 +168,10 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   padding: 6px 12px;
-  background: rgba(10, 10, 15, 0.1);
-  border: 1px solid rgba(10, 10, 15, 0.2);
+  background: var(--admin-surface-elevated);
+  border: 1px solid var(--admin-border);
   border-radius: var(--admin-radius-full);
-  color: #0a0a0f;
+  color: var(--admin-text-muted);
 }
 
 /* =====================================================
@@ -212,11 +185,9 @@
 
 .card.kpi {
   padding: 20px;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
   border-radius: var(--admin-radius-lg);
-  backdrop-filter: blur(var(--admin-blur));
-  -webkit-backdrop-filter: blur(var(--admin-blur));
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -226,9 +197,7 @@
 
 .card.kpi:hover {
   border-color: var(--admin-border-hover);
-  background: var(--glass-hover);
-  transform: translateY(-2px);
-  box-shadow: var(--admin-shadow-md);
+  background: var(--admin-surface);
 }
 
 .kpiTop {
@@ -390,7 +359,7 @@
   display: flex;
   gap: 16px;
   padding: 16px;
-  background: var(--glass-bg);
+  background: var(--admin-surface);
   border: 1px solid var(--admin-border);
   border-radius: var(--admin-radius-md);
   transition: all var(--admin-transition);
@@ -399,8 +368,7 @@
 
 .aiItem:hover {
   border-color: var(--admin-accent);
-  background: rgba(var(--admin-accent-rgb), 0.03);
-  box-shadow: 0 0 20px rgba(var(--admin-accent-rgb), 0.1);
+  background: var(--admin-surface-elevated);
 }
 
 .aiTitle {

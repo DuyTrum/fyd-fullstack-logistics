@@ -305,7 +305,6 @@ public class ProductImportService {
                 
                 product.setBasePrice(row.getBasePrice());
                 product.setSalePrice(row.getSalePrice());
-                product.setCostPrice(row.getCostPrice());
                 product.setDescription(row.getDescription());
                 product.setShortDescription(row.getShortDescription());
                 product.setMaterial(row.getMaterial());

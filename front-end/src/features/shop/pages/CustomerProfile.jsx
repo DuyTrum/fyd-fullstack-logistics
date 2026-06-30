@@ -609,7 +609,7 @@ export default function CustomerProfile() {
                         ) : selectedOrder ? (
                             <>
                                 <div className="modal-header">
-                                    <h2>Chi tiết đơn hàng #{selectedOrder.orderCode}</h2>
+                                    <h2>Chi tiết đơn hàng #{selectedOrder.orderNumber || selectedOrder.orderCode}</h2>
                                     <button className="btn-close-modal" onClick={() => setShowOrderModal(false)}>
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                             <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -650,7 +650,9 @@ export default function CustomerProfile() {
                                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                                         <span style={{ fontSize: 13 }}>GHTK: <strong>{selectedOrder.trackingNumber}</strong></span>
                                                         <a
-                                                            href={`https://i.ghtk.vn/${selectedOrder.trackingNumber}`}
+                                                            href={selectedOrder.trackingNumber.startsWith('GHTK.DEMO.') 
+                                                                ? `/shop/track-order?orderCode=${selectedOrder.orderNumber || selectedOrder.orderCode}&phone=${customer.phone || selectedOrder.shippingPhone || ''}`
+                                                                : `https://i.ghtk.vn/${selectedOrder.trackingNumber}`}
                                                             target="_blank"
                                                             rel="noreferrer"
                                                             style={{ fontSize: 12, color: '#0284c7', textDecoration: 'underline' }}

@@ -74,7 +74,7 @@ function Modal({ open, title, children, onClose }) {
     if (!open) return null;
     return createPortal(
         <div className="modalBackdrop" onMouseDown={onClose}>
-            <div className="modal" style={{ maxWidth: 600 }} onMouseDown={(e) => e.stopPropagation()}>
+            <div className="modal" style={{ maxWidth: 680 }} onMouseDown={(e) => e.stopPropagation()}>
                 <div className="modalHead">
                     <div className="modalTitle">{title}</div>
                     <button className="iconBtn" type="button" onClick={onClose}>
@@ -147,8 +147,8 @@ export default function Promotions() {
             minOrderAmount: String(promo.minOrderAmount || ""),
             maxDiscount: promo.maxDiscount ? String(promo.maxDiscount) : "",
             usageLimit: promo.usageLimit ? String(promo.usageLimit) : "",
-            startDate: promo.startDate ? promo.startDate.slice(0, 16) : "",
-            endDate: promo.endDate ? promo.endDate.slice(0, 16) : "",
+            startDate: promo.startDate ? promo.startDate.replace(' ', 'T').slice(0, 16) : "",
+            endDate: promo.endDate ? promo.endDate.replace(' ', 'T').slice(0, 16) : "",
             isActive: promo.isActive !== false,
             isFlashSale: promo.isFlashSale === true,
         });
@@ -172,8 +172,8 @@ export default function Promotions() {
                 minOrderAmount: form.minOrderAmount ? Number(form.minOrderAmount) : 0,
                 maxDiscount: form.maxDiscount ? Number(form.maxDiscount) : null,
                 usageLimit: form.usageLimit ? Number(form.usageLimit) : null,
-                startDate: form.startDate || null,
-                endDate: form.endDate || null,
+                startDate: form.startDate ? form.startDate.replace(' ', 'T').slice(0, 16) + ':00' : null,
+                endDate: form.endDate ? form.endDate.replace(' ', 'T').slice(0, 16) + ':00' : null,
                 isActive: form.isActive,
                 isFlashSale: form.isFlashSale,
             };

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { useParams, useNavigate, Link, useSearchParams } from "react-router-dom";
 import "../styles/fyd-shop.css";
 import "../styles/product-detail.css";
@@ -19,7 +19,7 @@ import SizeAdvisorModal from "../components/SizeAdvisorModal.jsx";
 import ProductDetailSkeleton from "../components/ProductDetailSkeleton.jsx";
 
 // Utils
-import { productAPI, fetchProducts, fetchCategories, nightMarketAPI } from "@shared/utils/api.js";
+import { productAPI, fetchProducts, fetchCategories, nightMarketAPI, flashSalePublicAPI } from "@shared/utils/api.js";
 import { getCustomerSession, logout as customerLogout } from "@shared/utils/customerSession.js";
 import { trackViewItem, trackAddToCart } from "@shared/utils/analytics.js";
 
@@ -42,6 +42,7 @@ export default function ProductDetail() {
     const [selectedImageIndex, setSelectedImageIndex] = useState(0);
     const [quantity, setQuantity] = useState(1);
     const [nightMarketOffer, setNightMarketOffer] = useState(null);
+    const [activeFlashSale, setActiveFlashSale] = useState(null);
 
     // UI state
     const [activeTab, setActiveTab] = useState("description");
@@ -69,6 +70,8 @@ export default function ProductDetail() {
     const [sizeAdvisorOpen, setSizeAdvisorOpen] = useState(false);
     const { showToast } = useToast();
     const mainImgRef = useRef(null);
+    const buyButtonRef = useRef(null);
+    const [showStickyBar, setShowStickyBar] = useState(false);
 
     // Related products
     const [relatedProducts, setRelatedProducts] = useState([]);
@@ -78,19 +81,42 @@ export default function ProductDetail() {
         const loadInitialData = async () => {
             setLoading(true);
             try {
-                const [productData, categoriesData] = await Promise.all([
+                const [productData, categoriesData, flashSaleData] = await Promise.all([
                     productAPI.getById(productId),
-                    fetchCategories()
+                    fetchCategories(),
+                    flashSalePublicAPI.getActive().catch(() => null)
                 ]);
                 setProduct(productData);
                 setCategories(categoriesData);
 
+                if (flashSaleData && flashSaleData.status === "RUNNING" && flashSaleData.products?.length > 0) {
+                    const fsProduct = flashSaleData.products.find(fs => String(fs.id) === String(productId));
+                    if (fsProduct) {
+                        setActiveFlashSale(fsProduct);
+                    } else {
+                        setActiveFlashSale(null);
+                    }
+                } else {
+                    setActiveFlashSale(null);
+                }
+
                 // Set initial selections
                 if (productData.variants && productData.variants.length > 0) {
-                    const firstVariant = productData.variants[0];
-                    setSelectedVariant(firstVariant);
-                    setSelectedSize(firstVariant.sizeId);
-                    setSelectedColor(firstVariant.colorId);
+                    const colorParam = searchParams.get("color");
+                    const initialColorId = colorParam ? parseInt(colorParam) : null;
+                    
+                    let initialVariant = null;
+                    if (initialColorId) {
+                        initialVariant = productData.variants.find(v => v.colorId === initialColorId);
+                    }
+                    
+                    if (!initialVariant) {
+                        initialVariant = productData.variants[0];
+                    }
+                    
+                    setSelectedVariant(initialVariant);
+                    setSelectedSize(initialVariant.sizeId);
+                    setSelectedColor(initialVariant.colorId);
                 }
 
                 // Load related products
@@ -157,6 +183,29 @@ export default function ProductDetail() {
         }
     }, [productId]);
 
+    // Sticky purchase bar scroll observer
+    useEffect(() => {
+        if (loading || !product) return;
+        
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setShowStickyBar(!entry.isIntersecting);
+            },
+            { threshold: 0, rootMargin: "0px 0px -100px 0px" }
+        );
+
+        const target = buyButtonRef.current;
+        if (target) {
+            observer.observe(target);
+        }
+
+        return () => {
+            if (target) {
+                observer.unobserve(target);
+            }
+        };
+    }, [loading, product]);
+
     // Get unique sizes and colors from variants (filter out null/undefined)
     const uniqueSizes = product?.variants
         ? [...new Map(product.variants.filter(v => v.sizeId != null && v.size).map(v => [v.sizeId, { id: v.sizeId, name: v.size }])).values()]
@@ -165,6 +214,40 @@ export default function ProductDetail() {
     const uniqueColors = product?.variants
         ? [...new Map(product.variants.filter(v => v.colorId != null && v.color).map(v => [v.colorId, { id: v.colorId, name: v.color, hex: v.colorHex }])).values()]
         : [];
+
+
+    // Filter images by selected color variant
+    const displayImages = useMemo(() => {
+        if (!product?.images) return [];
+        if (!selectedColor) return product.images;
+        const colorName = uniqueColors.find(c => c.id === selectedColor)?.name;
+        if (!colorName) return product.images;
+        
+        const lowerColorName = colorName.toLowerCase();
+        const otherColorNames = uniqueColors
+            .filter(c => c.id !== selectedColor)
+            .map(c => c.name.toLowerCase());
+            
+        const filtered = product.images.filter(img => {
+            if (!img.altText) return true; // Show general images without alt text
+            
+            const lowerAlt = img.altText.toLowerCase();
+            
+            // Check if alt text explicitly mentions this color
+            const mentionsThisColor = lowerAlt.includes(`màu ${lowerColorName}`) || lowerAlt.includes(lowerColorName);
+            if (mentionsThisColor) return true;
+            
+            // Check if alt text mentions any OTHER color of this product
+            const mentionsOtherColor = otherColorNames.some(otherName => 
+                lowerAlt.includes(`màu ${otherName}`) || lowerAlt.includes(otherName)
+            );
+            
+            // If it doesn't mention any other color, show it (treat as general image)
+            return !mentionsOtherColor;
+        });
+        
+        return filtered.length > 0 ? filtered : product.images;
+    }, [product, selectedColor, uniqueColors]);
 
     // Find variant based on size and color selection
     const findVariant = useCallback((sizeId, colorId) => {
@@ -184,6 +267,7 @@ export default function ProductDetail() {
     // Handle color selection
     const handleColorSelect = (colorId) => {
         setSelectedColor(colorId);
+        setSelectedImageIndex(0); // Reset image index on color change
         const variant = findVariant(selectedSize, colorId);
         if (variant) {
             setSelectedVariant(variant);
@@ -206,9 +290,11 @@ export default function ProductDetail() {
             return;
         }
 
-        const discountedPrice = nightMarketOffer
-            ? (product.salePrice || product.basePrice) * (1 - nightMarketOffer.discountPercent / 100)
-            : null;
+        const discountedPrice = activeFlashSale
+            ? activeFlashSale.salePrice
+            : nightMarketOffer
+                ? (product.salePrice || product.basePrice) * (1 - nightMarketOffer.discountPercent / 100)
+                : null;
 
         addToCart(product, selectedVariant, quantity, discountedPrice);
         flyToCart(mainImgRef.current);
@@ -292,15 +378,23 @@ export default function ProductDetail() {
         );
     }
 
-    const currentImage = product.images?.[selectedImageIndex]?.imageUrl ||
-        product.images?.[0]?.imageUrl ||
-        'https://via.placeholder.com/600x600?text=No+Image';
+
+
+    const currentImage = displayImages[selectedImageIndex]?.imageUrl ? getAssetUrl(displayImages[selectedImageIndex].imageUrl) :
+        displayImages[0]?.imageUrl ? getAssetUrl(displayImages[0].imageUrl) :
+        getAssetUrl('https://via.placeholder.com/600x600?text=No+Image');
 
     let price = product.salePrice || product.basePrice;
     let hasDiscount = product.salePrice && product.salePrice < product.basePrice;
     let discountPercent = hasDiscount ? Math.round((1 - product.salePrice / product.basePrice) * 100) : 0;
+    let isFlashSaleActive = false;
 
-    if (nightMarketOffer) {
+    if (activeFlashSale) {
+        price = activeFlashSale.salePrice;
+        hasDiscount = true;
+        isFlashSaleActive = true;
+        discountPercent = Math.round((1 - activeFlashSale.salePrice / product.basePrice) * 100);
+    } else if (nightMarketOffer) {
         price = price * (1 - nightMarketOffer.discountPercent / 100);
         hasDiscount = true;
         discountPercent = nightMarketOffer.discountPercent;
@@ -340,13 +434,13 @@ export default function ProductDetail() {
                     <div className="product-gallery">
                         {/* Thumbnails */}
                         <div className="gallery-thumbnails">
-                            {product.images?.map((img, index) => (
+                            {displayImages.map((img, index) => (
                                 <button
                                     key={img.id || index}
                                     className={`thumbnail ${selectedImageIndex === index ? 'active' : ''}`}
                                     onClick={() => setSelectedImageIndex(index)}
                                 >
-                                    <img src={img.imageUrl} alt={`${product.name} - ${index + 1}`} />
+                                    <img src={getAssetUrl(img.imageUrl)} alt={`${product.name} - ${index + 1}`} />
                                 </button>
                             ))}
                         </div>
@@ -366,10 +460,12 @@ export default function ProductDetail() {
                                     transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`
                                 } : {}}
                             />
-                            {hasDiscount && (
+                            {isFlashSaleActive ? (
+                                <span className="product-badge flash-sale">⚡ FLASH SALE</span>
+                            ) : hasDiscount ? (
                                 <span className="product-badge sale">-{discountPercent}%</span>
-                            )}
-                            {product.isNew && !hasDiscount && (
+                            ) : null}
+                            {product.isNew && !hasDiscount && !isFlashSaleActive && (
                                 <span className="product-badge new">MỚI</span>
                             )}
                         </div>
@@ -388,7 +484,11 @@ export default function ProductDetail() {
                                     <>
                                         <span className="current-price sale">{formatVND(price)}</span>
                                         <span className="original-price">{formatVND(product.basePrice)}</span>
-                                        <span className="discount-badge">-{discountPercent}%</span>
+                                        {isFlashSaleActive ? (
+                                            <span className="discount-badge flash-sale">⚡ FLASH SALE -{discountPercent}%</span>
+                                        ) : (
+                                            <span className="discount-badge">-{discountPercent}%</span>
+                                        )}
                                     </>
                                 ) : (
                                     <span className="current-price">{formatVND(price)}</span>
@@ -483,6 +583,7 @@ export default function ProductDetail() {
                             {/* Action Buttons */}
                             <div className="product-actions">
                                 <button
+                                    ref={buyButtonRef}
                                     className="add-to-cart-btn"
                                     onClick={handleAddToCart}
                                     disabled={!selectedVariant || selectedVariant.stockQuantity <= 0}
@@ -554,8 +655,8 @@ export default function ProductDetail() {
                     <div className="tab-content">
                         {activeTab === 'description' && (
                             <div className="description-content">
-                                <p>{product.shortDescription}</p>
-                                <div className="full-description" dangerouslySetInnerHTML={{ __html: product.fullDescription }} />
+                                <p className="short-description">{product.shortDescription}</p>
+                                <p className="full-description">{product.description}</p>
                             </div>
                         )}
 
@@ -656,6 +757,29 @@ export default function ProductDetail() {
                 onClose={() => setSizeAdvisorOpen(false)}
                 product={product}
             />
+
+            {/* Mobile Sticky Purchase Bar */}
+            {showStickyBar && (
+                <div className="sticky-mobile-purchase-bar">
+                    <div className="sticky-purchase-container">
+                        <img src={currentImage} alt={product.name} className="sticky-purchase-img" />
+                        <div className="sticky-purchase-info">
+                            <h4 className="sticky-purchase-title">{product.name}</h4>
+                            <p className="sticky-purchase-meta">
+                                {selectedSize && `Size: ${uniqueSizes.find(s => s.id === selectedSize)?.name}`}
+                                {selectedColor && `, Màu: ${uniqueColors.find(c => c.id === selectedColor)?.name}`}
+                            </p>
+                        </div>
+                        <button
+                            className="sticky-purchase-add-btn"
+                            onClick={handleAddToCart}
+                            disabled={!selectedVariant || selectedVariant.stockQuantity <= 0}
+                        >
+                            THÊM VÀO GIỎ
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

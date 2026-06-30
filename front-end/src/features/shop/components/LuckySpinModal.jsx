@@ -199,7 +199,7 @@ const LuckySpinModal = ({ isOpen, onClose, onLoginRequired }) => {
 
                 {/* Modal Header */}
                 <div className="spin-modal-header">
-                    <span className="spin-badge">Exclusive Event</span>
+                    <span className="spin-badge">Sự kiện Độc quyền</span>
                     <h2 className="spin-modal-title">{program.name}</h2>
                     <p className="spin-modal-desc">{program.description}</p>
                 </div>
@@ -318,12 +318,12 @@ const LuckySpinModal = ({ isOpen, onClose, onLoginRequired }) => {
 
                         <div className="spin-stat-row">
                             <span className="spin-stat-label">Điểm hiện có</span>
-                            <span className="spin-stat-value gold">{spinStatus.customerPoints} PTS</span>
+                            <span className="spin-stat-value gold">{spinStatus.customerPoints} Điểm</span>
                         </div>
 
                         <div className="spin-stat-row">
                             <span className="spin-stat-label">Đổi lượt quay</span>
-                            <span className="spin-stat-value">{spinStatus.pointsPerSpin} PTS</span>
+                            <span className="spin-stat-value">{spinStatus.pointsPerSpin} Điểm</span>
                         </div>
 
                         <div className="spin-actions">

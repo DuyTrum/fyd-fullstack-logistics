@@ -235,7 +235,7 @@ const LuckySpinPage = () => {
                 {/* Header Area */}
                 <div className="lucky-spin-hero">
                     <div className="lucky-spin-hero-content">
-                        <span className="hero-badge">EXCLUSIVE EVENT</span>
+                        <span className="hero-badge">SỰ KIỆN ĐỘC QUYỀN</span>
                         <h1 className="lucky-spin-main-title">{program.name}</h1>
                         <p className="lucky-spin-description">{program.description}</p>
                     </div>
@@ -302,12 +302,12 @@ const LuckySpinPage = () => {
 
                             <div className="stat-row">
                                 <span className="stat-label">ĐIỂM HIỆN CÓ</span>
-                                <span className="stat-value gold">{spinStatus.customerPoints} PTS</span>
+                                <span className="stat-value gold">{spinStatus.customerPoints} Điểm</span>
                             </div>
 
                             <div className="stat-row">
                                 <span className="stat-label">ĐỔI LƯỢT QUAY</span>
-                                <span className="stat-value">{spinStatus.pointsPerSpin} PTS</span>
+                                <span className="stat-value">{spinStatus.pointsPerSpin} Điểm</span>
                             </div>
 
                             <div className="stats-actions">
@@ -316,7 +316,7 @@ const LuckySpinPage = () => {
                                     onClick={() => handleSpin(true)}
                                     disabled={spinning || !canExchange}
                                 >
-                                    {spinning ? 'ĐANG XỬ LÝ...' : `ĐỔI ${spinStatus.pointsPerSpin} ĐIỂM + QUAY`}
+                                    {spinning ? 'ĐANG XỬ LÝ...' : `ĐỔI ${spinStatus.pointsPerSpin} Điểm + QUAY`}
                                 </button>
                                 {!canSpinFree && !canExchange && (
                                     <p className="insufficient-msg">BẠN KHÔNG ĐỦ ĐIỂM ĐỂ ĐỔI LƯỢT QUAY</p>
@@ -339,7 +339,7 @@ const LuckySpinPage = () => {
                             {coupons.map(coupon => (
                                 <div key={coupon.id} className={`modern-coupon ${coupon.status.toLowerCase()}`}>
                                     <div className="coupon-left">
-                                        <span className="coupon-type">COUPON</span>
+                                        <span className="coupon-type">VOUCHER</span>
                                         <div className="coupon-amount">
                                             {coupon.discountType === 'PERCENT' ? coupon.discountValue : coupon.discountValue / 1000}
                                             <span className="unit">{coupon.discountType === 'PERCENT' ? '%' : 'K'}</span>

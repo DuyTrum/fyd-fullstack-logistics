@@ -62,12 +62,7 @@ public class CustomerCoupon {
     @Column(name = "event_type", length = 30)
     private String eventType;
 
-    /**
-     * Reference to the event rule that generated this coupon
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "event_rule_id")
-    private EventVoucherRule eventRule;
+
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -193,6 +188,5 @@ public class CustomerCoupon {
     public String getEventType() { return eventType; }
     public void setEventType(String eventType) { this.eventType = eventType; }
 
-    public EventVoucherRule getEventRule() { return eventRule; }
-    public void setEventRule(EventVoucherRule eventRule) { this.eventRule = eventRule; }
+
 }

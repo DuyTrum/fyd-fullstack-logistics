@@ -37,4 +37,29 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
            "HAVING COUNT(DISTINCT oi1.order.id) >= 2 " +
            "ORDER BY COUNT(DISTINCT oi1.order.id) DESC")
     List<Object[]> getFrequentlyBoughtTogether(@Param("from") LocalDateTime from);
+
+    @Query("SELECT oi.product.id, SUM(oi.quantity) " +
+           "FROM OrderItem oi WHERE (oi.order.status = 'DELIVERED' OR oi.order.status = 'COMPLETED') " +
+           "AND oi.order.createdAt >= :since " +
+           "GROUP BY oi.product.id ORDER BY SUM(oi.quantity) DESC")
+    List<Object[]> getTopSellingProductIdsSince(@Param("since") LocalDateTime since, org.springframework.data.domain.Pageable pageable);
+
+    @Query("SELECT COALESCE(SUM(oi.quantity), 0) FROM OrderItem oi " +
+           "WHERE (oi.order.status = 'DELIVERED' OR oi.order.status = 'COMPLETED') " +
+           "AND oi.product.id = :productId " +
+           "AND oi.order.createdAt BETWEEN :from AND :to")
+    Long getProductSalesBetween(@Param("productId") Long productId, @Param("from") LocalDateTime from, @Param("to") LocalDateTime to);
+
+    @Query("SELECT oi1.productName, oi2.productName, COUNT(DISTINCT oi1.order.id) " +
+           "FROM OrderItem oi1 JOIN OrderItem oi2 ON oi1.order.id = oi2.order.id " +
+           "WHERE oi1.product.id < oi2.product.id " +
+           "AND (oi1.order.status = 'DELIVERED' OR oi1.order.status = 'COMPLETED') " +
+           "GROUP BY oi1.productName, oi2.productName " +
+           "ORDER BY COUNT(DISTINCT oi1.order.id) DESC")
+    List<Object[]> getFrequentlyBoughtTogetherAllTime(org.springframework.data.domain.Pageable pageable);
+
+    @Query("SELECT COUNT(DISTINCT oi.order.id) FROM OrderItem oi " +
+           "WHERE oi.productName = :productName " +
+           "AND (oi.order.status = 'DELIVERED' OR oi.order.status = 'COMPLETED')")
+    Long countOrdersWithProduct(@Param("productName") String productName);
 }

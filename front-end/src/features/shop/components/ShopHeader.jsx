@@ -6,19 +6,20 @@ import { trackSearch } from "@shared/utils/analytics.js";
 import { nightMarketAPI, flashSalePublicAPI } from "@shared/utils/api.js";
 
 // User Dropdown Menu for logged-in customers
-function UserDropdown({ customer, onLogout, isOpen, onToggle }) {
+function UserDropdown({ customer, onLogout }) {
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const ref = useRef(null);
   const timeoutRef = useRef(null);
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    onToggle(true);
+    setIsOpen(true);
   };
 
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
-      onToggle(false);
+      setIsOpen(false);
     }, 150);
   };
 
@@ -28,7 +29,6 @@ function UserDropdown({ customer, onLogout, isOpen, onToggle }) {
     };
   }, []);
 
-  // Get initials for avatar
   const getInitials = (name) => {
     if (!name) return '?';
     const parts = name.trim().split(' ');
@@ -66,7 +66,7 @@ function UserDropdown({ customer, onLogout, isOpen, onToggle }) {
           <button
             type="button"
             className="user-dropdown-item"
-            onClick={() => { navigate('/shop/profile'); onToggle(false); }}
+            onClick={() => { navigate('/shop/profile'); setIsOpen(false); }}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -77,7 +77,7 @@ function UserDropdown({ customer, onLogout, isOpen, onToggle }) {
           <button
             type="button"
             className="user-dropdown-item"
-            onClick={() => { onLogout(); onToggle(false); }}
+            onClick={() => { onLogout(); setIsOpen(false); }}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">
               <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
@@ -93,22 +93,22 @@ function UserDropdown({ customer, onLogout, isOpen, onToggle }) {
 }
 
 // Category Dropdown Menu - Using hover for better UX
-function CategoryDropdown({ category, onSelectCategory, isOpen, onToggle }) {
+function CategoryDropdown({ category, onSelectCategory }) {
+  const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
   const timeoutRef = useRef(null);
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    onToggle(true);
+    setIsOpen(true);
   };
 
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
-      onToggle(false);
+      setIsOpen(false);
     }, 150);
   };
 
-  // Scroll xuống phần sản phẩm
   const scrollToProducts = () => {
     setTimeout(() => {
       document.getElementById('products-section')?.scrollIntoView({ behavior: 'smooth' });
@@ -117,7 +117,7 @@ function CategoryDropdown({ category, onSelectCategory, isOpen, onToggle }) {
 
   const handleSelect = (id, type) => {
     onSelectCategory(id, type);
-    onToggle(false);
+    setIsOpen(false);
     scrollToProducts();
   };
 
@@ -138,7 +138,7 @@ function CategoryDropdown({ category, onSelectCategory, isOpen, onToggle }) {
     >
       <button
         type="button"
-        className={`adidas-nav-item has-dropdown ${isOpen ? 'active' : ''}`}
+        className={`nike-nav-item has-dropdown ${isOpen ? 'active' : ''}`}
       >
         {category.name}
         <svg className="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -170,6 +170,31 @@ function CategoryDropdown({ category, onSelectCategory, isOpen, onToggle }) {
   );
 }
 
+// Nike Ticker-style Top Promo Banner
+function TopPromoSlider() {
+  const promos = [
+    "Giao hàng miễn phí toàn quốc cho đơn hàng từ 1.000.000đ",
+    "Đăng ký thành viên nhận ưu đãi giảm giá 10% | Mã: WELCOME10",
+    "Trả hàng dễ dàng trong vòng 30 ngày | Trả miễn phí tại cửa hàng"
+  ];
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex(prev => (prev + 1) % promos.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="nike-top-promo-banner">
+      <div className="promo-ticker-content">
+        <span>{promos[index]}</span>
+      </div>
+    </div>
+  );
+}
+
 export default function ShopHeader({
   cartCount = 0,
   onCartClick = () => { },
@@ -190,7 +215,7 @@ export default function ShopHeader({
   const { compareCount, openCompareModal } = useCompare();
   const { t } = useTranslation();
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [nmActive, setNmActive] = useState(true); // Default to true to avoid flicker if active
+  const [nmActive, setNmActive] = useState(false); // Default to false to check status first
   const [fsActive, setFsActive] = useState(true); // Default to true to avoid flicker if active
   const navigate = useNavigate();
 
@@ -298,54 +323,52 @@ export default function ShopHeader({
   };
 
   return (
-    <header className="adidas-header">
-      <div className="adidas-header-top">
-        <div className="adidas-header-left">
-          <Link to="/shop" className="adidas-logo" onClick={onShowAll}>
-            <span className="logo-text">FYD</span>
+    <header className="nike-header">
+      {/* Top Promo Banner */}
+      <TopPromoSlider />
+      
+      <div className="nike-header-top">
+        <div className="nike-header-left">
+          <Link to="/shop" className="nike-logo" onClick={onShowAll}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style={{ transform: 'scale(1.4)' }}>
+              <path d="M21 6C15 8 9 12 5 18C4 16 3 13 3 10C3 6.5 6 4.5 10 4C10.5 5 10 6 9.5 7.5C8 10 9 12 11 11C14 10 18 8 21 6Z" />
+            </svg>
+            <span className="logo-text">FYD ATHLETICS</span>
           </Link>
         </div>
-        <nav className="adidas-nav">
-          <button type="button" className="adidas-nav-item" onClick={handleShowAllClick}>TẤT CẢ</button>
+        <nav className="nike-nav">
+          <button type="button" className="nike-nav-item" onClick={handleShowAllClick}>TẤT CẢ</button>
           <CategoryDropdown
             category={aoCategory}
             onSelectCategory={onSelectCategory}
-            isOpen={openDropdown === 'ao'}
-            onToggle={(open) => setOpenDropdown(open ? 'ao' : null)}
           />
           <CategoryDropdown
             category={quanCategory}
             onSelectCategory={onSelectCategory}
-            isOpen={openDropdown === 'quan'}
-            onToggle={(open) => setOpenDropdown(open ? 'quan' : null)}
           />
           {giayCategory && (
             <CategoryDropdown
               category={giayCategory}
               onSelectCategory={onSelectCategory}
-              isOpen={openDropdown === 'giay'}
-              onToggle={(open) => setOpenDropdown(open ? 'giay' : null)}
             />
           )}
           {baloCategory && (
             <CategoryDropdown
               category={baloCategory}
               onSelectCategory={onSelectCategory}
-              isOpen={openDropdown === 'balo'}
-              onToggle={(open) => setOpenDropdown(open ? 'balo' : null)}
             />
           )}
           {fsActive && (
-            <button type="button" className="adidas-nav-item flash-sale-nav" onClick={onFlashSaleClick}>FLASH SALE</button>
+            <button type="button" className="nike-nav-item flash-sale-nav" onClick={onFlashSaleClick}>FLASH SALE</button>
           )}
           {nmActive && (
-            <button type="button" className="adidas-nav-item night-market-nav" onClick={() => navigate('/shop/night-market')} style={{ color: '#06b6d4', fontWeight: '900' }}>NIGHT MARKET</button>
+            <button type="button" className="nike-nav-item night-market-nav" onClick={() => navigate('/shop/night-market')} style={{ color: '#00b4d8', fontWeight: '900' }}>NIGHT MARKET</button>
           )}
-          <button type="button" className="adidas-nav-item sale" onClick={handleShowSaleClick}>SALE</button>
-          <button type="button" className="adidas-nav-item lucky-spin" onClick={onLuckySpinClick}>VÒNG QUAY</button>
+          <button type="button" className="nike-nav-item sale" onClick={handleShowSaleClick}>SALE</button>
+          <button type="button" className="nike-nav-item lucky-spin" onClick={onLuckySpinClick}>VÒNG QUAY</button>
         </nav>
-        <div className="adidas-header-right">
-          <div className="adidas-search">
+        <div className="nike-header-right">
+          <div className="nike-search">
             <input
               type="text"
               placeholder="Tìm kiếm"
@@ -362,19 +385,19 @@ export default function ShopHeader({
               <path d="m21 21-4.35-4.35" />
             </svg>
           </div>
-          <button className="adidas-icon-btn" title={t("shop.compare_btn_title")} onClick={openCompareModal}>
+          <button className="nike-icon-btn" title={t("shop.compare_btn_title")} onClick={openCompareModal}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
             </svg>
             {compareCount > 0 && <span className="cart-count">{compareCount}</span>}
           </button>
-          <button className="adidas-icon-btn" title="Yêu thích" onClick={onWishlistClick}>
+          <button className="nike-icon-btn" title="Yêu thích" onClick={onWishlistClick}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
             </svg>
             {wishlistCount > 0 && <span className="cart-count">{wishlistCount}</span>}
           </button>
-          <button className="adidas-icon-btn cart-btn" onClick={onCartClick}>
+          <button className="nike-icon-btn cart-btn" onClick={onCartClick}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
               <line x1="3" y1="6" x2="21" y2="6" />
@@ -386,11 +409,9 @@ export default function ShopHeader({
             <UserDropdown
               customer={customer}
               onLogout={onLogoutClick}
-              isOpen={openDropdown === 'user'}
-              onToggle={(open) => setOpenDropdown(open ? 'user' : null)}
             />
           ) : (
-            <button className="adidas-icon-btn" onClick={handleLoginClick} title="Đăng nhập">
+            <button className="nike-icon-btn" onClick={handleLoginClick} title="Đăng nhập">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />

@@ -5,9 +5,10 @@
 window.fbSdkReady = false;
 
 export function initFacebookSdk() {
-  const appId = import.meta.env.VITE_FACEBOOK_APP_ID;
+  const appId = (import.meta.env.VITE_FACEBOOK_APP_ID || '').trim();
 
   if (!appId || appId === 'YOUR_FACEBOOK_APP_ID') {
+    console.warn('Facebook App ID not configured');
     return;
   }
 
@@ -30,7 +31,7 @@ export function initFacebookSdk() {
     }
     js = d.createElement(s);
     js.id = id;
-    js.src = "https://connect.facebook.net/vi_VN/sdk.js";
+    js.src = `https://connect.facebook.net/vi_VN/sdk.js?appId=${appId}`;
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
 }

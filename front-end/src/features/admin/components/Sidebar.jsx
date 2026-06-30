@@ -119,24 +119,7 @@ const icons = {
       <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
   ),
-  giftCards: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <polyline points="20 12 20 22 4 22 4 12" />
-      <rect x="2" y="7" width="20" height="5" />
-      <line x1="12" y1="22" x2="12" y2="7" />
-      <path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z" />
-      <path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z" />
-    </svg>
-  ),
-  eventVouchers: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-      <line x1="16" y1="2" x2="16" y2="6" />
-      <line x1="8" y1="2" x2="8" y2="6" />
-      <line x1="3" y1="10" x2="21" y2="10" />
-      <path d="M8 14l2 2 4-4" />
-    </svg>
-  ),
+
   nightMarket: (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z" />
@@ -147,6 +130,12 @@ const icons = {
   flashSale: (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+    </svg>
+  ),
+  devPortal: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <polyline points="16 18 22 12 16 6" />
+      <polyline points="8 6 2 12 8 18" />
     </svg>
   )
 };
@@ -195,8 +184,6 @@ export default function Sidebar() {
       <div className="navGroup">
         <Item to="/admin/featured" icon={icons.featured} label={t("common.featured")} />
         <Item to="/admin/promotions" icon={icons.promotions} label={t("common.promotions")} />
-        <Item to="/admin/event-vouchers" icon={icons.eventVouchers} label={t("common.event_vouchers", "Event Vouchers")} />
-        <Item to="/admin/gift-cards" icon={icons.giftCards} label={t("common.gift_cards")} />
         <Item to="/admin/lucky-spin" icon={icons.lucky} label={t("common.lucky_spin")} />
         <Item to="/admin/night-market" icon={icons.nightMarket} label={t("common.night_market")} />
         <Item to="/admin/flash-sale" icon={icons.flashSale} label={t("common.flash_sale", "Flash Sale")} />
@@ -214,6 +201,7 @@ export default function Sidebar() {
         <Item to="/admin/staff" icon={icons.staff} label={t("common.staff")} />
         <Item to="/admin/activity-logs" icon={icons.activityLogs} label={t("activity.title")} />
         <Item to="/admin/ai" icon={icons.ai} label={t("common.ai_suggestion")} />
+        <Item to="/admin/dev-portal" icon={icons.devPortal} label={t("common.dev_portal", "Developer Portal")} />
       </div>
 
       <div className="sidebarFooter">

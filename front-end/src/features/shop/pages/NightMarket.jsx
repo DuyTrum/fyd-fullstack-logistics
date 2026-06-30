@@ -42,7 +42,7 @@ const NightMarket = () => {
             } else {
                 setError({
                     type: 'ERROR',
-                    message: 'Could not load offers. Please try again later.'
+                    message: 'Không thể tải danh sách ưu đãi. Vui lòng thử lại sau.'
                 });
             }
         } finally {
@@ -66,7 +66,7 @@ const NightMarket = () => {
                     <ArrowLeft size={18} />
                     <span>{t('common.back', 'Quay lại')}</span>
                 </button>
-                <div className="nm-tag-text animate-pulse" style={{ textAlign: 'center', marginTop: '30vh' }}>Initializing Interface...</div>
+                <div className="nm-tag-text animate-pulse" style={{ textAlign: 'center', marginTop: '30vh' }}>Đang khởi tạo giao diện...</div>
             </div>
         );
     }
@@ -83,14 +83,14 @@ const NightMarket = () => {
                         <ShieldCheck className="text-red-400" size={48} />
                     </div>
                     <h2 className="nm-title mb-6">
-                        {error.type === 'FEATURE_DISABLED' ? 'Temporarily <span>Closed</span>' : 'System <span>Error</span>'}
+                        {error.type === 'FEATURE_DISABLED' ? 'Tạm thời <span>Đóng cửa</span>' : 'Lỗi <span>Hệ thống</span>'}
                     </h2>
                     <p className="text-slate-400 max-w-md mb-12 italic">
                         {error.message}
                     </p>
                     {error.type === 'FEATURE_DISABLED' && (
                         <button className="btn-primary-nm" onClick={() => navigate('/shop')}>
-                            Return to Shop
+                            Quay lại Cửa hàng
                         </button>
                     )}
                 </div>
@@ -109,9 +109,9 @@ const NightMarket = () => {
                     <div className="w-24 h-24 mb-8 bg-white/5 rounded-full flex items-center justify-center border border-white/10">
                         <Zap className="text-cyan-400" size={48} />
                     </div>
-                    <h2 className="nm-title mb-6">Access <span>Denied</span></h2>
+                    <h2 className="nm-title mb-6">Truy cập <span>Bị từ chối</span></h2>
                     <p className="text-slate-400 max-w-md mb-12 italic">
-                        The Night Market is a classified event available only to registered members. Log in to view your personalized offers.
+                        Chợ đêm là sự kiện giới hạn chỉ dành cho thành viên đã đăng ký. Vui lòng đăng nhập để xem các ưu đãi cá nhân hóa dành riêng cho bạn.
                     </p>
                 </div>
             </div>
@@ -141,7 +141,7 @@ const NightMarket = () => {
                     className="nm-event-tag"
                 >
                     <div className="nm-line"></div>
-                    <span className="nm-tag-text">Classified Event</span>
+                    <span className="nm-tag-text">Sự kiện Đặc biệt</span>
                     <div className="nm-line rev"></div>
                 </motion.div>
 
@@ -150,7 +150,7 @@ const NightMarket = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     className="nm-title"
                 >
-                    Night <span>Market</span>
+                    Chợ <span>Đêm</span>
                     <div className="nm-underline"></div>
                 </motion.h1>
 
@@ -193,9 +193,9 @@ const NightMarket = () => {
             <div className="nm-footer">
                 <div className="nm-notice-box">
                     <div className="nm-notice-inner">
-                        <p className="nm-notice-label">Notice</p>
+                        <p className="nm-notice-label">Lưu ý</p>
                         <p className="nm-notice-text">
-                            These offers are unique to your account and will expire in 7 days. Once they are gone, they are gone forever.
+                            Những ưu đãi này được cá nhân hóa dành riêng cho tài khoản của bạn và sẽ hết hạn sau 7 ngày. Cơ hội này sẽ không xuất hiện lại lần hai.
                         </p>
                     </div>
                 </div>

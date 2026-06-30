@@ -138,7 +138,7 @@
     box-shadow: 0 0 12px rgba(var(--admin-success-rgb), 0.4);
 }
 
-.nm-toggle-btn .toggle-slider {
+.nm-toggle-btn .nm-toggle-slider {
     position: absolute;
     top: 50%;
     left: 3px;
@@ -151,7 +151,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.nm-toggle-btn.active .toggle-slider {
+.nm-toggle-btn.active .nm-toggle-slider {
     left: calc(100% - 21px); /* 44 - 3 (right gap) - 18 (slider) = 23. Wait. 
     Actually, to make it symmetrical (3px left/right): 44 - 3 - 18 = 23. 
     Wait. 100% (44) - 21 = 23. 

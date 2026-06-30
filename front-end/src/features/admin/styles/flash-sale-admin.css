@@ -775,3 +775,229 @@
     gap: 12px;
     margin-top: 20px;
 }
+
+/* Interactive AI Suggestions Styles */
+.fs-ai-campaign-selector {
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.fs-ai-campaign-selector label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.fs-ai-campaign-selector span {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.fs-ai-campaign-selector select {
+    background: #11111d;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: #fff;
+    padding: 10px 14px;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.fs-ai-campaign-selector select:focus {
+    border-color: #667eea;
+}
+
+.fs-ai-recommendations-list {
+    margin-top: 24px;
+}
+
+.fs-ai-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 0 4px;
+}
+
+.fs-ai-check-all {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.fs-ai-check-all input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #667eea;
+    cursor: pointer;
+}
+
+.fs-ai-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.fs-ai-items::-webkit-scrollbar {
+    width: 6px;
+}
+
+.fs-ai-items::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.fs-ai-items::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.fs-ai-item-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 16px;
+    transition: all 0.3s ease;
+}
+
+.fs-ai-item-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.fs-ai-item-card.selected {
+    border-color: rgba(102, 126, 234, 0.4);
+    background: rgba(102, 126, 234, 0.05);
+}
+
+.fs-ai-item-checkbox {
+    padding-top: 4px;
+}
+
+.fs-ai-item-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #667eea;
+    cursor: pointer;
+}
+
+.fs-ai-item-img {
+    width: 72px;
+    height: 72px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.fs-ai-item-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.fs-ai-item-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.fs-ai-item-reason {
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.6;
+}
+
+.fs-ai-item-pricing {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.fs-ai-price-original {
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: line-through;
+}
+
+.fs-ai-price-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.fs-ai-price-input {
+    background: #11111d;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    color: #00ff88;
+    padding: 6px 10px;
+    font-size: 13px;
+    font-weight: 700;
+    width: 120px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.fs-ai-price-input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 8px rgba(102, 126, 234, 0.2);
+}
+
+.fs-ai-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 28px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.fs-btn-ai-apply {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 13.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.fs-btn-ai-apply:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+}
+
+.fs-btn-ai-apply:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+

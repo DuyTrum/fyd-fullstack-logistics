@@ -1,16 +1,10 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import { useToast } from "@shared/context/ToastContext";
 import { formatVND, getAssetUrl, flyToCart } from "@shared/index.js";
 import { getProductImage, getPrice } from "@shared/utils/productImages.js";
 
 const decodeUTF8 = (str) => {
-  if (!str) return "";
-  try {
-    // Basic fix for common Vietnamese encoding issues (Mojibake)
-    return decodeURIComponent(escape(str));
-  } catch (e) {
-    return str;
-  }
+  return str || "";
 };
 
 export default function QuickViewModal({ product, onClose, onAddToCart }) {
@@ -21,12 +15,52 @@ export default function QuickViewModal({ product, onClose, onAddToCart }) {
   const { showToast } = useToast();
   const mainImgRef = useRef(null);
 
-  if (!product) return null;
+  const variants = product?.variants || [];
+  
+  const uniqueColors = useMemo(() => {
+    if (!product) return [];
+    return [...new Map(variants.filter(v => v.colorId != null).map(v => [v.colorId, { id: v.colorId, name: v.color, hex: v.colorHex }])).values()];
+  }, [product, variants]);
 
-  const images = product.images || [];
-  const variants = product.variants || [];
-  const uniqueColors = [...new Map(variants.filter(v => v.colorId != null).map(v => [v.colorId, { id: v.colorId, name: v.color, hex: v.colorHex }])).values()];
-  const uniqueSizes = [...new Map(variants.filter(v => v.sizeId != null).map(v => [v.sizeId, { id: v.sizeId, name: v.size }])).values()];
+  const uniqueSizes = useMemo(() => {
+    if (!product) return [];
+    return [...new Map(variants.filter(v => v.sizeId != null).map(v => [v.sizeId, { id: v.sizeId, name: v.size }])).values()];
+  }, [product, variants]);
+
+  const displayImages = useMemo(() => {
+    if (!product) return [];
+    const imagesList = product.images || [];
+    if (!selectedColor) return imagesList;
+    const colorName = uniqueColors.find(c => c.id === selectedColor)?.name;
+    if (!colorName) return imagesList;
+    
+    const lowerColorName = colorName.toLowerCase();
+    const otherColorNames = uniqueColors
+      .filter(c => c.id !== selectedColor)
+      .map(c => c.name.toLowerCase());
+      
+    const filtered = imagesList.filter(img => {
+      if (!img.altText) return true; // Show general images without alt text
+      
+      const lowerAlt = img.altText.toLowerCase();
+      
+      // Check if alt text explicitly mentions this color
+      const mentionsThisColor = lowerAlt.includes(`màu ${lowerColorName}`) || lowerAlt.includes(lowerColorName);
+      if (mentionsThisColor) return true;
+      
+      // Check if alt text mentions any OTHER color of this product
+      const mentionsOtherColor = otherColorNames.some(otherName => 
+        lowerAlt.includes(`màu ${otherName}`) || lowerAlt.includes(otherName)
+      );
+      
+      // If it doesn't mention any other color, show it (treat as general image)
+      return !mentionsOtherColor;
+    });
+    
+    return filtered.length > 0 ? filtered : imagesList;
+  }, [product, selectedColor, uniqueColors]);
+
+  if (!product) return null;
 
   const selectedVariant = variants.find(v =>
     (!selectedColor || v.colorId === selectedColor) &&
@@ -35,6 +69,11 @@ export default function QuickViewModal({ product, onClose, onAddToCart }) {
   const stock = selectedVariant?.stockQuantity || product.totalStock || 0;
   const price = getPrice(product);
   const hasDiscount = product.salePrice && product.salePrice < product.basePrice;
+
+  const handleColorSelect = (colorId) => {
+    setSelectedColor(colorId);
+    setCurrentImageIndex(0); // Reset image index on color change
+  };
 
   const handleAddToCart = () => {
     if (uniqueSizes.length > 0 && !selectedSize) {
@@ -72,13 +111,13 @@ export default function QuickViewModal({ product, onClose, onAddToCart }) {
               <div className="image-glow-ring"></div>
               <img
                 ref={mainImgRef}
-                src={images[currentImageIndex]?.imageUrl ? getAssetUrl(images[currentImageIndex].imageUrl) : getProductImage(product)}
+                src={displayImages[currentImageIndex]?.imageUrl ? getAssetUrl(displayImages[currentImageIndex].imageUrl) : getProductImage(product)}
                 alt={product.name}
               />
             </div>
-            {images.length > 1 && (
+            {displayImages.length > 1 && (
               <div className="gallery-thumbs-premium">
-                {images.slice(0, 6).map((img, i) => (
+                {displayImages.slice(0, 6).map((img, i) => (
                   <button
                     key={i}
                     className={`thumb-premium ${i === currentImageIndex ? 'active' : ''}`}
@@ -124,7 +163,7 @@ export default function QuickViewModal({ product, onClose, onAddToCart }) {
                         key={color.id}
                         className={`color-neon-item ${selectedColor === color.id ? 'selected' : ''}`}
                         style={{ backgroundColor: color.hex || '#ccc' }}
-                        onClick={() => setSelectedColor(color.id)}
+                        onClick={() => handleColorSelect(color.id)}
                         title={color.name}
                       />
                     ))}
