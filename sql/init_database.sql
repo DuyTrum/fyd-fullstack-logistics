@@ -32,7 +32,8 @@ CREATE TABLE permissions (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL UNIQUE,
     group_name VARCHAR(100),
-    description VARCHAR(255)
+    description VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
 CREATE TABLE role_permissions (
@@ -480,6 +481,7 @@ CREATE TABLE customer_coupons (
     status ENUM('ACTIVE', 'USED', 'EXPIRED') DEFAULT 'ACTIVE',
     used_at DATETIME NULL,
     used_order_id BIGINT NULL,
+    event_type VARCHAR(30) NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE,
@@ -516,6 +518,35 @@ CREATE TABLE shared_wishlists (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     expires_at TIMESTAMP NULL,
     view_count INT DEFAULT 0
+) ENGINE=InnoDB;
+
+CREATE TABLE ai_configs (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    provider VARCHAR(50) NOT NULL,
+    api_key VARCHAR(512),
+    model_name VARCHAR(100) NOT NULL,
+    temperature DOUBLE NOT NULL DEFAULT 0.7,
+    max_tokens INT NOT NULL DEFAULT 2048,
+    monthly_budget_usd DOUBLE NOT NULL DEFAULT 100.0,
+    current_monthly_spend_usd DOUBLE NOT NULL DEFAULT 0.0,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+CREATE TABLE ai_usage_logs (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    user_name VARCHAR(100),
+    feature VARCHAR(50) NOT NULL,
+    model_used VARCHAR(100) NOT NULL,
+    prompt_tokens INT DEFAULT 0,
+    completion_tokens INT DEFAULT 0,
+    total_tokens INT DEFAULT 0,
+    estimated_cost_usd DOUBLE DEFAULT 0.0,
+    latency_ms INT DEFAULT 0,
+    status VARCHAR(20) NOT NULL,
+    error_message TEXT,
+    INDEX idx_ai_log_timestamp (timestamp),
+    INDEX idx_ai_log_feature (feature)
 ) ENGINE=InnoDB;
 
 
